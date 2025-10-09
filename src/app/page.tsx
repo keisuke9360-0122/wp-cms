@@ -13,12 +13,25 @@ const query = `
   }
 `;
 
+type Post = {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+};
+
+type PostsResponse = {
+  posts: {
+    nodes: Post[];
+  };
+};
+
 export default async function Home() {
-  const data = await client.request(query);
+  const data = await client.request<PostsResponse>(query);
   const posts = data.posts.nodes;
 
   return (
-    <main className="p-10 bg-white">
+    <main className="p-10 bg-w">
       <h1 className="text-3xl font-bold mb-6">Blog Posts</h1>
       <ul className="p-20">
         {posts.map((post: any) => (
