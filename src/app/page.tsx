@@ -1,46 +1,12 @@
-import { client } from "@/lib/graphql-client";
-
-const query = `
-  {
-    posts {
-      nodes {
-        id
-        title
-        slug
-        excerpt
-      }
-    }
-  }
-`;
-
-type Post = {
-  id: string;
-  title: string;
-  slug: string;
-  excerpt: string;
-};
-
-type PostsResponse = {
-  posts: {
-    nodes: Post[];
-  };
-};
-
+import { getPosts } from "../lib/getPosts";
+import PostsList from "../components/PostsList";
 export default async function Home() {
-  const data = await client.request<PostsResponse>(query);
-  const posts = data.posts.nodes;
+  const posts = await getPosts();
 
   return (
     <main className="p-10 bg-w">
       <h1 className="text-3xl font-bold mb-6">Blog Posts</h1>
-      <ul className="p-20">
-        {posts.map((post: any) => (
-          <li key={post.id} className="mb-4">
-            <h2 className="text-xl font-semibold">{post.title}</h2>
-            <div dangerouslySetInnerHTML={{ __html: post.excerpt }} />
-          </li>
-        ))}
-      </ul>
+      <PostsList posts={posts} />
     </main>
   );
 }
