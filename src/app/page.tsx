@@ -1,9 +1,9 @@
 import { getPosts } from "../lib/getPosts";
 import PostsList from "../components/PostsList";
 import MainVisual from "../components/mv";
+
 export default async function Home() {
   const posts = await getPosts();
-
   return (
     <main className="bg-w">
       <MainVisual />
