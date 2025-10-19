@@ -1,21 +1,36 @@
 import { client } from "@/lib/graphql-client";
 
 const query = `
-  query PostBySlug($slug: ID!) {
-    post(id: $slug, idType: SLUG) {
-      id
-      title
-      content
-      slug
+    query GetPostBySlug($slug: ID!) {
+      post(id: $slug, idType: SLUG) {
+        id
+        title
+        content
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+        projectLink {
+          projectLink {
+            url
+          }
+        }
+      }
     }
-  }
-`;
+  `;
 
 type Post = {
   id: string;
   title: string;
   content: string;
   slug: string;
+  projectLink?: {
+    projectLink?: {
+      url?: string;
+    };
+  };
 };
 
 type PostResponse = {
@@ -23,6 +38,7 @@ type PostResponse = {
 };
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
-  const data = await client.request<PostResponse>(query, { slug });
+  const variables = { slug };
+  const data = await client.request<{ post: Post }>(query, variables);
   return data.post;
 }

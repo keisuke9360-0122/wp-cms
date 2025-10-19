@@ -14,6 +14,11 @@ const query = `
             altText
           }
         }
+        projectLink {
+         projectLink {
+          url
+        }
+      }
       }
     }
   }
@@ -24,6 +29,13 @@ type Post = {
   title: string;
   slug: string;
   excerpt: string;
+  projectUrl: string;
+  featuredImage?: {
+    node: {
+      sourceUrl: string;
+      altText: string;
+    };
+  } | null;
 };
 
 type PostsResponse = {
