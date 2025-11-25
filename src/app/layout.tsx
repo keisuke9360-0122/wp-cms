@@ -19,15 +19,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="ja">
+      <body className="relative text-gray-800 font-sans antialiased">
+        {/* ▼ 背景アニメーション */}
+        <div className="absolute inset-0 -z-10 animate-gradient"></div>
+
+        {/* ▼ コンテンツ */}
+        <div className="relative z-20 overflow-x-hidden">{children}</div>
       </body>
     </html>
   );

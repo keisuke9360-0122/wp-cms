@@ -1,61 +1,35 @@
 "use client";
-import { motion } from "framer-motion";
 import Image from "next/image";
-
-import leftImg from "@/public/620E83AD-CD60-4417-A226-E22FDD60889F_1_105_c.jpeg";
-import rightImg from "@/public/53B8AC27-ABD3-4C1D-B0F6-A81FD066E592_1_105_c.jpeg";
+import { motion } from "framer-motion";
 
 export default function MainVisual() {
   return (
-    <section className="relative h-screen overflow-hidden bg-black">
-      {/* 背景（左右画像固定） */}
-      <div className="absolute inset-0 flex">
-        <div className="relative w-1/2 h-full">
-          <Image
-            src={leftImg}
-            alt="Left"
-            fill
-            className="object-cover opacity-70"
-          />
-        </div>
-        <div className="relative w-1/2 h-full">
-          <Image
-            src={rightImg}
-            alt="Right"
-            fill
-            className="object-cover opacity-70"
-          />
-        </div>
-      </div>
-
-      {/* 波マスク */}
-      <motion.div
-        className="absolute inset-0 z-10 pointer-events-none"
+    <section className="relative h-screen overflow-hidden">
+      {/* 背景（固定） */}
+      <div
+        className="absolute inset-0 bg-center bg-cover bg-fixed"
         style={{
-          maskImage: "url('/wave-mask.svg')",
-          WebkitMaskImage: "url('/wave-mask.svg')",
-          maskRepeat: "no-repeat",
-          WebkitMaskRepeat: "no-repeat",
-          maskSize: "cover",
-          WebkitMaskSize: "cover",
-          background: "rgba(255,255,255,0.25)",
-        }}
-        animate={{
-          y: ["-2%", "2%", "-2%"],
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut",
+          backgroundImage: "url('/main-bg.jpg')", // ← public/main-bg.jpg に画像を置いてね
         }}
       />
 
-      {/* テキスト */}
-      <div className="absolute inset-0 flex items-center justify-center text-white text-5xl font-light z-20">
-        <p className="tracking-widest drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]">
-          Stylish Wave Visual
+      {/* トーン用オーバーレイ */}
+      <div className="absolute inset-0 bg-black/40" />
+
+      {/* 中央テキスト */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+        className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-6"
+      >
+        <h1 className="text-5xl md:text-7xl font-bold tracking-widest mb-4">
+          MY PORTFOLIO
+        </h1>
+        <p className="text-lg md:text-xl text-gray-300">
+          Frontend Engineer / Creator
         </p>
-      </div>
+      </motion.div>
     </section>
   );
 }

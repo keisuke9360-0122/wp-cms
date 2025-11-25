@@ -17,19 +17,25 @@ export default async function PostDetail({
   const post = await getPostBySlug(params.slug);
   if (!post) return notFound();
   return (
-    <article className="max-w-2xl mx-auto py-16 px-4">
-      <h1 className="text-2xl font-bold mb-4">{post.title}</h1>
+    <article className="max-w-3xl mx-auto py-20 px-6">
+      {/* タイトルを大きくグラデーション＋影で強調 */}
+      <h1 className="text-5xl font-extrabold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 drop-shadow-lg">
+        {post.title}
+      </h1>
+
+      {/* 本文 */}
       <div
-        className="prose prose-invert"
+        className="prose prose-lg text-gray-800 leading-relaxed"
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
+
       {/* 実績リンクボタン */}
       {post.projectLink?.projectLink?.url && (
         <a
           href={post.projectLink.projectLink.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block mt-6 px-6 py-3 rounded-lg bg-neutral-900 text-white font-semibold hover:bg-neutral-700 transition-all duration-300"
+          className="inline-block mt-10 px-8 py-4 rounded-full bg-black text-white text-lg font-semibold hover:bg-gray-800 transition-all duration-300 shadow-lg"
         >
           実績を見る →
         </a>
