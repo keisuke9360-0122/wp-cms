@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+
 import "./globals.css";
+// import BodyScrollLock from "@/components/BodyScrollLock";
+import { LoadingProvider } from "@/app/contexts/LoadingContext";
+import LoadingOverlay from "@/components/LoadingOverlay";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +33,11 @@ export default function RootLayout({
         <div className="absolute inset-0 -z-10 animate-gradient"></div>
 
         {/* ▼ コンテンツ */}
-        <div className="relative z-20 overflow-x-hidden">{children}</div>
+        <LoadingProvider>
+          {/* <BodyScrollLock /> */}
+          <LoadingOverlay />
+          <div className="relative z-20 overflow-x-hidden">{children}</div>
+        </LoadingProvider>
       </body>
     </html>
   );

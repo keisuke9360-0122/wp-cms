@@ -23,11 +23,11 @@ export default function MainVisual() {
         transition={{ duration: 1.2, ease: "easeOut" }}
         className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-6"
       >
-        <h1 className="text-5xl md:text-7xl font-bold tracking-widest mb-4">
-          MY PORTFOLIO
+        <h1 className="text-2xl md:text-2xl font-bold tracking-widest mb-4">
+          KEISUKE TSURUTA PORTFOLIO
         </h1>
         <p className="text-lg md:text-xl text-gray-300">
-          Frontend Engineer / Creator
+          Frontend Engineer / Hair Stylist
         </p>
       </motion.div>
     </section>

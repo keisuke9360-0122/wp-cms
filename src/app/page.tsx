@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import MainVisual from "../components/mv";
 import Image from "next/image";
 import Link from "next/link";
 import TechCard from "../components/TechCard";
+import { gsap, ScrollTrigger } from "../lib/gsap";
+import { useLoading } from "@/app/contexts/LoadingContext";
+
 import {
   FaReact,
   FaWordpress,
@@ -16,8 +17,6 @@ import {
 } from "react-icons/fa";
 import { SiNextdotjs, SiTailwindcss } from "react-icons/si";
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function HomePage() {
   const [posts, setPosts] = useState<any[]>([]);
   const worksSectionRef = useRef<HTMLDivElement>(null);
@@ -26,77 +25,115 @@ export default function HomePage() {
   const contactRef = useRef<HTMLDivElement>(null);
   const worksTitleRef = useRef<HTMLHeadingElement>(null);
   const aboutTitleRef = useRef<HTMLHeadingElement>(null);
+  const { setLoading } = useLoading();
   const contactTitleRef = useRef<HTMLHeadingElement>(null);
+
+  // 下から競り上がるアニメーション（平尾誠さん風）
+  useEffect(() => {
+    const targets = gsap.utils.toArray<HTMLElement>([
+      aboutRef.current,
+      // worksSectionRef.current,
+      contactRef.current,
+    ]);
+
+    targets.forEach((el) => {
+      if (!el) return;
+
+      gsap.fromTo(
+        el,
+        { y: 150, opacity: 0, scale: 0.9 },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 1.4,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+          },
+        }
+      );
+    });
+
+    ScrollTrigger.refresh();
+  }, []);
 
   useEffect(() => {
     (async () => {
       const res = await fetch("/api/posts");
       const data = await res.json();
       setPosts(data);
+
+      // フェッチ完了でローディング終了
+      setLoading(false);
     })();
   }, []);
 
   // Works 横スクロール (PCのみ)
   useEffect(() => {
+    if (posts.length === 0) return; // ← posts が来るまで待つ
+
     const section = worksSectionRef.current;
     const inner = worksInnerRef.current;
     if (!section || !inner) return;
 
-    // いったんクリア
-    section.style.height = "auto";
+    // 既存の Works 用 ScrollTrigger を削除
+    ScrollTrigger.getAll()
+      .filter((t) => t.vars.id === "worksScroll")
+      .forEach((t) => t.kill());
+
     gsap.killTweensOf(inner);
-    ScrollTrigger.getAll().forEach((t) => t.kill());
 
-    // PCサイズだけで横スクロール演出を有効化
-    if (window.innerWidth >= 1024) {
-      const totalScroll = inner.scrollWidth - section.clientWidth;
+    const totalScroll = inner.scrollWidth - section.clientWidth;
 
-      if (totalScroll > 0) {
-        // PCだけ縦スクロール量を設定
-        section.style.height = `${inner.scrollWidth}px`;
+    if (window.innerWidth >= 768 && totalScroll > 0) {
+      section.style.height = "100vh";
 
-        gsap.to(inner, {
-          x: -totalScroll,
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: `+=${totalScroll}`,
-            scrub: 1,
-            pin: true,
-            invalidateOnRefresh: true,
-          },
-        });
-      }
+      gsap.to(inner, {
+        x: -totalScroll,
+        ease: "none",
+        scrollTrigger: {
+          id: "worksScroll", // ★ Works専用ID
+          trigger: section,
+          start: "top top",
+          end: `+=${inner.scrollWidth}`,
+          scrub: 1,
+          pin: true,
+          invalidateOnRefresh: true,
+        },
+      });
     }
+
+    ScrollTrigger.refresh();
   }, [posts]);
 
   // タイトル流れる演出
   useEffect(() => {
-    if (aboutTitleRef.current) {
-      gsap.to(aboutTitleRef.current, {
-        xPercent: -100,
+    const refs = [
+      aboutTitleRef.current,
+      worksTitleRef.current,
+      contactTitleRef.current,
+    ];
+
+    refs.forEach((el) => {
+      if (!el) return;
+
+      // 横幅を取得
+      // const width = el.scrollWidth;
+      const width = el.offsetWidth / 2;
+
+      // 初期位置リセット
+      gsap.set(el, { x: 0 });
+
+      // 横スクロールアニメ
+      gsap.to(el, {
+        x: -width,
         repeat: -1,
         duration: 20,
         ease: "linear",
       });
-    }
-    if (contactTitleRef.current) {
-      gsap.to(contactTitleRef.current, {
-        xPercent: -100,
-        repeat: -1,
-        duration: 20,
-        ease: "linear",
-      });
-    }
-    if (worksTitleRef.current) {
-      gsap.to(worksTitleRef.current, {
-        xPercent: -100,
-        repeat: -1,
-        duration: 20,
-        ease: "linear",
-      });
-    }
+    });
   }, []);
 
   return (
@@ -107,26 +144,24 @@ export default function HomePage() {
       <section
         ref={aboutRef}
         id="about"
-        className="relative z-30 max-w-4xl mx-auto md:py-48 py-24 px-8 text-center"
+        className="relative z-30 w-full bg-white/70 py-24 md:py-48 px-0"
       >
-        <div className="relative mx-auto px-0 py-0 md:px-12 md:py-24 bg-white/70">
-          <h2
-            ref={aboutTitleRef}
-            className="z-10
-  inline-block whitespace-nowrap 
-  text-[clamp(3rem,12vw,10rem)]
-  font-extrabold uppercase tracking-tight
-  text-transparent bg-clip-text
-  bg-gradient-to-r from-yellow-400 via-red-500 to-pink-600
-  drop-shadow-2xl pointer-events-none opacity-30"
-          >
-            About About About About About
-          </h2>
-
-          <p className="mb-12 text-gray-700 text-lg">
+        {" "}
+        <h2
+          ref={aboutTitleRef}
+          className="z-10 inline-block whitespace-nowrap 
+text-[clamp(3rem,12vw,10rem)] font-extrabold uppercase tracking-tight
+text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-500 to-pink-600
+drop-shadow-2xl pointer-events-none opacity-30 mb-12"
+        >
+          About About About About About About
+        </h2>
+        {/* 上部：フロントエンド技術 */}
+        <div className="mb-16">
+          <p className="mb-6 text-gray-700 text-lg font-medium">
             フロントエンドエンジニアとして以下の技術を使った経験があります。
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             <TechCard
               icon={<FaReact className="text-sky-500" />}
               title="React"
@@ -157,10 +192,34 @@ export default function HomePage() {
             />
           </div>
         </div>
+        <div className="w-full max-w-none flex flex-col md:flex-row md:gap-12 items-center">
+          {/* 左カラム：顔写真 */}
+          <div className="md:w-1/3 mb-8 md:mb-0 flex-shrink-0">
+            <img
+              src="/my_img.jpeg"
+              alt="顔写真"
+              className="w-full rounded-xl shadow-lg object-cover"
+            />
+          </div>
+
+          {/* 右カラム：経歴・自己紹介テキスト */}
+          <div className="md:w-2/3 text-left px-4 md:px-0">
+            <h3 className="text-2xl font-bold mb-4">美容師としての自己紹介</h3>
+            <p className="text-gray-700 mb-4">
+              美容専門学校を卒業後、都内の有名サロンでアシスタントとして勤務。その後スタイリストとして独立し、カット・カラー・パーマ・ヘアセット全般の経験を積みました。
+            </p>
+            <p className="text-gray-700 mb-4">
+              イベントや撮影のヘアメイクサポートも経験があり、幅広い技術とセンスでお客様に似合うスタイルを提供しています。
+            </p>
+            <p className="text-gray-700">
+              現在はフロントエンドの技術と美容師としての経験を活かし、表現力のある仕事を追求しています。
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* Works */}
-      <section ref={worksSectionRef} id="works" className="relative bg-gray-50">
+      <section ref={worksSectionRef} id="works" className="relative">
         {/* 背面に流れるタイトル */}
         <h2
           ref={worksTitleRef}
@@ -172,7 +231,8 @@ export default function HomePage() {
   bg-gradient-to-r from-yellow-400 via-red-500 to-pink-600
   drop-shadow-2xl pointer-events-none opacity-30"
         >
-          Works Works Works Works Works Works
+          Works Works Works Works Works Works Works Works Works Works Works
+          Works Works
         </h2>
 
         {/* 制作実績カード一覧 */}
@@ -222,7 +282,8 @@ export default function HomePage() {
   text-[clamp(3rem,12vw,10rem)]
   font-extrabold uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 drop-shadow-2xl"
         >
-          Contact Contact Contact Contact Contact
+          Contact Contact Contact Contact Contact Contact Contact Contact
+          Contact Contact Contact Contact
         </h2>
         <p className="mb-6 text-gray-800 text-lg">
           ご連絡は以下のSNSからお願いいたします。
@@ -237,7 +298,7 @@ export default function HomePage() {
             Twitter
           </a>
           <a
-            href="https://github.com/"
+            href="https://github.com/keisuke9360-0122/wp-cms"
             target="_blank"
             rel="noopener"
             className="text-black hover:underline font-semibold"

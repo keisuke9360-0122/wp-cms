@@ -71,3 +71,33 @@ body {
 .text-shadow {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }
+
+body {
+  background: linear-gradient(120deg,
+      rgba(255, 180, 205, 0.6),
+      rgba(180, 200, 255, 0.6),
+      rgba(255, 230, 180, 0.6),
+      rgba(200, 255, 240, 0.6));
+  background-size: 400% 400%;
+  animation: flowBackground 22s ease infinite;
+}
+
+@keyframes flowBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@layer utilities {
+  .animate-pulse {
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+}
