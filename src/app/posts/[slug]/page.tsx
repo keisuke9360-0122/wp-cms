@@ -1,10 +1,16 @@
-import { getPostBySlug } from "@/lib/getPostBySlug";
 import { getPosts } from "@/lib/getPosts";
+import { getPostBySlug } from "@/lib/getPostBySlug";
 import { notFound } from "next/navigation";
 import { Post } from "@/types";
 
 export const dynamic = "force-dynamic";
 
+export async function generateStaticParams() {
+  const posts: Post[] = await getPosts();
+  return posts.map((post) => ({ slug: post.slug }));
+}
+
+// PageProps 型は一切書かない
 export default async function PostDetail({
   params,
 }: {
