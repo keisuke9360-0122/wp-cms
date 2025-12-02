@@ -5,18 +5,11 @@ import { Post } from "@/types";
 
 export const dynamic = "force-dynamic";
 
-export async function generateStaticParams() {
-  const posts: Post[] = await getPosts();
-  return posts.map((post) => ({ slug: post.slug }));
-}
-
-type Props = {
-  params: {
-    slug: string;
-  };
-};
-
-export default async function PostDetail({ params }: Props) {
+export default async function PostDetail({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const post = await getPostBySlug(params.slug);
   if (!post) return notFound();
 
