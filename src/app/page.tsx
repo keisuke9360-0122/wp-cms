@@ -137,14 +137,14 @@ export default function HomePage() {
   }, []);
 
   return (
-    <main className="bg-white text-black">
+    <main className=" text-black">
       <MainVisual />
 
       {/* About */}
       <section
         ref={aboutRef}
         id="about"
-        className="relative z-30 w-full bg-white/70 py-24 md:py-48 px-0"
+        className="relative z-30 w-full py-24 md:py-48 px-0"
       >
         {" "}
         <h2

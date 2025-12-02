@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import { getPosts } from "@/lib/getPosts";
+import { Post } from "@/types";
 
 export async function GET() {
   try {
-    const posts = await getPosts();
+    const posts: Post[] = await getPosts();
     return NextResponse.json(posts);
   } catch (error) {
     return NextResponse.json(
