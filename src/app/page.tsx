@@ -5,6 +5,7 @@ import MainVisual from "../components/mv";
 import Image from "next/image";
 import Link from "next/link";
 import TechCard from "../components/TechCard";
+import { Post } from "@/types";
 import { gsap, ScrollTrigger } from "../lib/gsap";
 import { useLoading } from "@/app/contexts/LoadingContext";
 
@@ -18,7 +19,7 @@ import {
 import { SiNextdotjs, SiTailwindcss } from "react-icons/si";
 
 export default function HomePage() {
-  const [posts, setPosts] = useState<any[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const worksSectionRef = useRef<HTMLDivElement>(null);
   const worksInnerRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
