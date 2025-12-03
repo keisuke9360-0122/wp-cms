@@ -3,9 +3,6 @@ import { getPostBySlug } from "@/lib/getPostBySlug";
 import { notFound } from "next/navigation";
 import { Post } from "@/types";
 
-// ❌ これが型競合の原因 → 削除
-// export const dynamic = "force-dynamic";
-
 export async function generateStaticParams() {
   const posts: Post[] = await getPosts();
   return posts.map((post) => ({
@@ -13,14 +10,15 @@ export async function generateStaticParams() {
   }));
 }
 
-type PageProps = {
-  params: {
-    slug: string;
-  };
-};
+// Next.js App Router では params が Promise になるので修正
+export default async function PostDetail({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params; // ← await が必要
 
-export default async function PostDetail({ params }: PageProps) {
-  const post = await getPostBySlug(params.slug);
+  const post = await getPostBySlug(slug);
 
   if (!post) return notFound();
 
