@@ -12,7 +12,6 @@ export async function generateStaticParams() {
   }));
 }
 
-// Next.js が期待する正しい PageProps 型
 type PageProps = {
   params: {
     slug: string;
