@@ -3,7 +3,8 @@ import { getPostBySlug } from "@/lib/getPostBySlug";
 import { notFound } from "next/navigation";
 import { Post } from "@/types";
 
-export const dynamic = "force-dynamic";
+// ❌ これが型競合の原因 → 削除
+// export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
   const posts: Post[] = await getPosts();
