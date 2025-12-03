@@ -1,23 +1,27 @@
 import { getPosts } from "@/lib/getPosts";
 import { getPostBySlug } from "@/lib/getPostBySlug";
-import { Post } from "@/types";
 import { notFound } from "next/navigation";
+import { Post } from "@/types";
 
 export const dynamic = "force-dynamic";
 
-type Props = {
+export async function generateStaticParams() {
+  const posts: Post[] = await getPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
+// Next.js が期待する正しい PageProps 型
+type PageProps = {
   params: {
     slug: string;
   };
 };
 
-export async function generateStaticParams() {
-  const posts: Post[] = await getPosts();
-  return posts.map((post) => ({ slug: post.slug }));
-}
-
-export default async function PostDetail({ params }: Props) {
+export default async function PostDetail({ params }: PageProps) {
   const post = await getPostBySlug(params.slug);
+
   if (!post) return notFound();
 
   return (
@@ -28,7 +32,9 @@ export default async function PostDetail({ params }: Props) {
 
       <div
         className="prose prose-lg text-gray-800 leading-relaxed"
-        dangerouslySetInnerHTML={{ __html: post.content || "" }}
+        dangerouslySetInnerHTML={{
+          __html: post.content ?? "",
+        }}
       />
 
       {post.projectLink?.projectLink?.url && (
