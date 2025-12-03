@@ -1,21 +1,22 @@
 import { getPosts } from "@/lib/getPosts";
 import { getPostBySlug } from "@/lib/getPostBySlug";
-import { notFound } from "next/navigation";
 import { Post } from "@/types";
+import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
+
+type Props = {
+  params: {
+    slug: string;
+  };
+};
 
 export async function generateStaticParams() {
   const posts: Post[] = await getPosts();
   return posts.map((post) => ({ slug: post.slug }));
 }
 
-// PageProps 型は一切書かない
-export default async function PostDetail({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default async function PostDetail({ params }: Props) {
   const post = await getPostBySlug(params.slug);
   if (!post) return notFound();
 
@@ -27,7 +28,7 @@ export default async function PostDetail({
 
       <div
         className="prose prose-lg text-gray-800 leading-relaxed"
-        dangerouslySetInnerHTML={{ __html: post.content ?? "" }}
+        dangerouslySetInnerHTML={{ __html: post.content || "" }}
       />
 
       {post.projectLink?.projectLink?.url && (
