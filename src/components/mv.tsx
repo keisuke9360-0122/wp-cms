@@ -21,7 +21,7 @@ export default function MainVisual() {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
-        className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-6"
+        className="font-inter relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-6"
       >
         <h1 className="text-2xl md:text-2xl font-bold tracking-widest mb-4">
           KEISUKE TSURUTA PORTFOLIO
