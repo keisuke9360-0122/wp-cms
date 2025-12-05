@@ -1,11 +1,9 @@
-import type { NextConfig } from "next";
-
 const nextConfig = {
   images: {
     remotePatterns: [
       {
         protocol: "http",
-        hostname: "wp-cms.local",
+        hostname: "xs400651.xsrv.jp", // ←ここ！あなたのWPの実際のホスト名
         port: "",
         pathname: "/**",
       },
