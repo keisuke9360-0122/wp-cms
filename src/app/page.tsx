@@ -85,7 +85,9 @@ export default function HomePage() {
     const totalScroll = inner.scrollWidth - section.clientWidth;
 
     if (window.innerWidth >= 768 && totalScroll > 0) {
-      section.style.height = `${inner.scrollWidth}px`;
+      // ❌ scrollWidth を height に使うのがバグの原因
+      // ✔ inner の実際の高さに合わせる
+      section.style.height = `${inner.clientHeight}px`;
 
       gsap.to(inner, {
         x: -totalScroll,
@@ -98,9 +100,12 @@ export default function HomePage() {
           scrub: 1,
           pin: true,
           invalidateOnRefresh: true,
-          toggleActions: "play reverse play reverse",
         },
       });
+    } else {
+      // スマホは通常の縦スクロール
+      section.style.height = "auto";
+      gsap.set(inner, { x: 0 });
     }
 
     ScrollTrigger.refresh();
