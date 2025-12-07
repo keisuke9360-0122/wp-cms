@@ -234,7 +234,7 @@ export default function HomePage() {
         <div
           ref={worksInnerRef}
           className="flex gap-8 px-6 pt-36 md:pt-24
-          w-max
+         md:w-fit w-full
           overflow-x-auto md:overflow-x-hidden
           snap-x snap-mandatory"
         >
