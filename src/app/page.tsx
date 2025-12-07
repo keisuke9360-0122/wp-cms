@@ -88,17 +88,35 @@ export default function HomePage() {
 
     const totalScroll = inner.scrollWidth - section.clientWidth;
 
+    // if (window.innerWidth >= 768 && totalScroll > 0) {
+    //   section.style.height = "100vh";
+
+    //   gsap.to(inner, {
+    //     x: -totalScroll,
+    //     ease: "none",
+    //     scrollTrigger: {
+    //       id: "worksScroll", // ★ Works専用ID
+    //       trigger: section,
+    //       start: "top top",
+    //       end: `+=${inner.scrollWidth}`,
+    //       scrub: 1,
+    //       pin: true,
+    //       invalidateOnRefresh: true,
+    //     },
+    //   });
+    // }
     if (window.innerWidth >= 768 && totalScroll > 0) {
-      section.style.height = "100vh";
+      // セクションの高さを横スクロール分に合わせる
+      section.style.height = `${inner.scrollWidth}px`;
 
       gsap.to(inner, {
         x: -totalScroll,
         ease: "none",
         scrollTrigger: {
-          id: "worksScroll", // ★ Works専用ID
+          id: "worksScroll",
           trigger: section,
           start: "top top",
-          end: `+=${inner.scrollWidth}`,
+          end: () => `+=${totalScroll}`, // ← 調整済み
           scrub: 1,
           pin: true,
           invalidateOnRefresh: true,
