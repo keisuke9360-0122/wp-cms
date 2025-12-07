@@ -21,7 +21,7 @@ export default function LoadingOverlay() {
   if (!isVisible) return null;
 
   return (
-    <div className="loading-overlay fixed inset-0 bg-black flex items-center justify-center z-[9999]">
+    <div className="font-sans loading-overlay fixed inset-0 bg-black flex items-center justify-center z-[9999]">
       <span className="text-white text-2xl tracking-widest animate-pulse">
         LOADING...
       </span>
