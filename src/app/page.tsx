@@ -226,37 +226,38 @@ export default function HomePage() {
           Works Works Works Works Works Works Works Works Works Works Works
           Works Works
         </h2>
-
-        <div
-          ref={worksInnerRef}
-          className="flex gap-8 px-6 pt-36 md:pt-24
+        <div ref={worksPinRef}>
+          <div
+            ref={worksInnerRef}
+            className="flex gap-8 px-6 pt-36 md:pt-24
           w-max
           overflow-x-auto md:overflow-x-hidden
           snap-x snap-mandatory"
-        >
-          {posts.slice(0, 6).map((post) => (
-            <Link
-              key={post.id}
-              href={`/posts/${post.slug}`}
-              className="w-[80vw] md:w-[60vw] h-[50vh] md:h-[70vh]
+          >
+            {posts.slice(0, 6).map((post) => (
+              <Link
+                key={post.id}
+                href={`/posts/${post.slug}`}
+                className="w-[80vw] md:w-[60vw] h-[50vh] md:h-[70vh]
               bg-white border border-gray-200 rounded-2xl
               overflow-hidden shadow-md flex-shrink-0 relative snap-start"
-            >
-              {post.featuredImage?.node?.sourceUrl && (
-                <Image
-                  src={post.featuredImage.node.sourceUrl}
-                  alt={post.featuredImage.node.altText || post.title}
-                  fill
-                  className="object-cover transition-all duration-500"
-                />
-              )}
-              <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/60 to-transparent p-6">
-                <h3 className="text-2xl font-extrabold text-white drop-shadow-lg">
-                  {post.title}
-                </h3>
-              </div>
-            </Link>
-          ))}
+              >
+                {post.featuredImage?.node?.sourceUrl && (
+                  <Image
+                    src={post.featuredImage.node.sourceUrl}
+                    alt={post.featuredImage.node.altText || post.title}
+                    fill
+                    className="object-cover transition-all duration-500"
+                  />
+                )}
+                <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/60 to-transparent p-6">
+                  <h3 className="text-2xl font-extrabold text-white drop-shadow-lg">
+                    {post.title}
+                  </h3>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
