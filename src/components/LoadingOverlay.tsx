@@ -8,8 +8,27 @@ export default function LoadingOverlay() {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    if (loading) {
-      // 一文字ずつ下からフェードイン
+    if (!loading) {
+      const tl = gsap.timeline({
+        onComplete: () => setIsVisible(false),
+      });
+
+      // ローディング画面をフェードアウト
+      tl.to(".loading-overlay", {
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out",
+      });
+
+      // コンテンツをふわっとフェードイン
+      tl.fromTo(
+        "main",
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
+        "-=0.4" // ローディングが消える直前からコンテンツを出す
+      );
+    } else {
+      // ローディング開始時の文字アニメーション
       gsap.fromTo(
         ".loading-char",
         { opacity: 0, y: 30 },
@@ -21,16 +40,6 @@ export default function LoadingOverlay() {
           ease: "power3.out",
         }
       );
-    } else {
-      // 読み込み完了時に上に飛んで消える
-      gsap.to(".loading-char", {
-        y: -50,
-        opacity: 0,
-        duration: 0.8,
-        ease: "power2.in",
-        stagger: 0.05,
-        onComplete: () => setIsVisible(false),
-      });
     }
   }, [loading]);
 
