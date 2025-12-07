@@ -74,11 +74,11 @@ export default function HomePage() {
     if (!posts || posts.length === 0) return;
 
     const section = worksSectionRef.current;
-    const pin = worksPinRef.current;
     const inner = worksInnerRef.current;
 
-    if (!section || !pin || !inner) return;
+    if (!section || !inner) return;
 
+    // 既存の ScrollTrigger 削除
     ScrollTrigger.getAll()
       .filter((t) => t.vars.id === "worksScroll")
       .forEach((t) => t.kill());
@@ -88,21 +88,25 @@ export default function HomePage() {
     const totalScroll = inner.scrollWidth - section.clientWidth;
 
     if (window.innerWidth >= 768 && totalScroll > 0) {
+      // ★ 横スクロール分だけセクションの高さを確保する
+      section.style.height = `${inner.scrollWidth}px`;
+
       gsap.to(inner, {
         x: -totalScroll,
         ease: "none",
         scrollTrigger: {
           id: "worksScroll",
           trigger: section,
-          pin: pin, // ← ★ wrapper を pin する
           start: "top top",
           end: () => `+=${totalScroll}`,
           scrub: 1,
+          pin: true, // ← section を固定
           invalidateOnRefresh: true,
         },
       });
     } else {
       gsap.set(inner, { x: 0 });
+      section.style.height = "auto";
     }
 
     ScrollTrigger.refresh();
@@ -226,38 +230,37 @@ export default function HomePage() {
           Works Works Works Works Works Works Works Works Works Works Works
           Works Works
         </h2>
-        <div ref={worksPinRef}>
-          <div
-            ref={worksInnerRef}
-            className="flex gap-8 px-6 pt-36 md:pt-24
+
+        <div
+          ref={worksInnerRef}
+          className="flex gap-8 px-6 pt-36 md:pt-24
           w-max
           overflow-x-auto md:overflow-x-hidden
           snap-x snap-mandatory"
-          >
-            {posts.slice(0, 6).map((post) => (
-              <Link
-                key={post.id}
-                href={`/posts/${post.slug}`}
-                className="w-[80vw] md:w-[60vw] h-[50vh] md:h-[70vh]
+        >
+          {posts.slice(0, 6).map((post) => (
+            <Link
+              key={post.id}
+              href={`/posts/${post.slug}`}
+              className="w-[80vw] md:w-[60vw] h-[50vh] md:h-[70vh]
               bg-white border border-gray-200 rounded-2xl
               overflow-hidden shadow-md flex-shrink-0 relative snap-start"
-              >
-                {post.featuredImage?.node?.sourceUrl && (
-                  <Image
-                    src={post.featuredImage.node.sourceUrl}
-                    alt={post.featuredImage.node.altText || post.title}
-                    fill
-                    className="object-cover transition-all duration-500"
-                  />
-                )}
-                <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/60 to-transparent p-6">
-                  <h3 className="text-2xl font-extrabold text-white drop-shadow-lg">
-                    {post.title}
-                  </h3>
-                </div>
-              </Link>
-            ))}
-          </div>
+            >
+              {post.featuredImage?.node?.sourceUrl && (
+                <Image
+                  src={post.featuredImage.node.sourceUrl}
+                  alt={post.featuredImage.node.altText || post.title}
+                  fill
+                  className="object-cover transition-all duration-500"
+                />
+              )}
+              <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/60 to-transparent p-6">
+                <h3 className="text-2xl font-extrabold text-white drop-shadow-lg">
+                  {post.title}
+                </h3>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 
