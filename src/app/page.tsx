@@ -88,25 +88,28 @@ export default function HomePage() {
     const totalScroll = inner.scrollWidth - section.clientWidth;
 
     if (window.innerWidth >= 768 && totalScroll > 0) {
-      // ★ 横スクロール分だけセクションの高さを確保する
-      section.style.height = `${inner.scrollWidth}px`;
+      // ❌ section.style.height を触らない
 
-      gsap.to(inner, {
-        x: -totalScroll,
-        ease: "none",
-        scrollTrigger: {
-          id: "worksScroll",
-          trigger: section,
-          start: "top top",
-          end: () => `+=${totalScroll}`,
-          scrub: 1,
-          pin: true, // ← section を固定
-          invalidateOnRefresh: true,
-        },
-      });
+      gsap.fromTo(
+        inner,
+        { x: 0 },
+        {
+          x: -totalScroll,
+          ease: "none",
+          scrollTrigger: {
+            id: "worksScroll",
+            trigger: section,
+            start: "top top",
+            end: () => `+=${totalScroll}`,
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        }
+      );
     } else {
       gsap.set(inner, { x: 0 });
-      section.style.height = "auto";
     }
 
     ScrollTrigger.refresh();
