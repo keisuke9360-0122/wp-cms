@@ -145,7 +145,7 @@ export default function HomePage() {
         },
       });
     }
-
+    console.log(inner.scrollWidth, section.clientWidth);
     ScrollTrigger.refresh();
   }, [posts]);
 
