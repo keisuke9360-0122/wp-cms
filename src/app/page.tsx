@@ -22,6 +22,7 @@ export default function HomePage() {
   const [posts, setPosts] = useState<Post[]>([]);
   const worksSectionRef = useRef<HTMLDivElement>(null);
   const worksInnerRef = useRef<HTMLDivElement>(null);
+  const worksPinRef = useRef<HTMLDivElement | null>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
   const worksTitleRef = useRef<HTMLHeadingElement>(null);
@@ -70,11 +71,13 @@ export default function HomePage() {
 
   // Works 横スクロール
   useEffect(() => {
-    if (posts.length === 0) return;
+    if (!posts || posts.length === 0) return;
 
     const section = worksSectionRef.current;
+    const pin = worksPinRef.current;
     const inner = worksInnerRef.current;
-    if (!section || !inner) return;
+
+    if (!section || !pin || !inner) return;
 
     ScrollTrigger.getAll()
       .filter((t) => t.vars.id === "worksScroll")
@@ -85,26 +88,20 @@ export default function HomePage() {
     const totalScroll = inner.scrollWidth - section.clientWidth;
 
     if (window.innerWidth >= 768 && totalScroll > 0) {
-      // ❌ scrollWidth を height に使うのがバグの原因
-      // ✔ inner の実際の高さに合わせる
-      section.style.height = `${inner.clientHeight}px`;
-
       gsap.to(inner, {
         x: -totalScroll,
         ease: "none",
         scrollTrigger: {
           id: "worksScroll",
           trigger: section,
+          pin: pin, // ← ★ wrapper を pin する
           start: "top top",
           end: () => `+=${totalScroll}`,
           scrub: 1,
-          pin: true,
           invalidateOnRefresh: true,
         },
       });
     } else {
-      // スマホは通常の縦スクロール
-      section.style.height = "auto";
       gsap.set(inner, { x: 0 });
     }
 
