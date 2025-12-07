@@ -145,7 +145,7 @@ export default function HomePage() {
       <section
         ref={aboutRef}
         id="about"
-        className="relative z-30 w-full py-24 md:py-48 px-0"
+        className="relative z-30 w-full py-24 md:py-48 px-2"
       >
         {" "}
         <h2
