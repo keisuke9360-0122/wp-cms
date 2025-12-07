@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ja" className={inter.variable}>
+    <html lang="ja" className="inter">
       {/* ★ ここで Inter を強制適用 */}
       <body className="relative text-gray-800 font-inter antialiased font-sans">
         <div className="absolute inset-0 -z-10 animate-gradient"></div>
