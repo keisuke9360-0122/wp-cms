@@ -71,14 +71,13 @@ export default function HomePage() {
 
   // Works 横スクロール
   useEffect(() => {
-    if (!posts || posts.length === 0) return;
+    if (posts.length === 0) return;
 
     const section = worksSectionRef.current;
     const inner = worksInnerRef.current;
-
     if (!section || !inner) return;
 
-    // 既存の ScrollTrigger 削除
+    // 既存のトリガーを消す
     ScrollTrigger.getAll()
       .filter((t) => t.vars.id === "worksScroll")
       .forEach((t) => t.kill());
@@ -88,28 +87,26 @@ export default function HomePage() {
     const totalScroll = inner.scrollWidth - section.clientWidth;
 
     if (window.innerWidth >= 768 && totalScroll > 0) {
-      // ❌ section.style.height を触らない
+      // ❗️scrollWidth を高さにしない
+      // section.style.height = `${inner.scrollWidth}px`;
 
-      gsap.fromTo(
-        inner,
-        { x: 0 },
-        {
-          x: -totalScroll,
-          ease: "none",
-          scrollTrigger: {
-            id: "worksScroll",
-            trigger: section,
-            start: "top top",
-            end: () => `+=${totalScroll}`,
-            pin: true,
-            scrub: 1,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-          },
-        }
-      );
-    } else {
-      gsap.set(inner, { x: 0 });
+      // 👍 必要なのは “スクロール距離 + 画面の高さ”
+      section.style.height = `${window.innerHeight + totalScroll}px`;
+
+      gsap.to(inner, {
+        x: -totalScroll,
+        ease: "none",
+        scrollTrigger: {
+          id: "worksScroll",
+          trigger: section,
+          start: "top top",
+          end: `+=${totalScroll}`,
+          scrub: 1,
+          pin: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
     }
 
     ScrollTrigger.refresh();
