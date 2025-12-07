@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* 不要な data-animate の transition は付けない（GSAPで制御） */
 @layer utilities {
