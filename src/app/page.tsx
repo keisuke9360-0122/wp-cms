@@ -105,9 +105,26 @@ export default function HomePage() {
     //     },
     //   });
     // }
+    // if (window.innerWidth >= 768 && totalScroll > 0) {
+    //   // セクションの高さを横スクロール分に合わせる
+    //   section.style.height = `${inner.scrollWidth}px`;
+
+    //   gsap.to(inner, {
+    //     x: -totalScroll,
+    //     ease: "none",
+    //     scrollTrigger: {
+    //       id: "worksScroll",
+    //       trigger: section,
+    //       start: "top top",
+    //       end: () => `+=${totalScroll}`, // ← 調整済み
+    //       scrub: 1,
+    //       pin: true,
+    //       invalidateOnRefresh: true,
+    //     },
+    //   });
+    // }
     if (window.innerWidth >= 768 && totalScroll > 0) {
-      // セクションの高さを横スクロール分に合わせる
-      section.style.height = `${inner.scrollWidth}px`;
+      section.style.height = `${inner.scrollWidth - section.clientWidth}px`;
 
       gsap.to(inner, {
         x: -totalScroll,
@@ -116,10 +133,11 @@ export default function HomePage() {
           id: "worksScroll",
           trigger: section,
           start: "top top",
-          end: () => `+=${totalScroll}`, // ← 調整済み
+          end: () => `+=${totalScroll}`,
           scrub: 1,
           pin: true,
           invalidateOnRefresh: true,
+          toggleActions: "play reverse play reverse",
         },
       });
     }
