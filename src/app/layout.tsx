@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   title: "KEISUKE TSURUTA PORTFOLIO",
   description: "KEISUKE TSURUTA PORTFOLIO",
 };
-
+console.log(inter);
 export default function RootLayout({
   children,
 }: {
