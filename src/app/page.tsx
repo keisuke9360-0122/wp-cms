@@ -91,7 +91,7 @@ export default function HomePage() {
       // section.style.height = `${inner.scrollWidth}px`;
 
       // 👍 必要なのは “スクロール距離 + 画面の高さ”
-      section.style.height = `${window.innerHeight + totalScroll}px`;
+      section.style.height = `${totalScroll}px`;
 
       gsap.to(inner, {
         x: -totalScroll,
@@ -100,8 +100,8 @@ export default function HomePage() {
           id: "worksScroll",
           trigger: section,
           start: "top top",
-          end: `+=${totalScroll}`,
-          scrub: 1,
+          end: () => `+=${totalScroll}`,
+          scrub: true,
           pin: true,
           anticipatePin: 1,
           invalidateOnRefresh: true,
