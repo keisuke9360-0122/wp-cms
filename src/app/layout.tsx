@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="ja" className={inter.variable}>
       {/* ★ ここで Inter を強制適用 */}
-      <body className="relative text-gray-800 font-inter antialiased">
+      <body className="relative text-gray-800 font-inter antialiased font-sans">
         <div className="absolute inset-0 -z-10 animate-gradient"></div>
 
         <LoadingProvider>
