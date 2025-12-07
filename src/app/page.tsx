@@ -70,6 +70,47 @@ export default function HomePage() {
   }, []);
 
   // Works 横スクロール
+  // useEffect(() => {
+  //   if (posts.length === 0) return;
+
+  //   const section = worksSectionRef.current;
+  //   const inner = worksInnerRef.current;
+  //   if (!section || !inner) return;
+
+  //   // 既存のトリガーを消す
+  //   ScrollTrigger.getAll()
+  //     .filter((t) => t.vars.id === "worksScroll")
+  //     .forEach((t) => t.kill());
+
+  //   gsap.killTweensOf(inner);
+
+  //   const totalScroll = inner.scrollWidth - section.clientWidth;
+
+  //   if (window.innerWidth >= 768 && totalScroll > 0) {
+  //     // ❗️scrollWidth を高さにしない
+  //     // section.style.height = `${inner.scrollWidth}px`;
+
+  //     // 👍 必要なのは “スクロール距離 + 画面の高さ”
+  //     section.style.height = `${totalScroll}px`;
+
+  //     gsap.to(inner, {
+  //       x: -totalScroll,
+  //       ease: "none",
+  //       scrollTrigger: {
+  //         id: "worksScroll",
+  //         trigger: section,
+  //         start: "top top",
+  //         end: () => `+=${totalScroll}`,
+  //         scrub: true,
+  //         pin: true,
+  //         anticipatePin: 1,
+  //         invalidateOnRefresh: true,
+  //       },
+  //     });
+  //   }
+
+  //   ScrollTrigger.refresh();
+  // }, [posts]);
   useEffect(() => {
     if (posts.length === 0) return;
 
@@ -77,7 +118,6 @@ export default function HomePage() {
     const inner = worksInnerRef.current;
     if (!section || !inner) return;
 
-    // 既存のトリガーを消す
     ScrollTrigger.getAll()
       .filter((t) => t.vars.id === "worksScroll")
       .forEach((t) => t.kill());
@@ -87,11 +127,8 @@ export default function HomePage() {
     const totalScroll = inner.scrollWidth - section.clientWidth;
 
     if (window.innerWidth >= 768 && totalScroll > 0) {
-      // ❗️scrollWidth を高さにしない
-      // section.style.height = `${inner.scrollWidth}px`;
-
-      // 👍 必要なのは “スクロール距離 + 画面の高さ”
-      section.style.height = `${totalScroll}px`;
+      // セクション高さを「横スクロール距離＋画面高さ」に設定
+      section.style.height = `${totalScroll + window.innerHeight}px`;
 
       gsap.to(inner, {
         x: -totalScroll,
@@ -100,7 +137,7 @@ export default function HomePage() {
           id: "worksScroll",
           trigger: section,
           start: "top top",
-          end: () => `+=${totalScroll}`,
+          end: () => `+=${totalScroll}`, // ← 高さと揃える
           scrub: true,
           pin: true,
           anticipatePin: 1,
