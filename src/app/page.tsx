@@ -118,18 +118,29 @@ export default function HomePage() {
     const inner = worksInnerRef.current;
     if (!section || !inner) return;
 
+    // 1) 既存のトリガーと tween を殺す
     ScrollTrigger.getAll()
       .filter((t) => t.vars.id === "worksScroll")
       .forEach((t) => t.kill());
-
     gsap.killTweensOf(inner);
 
-    const totalScroll = inner.scrollWidth - section.clientWidth;
+    // 2) 画像ロード待ちで refresh（Next/Image は遅れることがある）
+    // 少し遅延して幅を確定させる
+    const refreshAfterImages = () => {
+      const totalScroll = inner.scrollWidth - section.clientWidth;
+      if (!(window.innerWidth >= 768) || totalScroll <= 0) {
+        // PC未満はネイティブ横スクロール（GSAPしない）
+        return;
+      }
 
-    if (window.innerWidth >= 768 && totalScroll > 0) {
-      // 高さと end を一致させる
+      // 3) 初期位置リセット（ジャンプ防止）
+      gsap.set(inner, { x: 0 });
+
+      // 4) セクション高さと end を完全一致させる
+      // → totalScroll だけ縦スクロールを確保して、その間に横に流す
       section.style.height = `${totalScroll}px`;
 
+      // 5) ScrollTrigger 作成
       gsap.to(inner, {
         x: -totalScroll,
         ease: "none",
@@ -137,16 +148,35 @@ export default function HomePage() {
           id: "worksScroll",
           trigger: section,
           start: "top top",
-          end: () => `+=${totalScroll}`,
-          scrub: true,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
+          end: `+=${totalScroll}`, // 高さと一致
+          scrub: true, // 戻りを許可
+          pin: true, // セクションを固定
+          pinSpacing: true, // 固定中のスペースを確保
+          anticipatePin: 1, // ピン開始時のズレ抑制
+          invalidateOnRefresh: true, // サイズ変化に対応
+          // markers: true,             // デバッグ用に必要ならオン
         },
       });
-    }
 
-    ScrollTrigger.refresh();
+      ScrollTrigger.refresh();
+    };
+
+    // 遅延して refresh（画像ロードやフォント適用後に幅が変わる対策）
+    // 即時＋少し遅延の二段構え
+    refreshAfterImages();
+    setTimeout(refreshAfterImages, 200);
+
+    // リサイズ時にも再計算
+    const onResize = () => {
+      ScrollTrigger.getAll()
+        .filter((t) => t.vars.id === "worksScroll")
+        .forEach((t) => t.kill());
+      gsap.killTweensOf(inner);
+      refreshAfterImages();
+    };
+    window.addEventListener("resize", onResize);
+
+    return () => window.removeEventListener("resize", onResize);
   }, [posts]);
 
   // タイトル流す演出
@@ -272,8 +302,12 @@ export default function HomePage() {
           ref={worksInnerRef}
           className="flex gap-8 px-6 pt-36 md:pt-24
              md:w-fit w-full
-             md:overflow-x-hidden
+             md:overflow-x-hidden overflow-x-auto
              snap-x snap-mandatory"
+          style={{
+            willChange: "transform", // transformの描画を安定させる
+            position: "relative", // stacking context安定
+          }}
         >
           {posts.slice(0, 6).map((post) => (
             <Link
