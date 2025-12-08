@@ -271,9 +271,9 @@ export default function HomePage() {
         <div
           ref={worksInnerRef}
           className="flex gap-8 px-6 pt-36 md:pt-24
-         md:w-fit w-full
-          overflow-x-auto md:overflow-x-hidden
-          snap-x snap-mandatory"
+             md:w-fit w-full
+             md:overflow-x-hidden
+             snap-x snap-mandatory"
         >
           {posts.slice(0, 6).map((post) => (
             <Link
