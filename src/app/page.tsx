@@ -127,8 +127,8 @@ export default function HomePage() {
     const totalScroll = inner.scrollWidth - section.clientWidth;
 
     if (window.innerWidth >= 768 && totalScroll > 0) {
-      // セクション高さを「横スクロール距離＋画面高さ」に設定
-      section.style.height = `${totalScroll + window.innerHeight}px`;
+      // 高さと end を一致させる
+      section.style.height = `${totalScroll}px`;
 
       gsap.to(inner, {
         x: -totalScroll,
@@ -137,7 +137,7 @@ export default function HomePage() {
           id: "worksScroll",
           trigger: section,
           start: "top top",
-          end: () => `+=${totalScroll}`, // ← 高さと揃える
+          end: () => `+=${totalScroll}`,
           scrub: true,
           pin: true,
           anticipatePin: 1,
@@ -145,7 +145,7 @@ export default function HomePage() {
         },
       });
     }
-    console.log(inner.scrollWidth, section.clientWidth);
+
     ScrollTrigger.refresh();
   }, [posts]);
 
