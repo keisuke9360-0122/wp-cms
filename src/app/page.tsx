@@ -141,6 +141,8 @@ export default function HomePage() {
       section.style.height = `${totalScroll}px`;
 
       // 5) ScrollTrigger 作成
+      section.style.height = `${totalScroll}px`;
+
       gsap.to(inner, {
         x: -totalScroll,
         ease: "none",
@@ -148,13 +150,11 @@ export default function HomePage() {
           id: "worksScroll",
           trigger: section,
           start: "top top",
-          end: `+=${totalScroll}`, // 高さと一致
-          scrub: true, // 戻りを許可
-          pin: true, // セクションを固定
-          pinSpacing: true, // 固定中のスペースを確保
-          anticipatePin: 1, // ピン開始時のズレ抑制
-          invalidateOnRefresh: true, // サイズ変化に対応
-          // markers: true,             // デバッグ用に必要ならオン
+          end: () => `+=${totalScroll}`, // 高さと一致
+          scrub: true,
+          pin: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
         },
       });
 
@@ -302,12 +302,8 @@ export default function HomePage() {
           ref={worksInnerRef}
           className="flex gap-8 px-6 pt-36 md:pt-24
              md:w-fit w-full
-             md:overflow-x-hidden overflow-x-auto
+             md:overflow-x-hidden
              snap-x snap-mandatory"
-          style={{
-            willChange: "transform", // transformの描画を安定させる
-            position: "relative", // stacking context安定
-          }}
         >
           {posts.slice(0, 6).map((post) => (
             <Link
