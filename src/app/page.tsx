@@ -286,9 +286,13 @@ export default function HomePage() {
       </section> */}
       {/* works試し用 */}
       <section ref={worksSectionRef} id="works" className="relative">
-        <div
+        {/* <div
           ref={worksInnerRef}
           className="flex h-screen md:overflow-x-hidden"
+          style={{ width: `${posts.length * 100}vw` }}
+        > */}
+        <div
+          className="flex h-screen overflow-x-auto"
           style={{ width: `${posts.length * 100}vw` }}
         >
           {posts.map((post) => (
