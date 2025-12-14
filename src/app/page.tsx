@@ -119,23 +119,26 @@ export default function HomePage() {
 
     const totalScroll = inner.scrollWidth - section.clientWidth;
 
-    // 初期位置リセット
     gsap.set(inner, { x: 0 });
 
     gsap.to(inner, {
       x: -totalScroll,
       ease: "none",
+      // ← この gsap.to の中に scrollTrigger を追加する
       scrollTrigger: {
         trigger: section,
         start: "top top",
         end: () => `+=${totalScroll}`,
         scrub: true,
         pin: true,
-        pinSpacing: true, // 高さを確保
+        pinSpacing: false, // ← ここに書く
         anticipatePin: 1,
         invalidateOnRefresh: true,
       },
     });
+
+    // pinSpacing:false にした場合は高さを自分で確保する必要あり
+    section.style.height = `${window.innerHeight + totalScroll}px`;
 
     ScrollTrigger.refresh();
   }, [posts]);
@@ -296,10 +299,9 @@ export default function HomePage() {
               {post.featuredImage?.node?.sourceUrl && (
                 <Image
                   src={post.featuredImage.node.sourceUrl}
-                  alt={post.featuredImage.node.altText || post.title}
+                  alt={post.title}
                   fill
                   onLoadingComplete={() => ScrollTrigger.refresh()}
-                  className="object-cover"
                 />
               )}
               <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/60 to-transparent p-6">
