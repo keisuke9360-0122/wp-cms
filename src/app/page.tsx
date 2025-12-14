@@ -118,12 +118,13 @@ export default function HomePage() {
     if (!section || !inner) return;
 
     const totalScroll = inner.scrollWidth - window.innerWidth;
+    const endValue = totalScroll + window.innerHeight; // ← 高さと同じ値にする
 
-    // 高さを「横スクロール距離 + 画面高さ」にする
-    section.style.height = `${totalScroll + window.innerHeight}px`;
+    // 高さを endValue に揃える
+    section.style.height = `${endValue}px`;
 
     console.log("section height:", section.style.height);
-    console.log("end value:", totalScroll);
+    console.log("end value:", endValue);
 
     gsap.set(inner, { x: 0 });
 
@@ -134,10 +135,10 @@ export default function HomePage() {
         id: "worksScroll",
         trigger: section,
         start: "top top",
-        end: () => `+=${totalScroll}`,
+        end: () => `+=${endValue}`, // ← 高さと一致
         scrub: true,
         pin: true,
-        pinSpacing: true, // ← まず true にして確認
+        pinSpacing: false,
         anticipatePin: 1,
         invalidateOnRefresh: true,
       },
