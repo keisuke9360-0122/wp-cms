@@ -30,7 +30,7 @@ export default function RootLayout({
         <LoadingProvider>
           {/* <LoadingOverlay /> */}
           <div className="relative z-20 overflow-x-hidden">{children}</div>
-          <div className="relative z-20">{children}</div>
+          {/* <div className="relative z-20">{children}</div> */}
         </LoadingProvider>
       </body>
     </html>
