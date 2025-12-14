@@ -163,7 +163,7 @@ export default function HomePage() {
     <main className="text-black">
       <MainVisual />
       {/* About */}
-      <section
+      {/* <section
         ref={aboutRef}
         id="about"
         className="relative z-30 w-full py-24 md:py-48 px-2"
@@ -236,7 +236,7 @@ export default function HomePage() {
             </p>
           </div>
         </div>
-      </section>
+      </section> */}
       {/* Works本番 */}
       {/* <section ref={worksSectionRef} id="works" className="relative">
         <h2
@@ -309,7 +309,7 @@ export default function HomePage() {
       </section>
 
       {/* Contact */}
-      <section
+      {/* <section
         id="contact"
         className="relative z-30 py-32 md:py-48 px-8 text-center"
       >
@@ -346,7 +346,7 @@ export default function HomePage() {
             GitHub
           </a>
         </div>
-      </section>
+      </section> */}
     </main>
   );
 }
