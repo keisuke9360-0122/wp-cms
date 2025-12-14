@@ -284,7 +284,7 @@ export default function HomePage() {
 
       {/* Works */}
       <section ref={worksSectionRef} id="works" className="relative">
-        <h2
+        {/* <h2
           ref={worksTitleRef}
           className="absolute top-24 md:top-0 left-0 z-10
           inline-block whitespace-nowrap 
@@ -296,7 +296,7 @@ export default function HomePage() {
         >
           Works Works Works Works Works Works Works Works Works Works Works
           Works Works
-        </h2>
+        </h2> */}
 
         <div
           ref={worksInnerRef}
