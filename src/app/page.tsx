@@ -130,7 +130,6 @@ export default function HomePage() {
         pin: true,
         anticipatePin: 1,
         invalidateOnRefresh: true,
-        // markers: true, // デバッグ用
       },
     });
 
@@ -286,9 +285,8 @@ export default function HomePage() {
           style={{ width: `${posts.length * 100}vw` }}
         >
           {posts.map((post) => (
-            <Link
+            <div
               key={post.id}
-              href={`/posts/${post.slug}`}
               className="w-screen h-full flex-shrink-0 relative"
             >
               {post.featuredImage?.node?.sourceUrl && (
@@ -305,7 +303,7 @@ export default function HomePage() {
                   {post.title}
                 </h3>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </section>
