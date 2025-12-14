@@ -254,7 +254,7 @@ export default function HomePage() {
           Works Works Works Works Works Works Works Works Works Works Works
           Works Works
         </h2> */}
-      <section ref={worksSectionRef} id="works" className="relative">
+      {/* <section ref={worksSectionRef} id="works" className="relative">
         <div
           ref={worksInnerRef}
           className="flex h-screen md:overflow-x-hidden"
@@ -284,7 +284,7 @@ export default function HomePage() {
             </Link>
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* Contact */}
       <section
