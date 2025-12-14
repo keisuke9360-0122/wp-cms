@@ -118,9 +118,14 @@ export default function HomePage() {
     if (!section || !inner) return;
 
     const totalScroll = inner.scrollWidth - window.innerWidth;
+    const endValue = totalScroll;
 
-    // 高さを正しく確保
-    section.style.height = `${totalScroll + window.innerHeight}px`;
+    // 高さを確保
+    section.style.height = `${endValue + window.innerHeight}px`;
+
+    // ← この直後にログを入れる
+    console.log("section height:", section.style.height);
+    console.log("end value:", endValue);
 
     gsap.set(inner, { x: 0 });
 
@@ -130,7 +135,7 @@ export default function HomePage() {
       scrollTrigger: {
         trigger: section,
         start: "top top",
-        end: () => `+=${totalScroll}`,
+        end: () => `+=${endValue}`,
         scrub: true,
         pin: true,
         pinSpacing: false,
