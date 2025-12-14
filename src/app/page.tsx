@@ -261,7 +261,7 @@ export default function HomePage() {
       <section
         ref={worksSectionRef}
         id="works"
-        className="relative min-h-screen bg-gray-50"
+        className="relative min-h-screen"
       >
         <h2
           ref={worksTitleRef}
