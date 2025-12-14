@@ -119,6 +119,9 @@ export default function HomePage() {
 
     const totalScroll = inner.scrollWidth - section.clientWidth;
 
+    // 初期位置リセット
+    gsap.set(inner, { x: 0 });
+
     gsap.to(inner, {
       x: -totalScroll,
       ease: "none",
@@ -128,6 +131,7 @@ export default function HomePage() {
         end: () => `+=${totalScroll}`,
         scrub: true,
         pin: true,
+        pinSpacing: true, // 高さを確保
         anticipatePin: 1,
         invalidateOnRefresh: true,
       },
