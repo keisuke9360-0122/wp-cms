@@ -125,11 +125,12 @@ export default function HomePage() {
       scrollTrigger: {
         trigger: section,
         start: "top top",
-        end: () => `+=${totalScroll}`, // 横スクロール距離と一致
+        end: () => `+=${totalScroll}`,
         scrub: true,
         pin: true,
         anticipatePin: 1,
         invalidateOnRefresh: true,
+        // markers: true, // デバッグ用
       },
     });
 
@@ -162,7 +163,6 @@ export default function HomePage() {
   return (
     <main className="text-black">
       <MainVisual />
-
       {/* About */}
       <section
         ref={aboutRef}
@@ -238,10 +238,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Works */}
-      {/* <section ref={worksSectionRef} id="works" className="relative"> */}
-      {/* <h2
+      {/* Works本番 */}
+      {/* <section ref={worksSectionRef} id="works" className="relative">
+        <h2
           ref={worksTitleRef}
           className="absolute top-24 md:top-0 left-0 z-10
           inline-block whitespace-nowrap 
@@ -253,36 +252,59 @@ export default function HomePage() {
         >
           Works Works Works Works Works Works Works Works Works Works Works
           Works Works
-        </h2> */}
-
+        </h2>
+        {posts.slice(0, 6).map((post) => (
+          <Link
+            key={post.id}
+            href={`/posts/${post.slug}`}
+            className="w-screen h-full flex-shrink-0 relative"
+          >
+            {" "}
+            {post.featuredImage?.node?.sourceUrl && (
+              <Image
+                src={post.featuredImage.node.sourceUrl}
+                alt={post.featuredImage.node.altText || post.title}
+                fill
+                className="object-cover transition-all duration-500"
+              />
+            )}{" "}
+            <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/60 to-transparent p-6">
+              {" "}
+              <h3 className="text-2xl font-extrabold text-white drop-shadow-lg">
+                {" "}
+                {post.title}{" "}
+              </h3>{" "}
+            </div>{" "}
+          </Link>
+        ))}
+      </section> */}
+      {/* works試し用 */}
       <section ref={worksSectionRef} id="works" className="relative">
         <div
           ref={worksInnerRef}
           className="flex h-screen md:overflow-x-hidden"
-          style={{ width: `${posts.length * 100}vw` }} // カード枚数分の横幅
+          style={{ width: `${posts.length * 100}vw` }}
         >
-          {posts.slice(0, 6).map((post) => (
+          {posts.map((post) => (
             <Link
               key={post.id}
               href={`/posts/${post.slug}`}
               className="w-screen h-full flex-shrink-0 relative"
             >
-              {" "}
               {post.featuredImage?.node?.sourceUrl && (
                 <Image
                   src={post.featuredImage.node.sourceUrl}
                   alt={post.featuredImage.node.altText || post.title}
                   fill
-                  className="object-cover transition-all duration-500"
+                  onLoadingComplete={() => ScrollTrigger.refresh()}
+                  className="object-cover"
                 />
-              )}{" "}
+              )}
               <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/60 to-transparent p-6">
-                {" "}
-                <h3 className="text-2xl font-extrabold text-white drop-shadow-lg">
-                  {" "}
-                  {post.title}{" "}
-                </h3>{" "}
-              </div>{" "}
+                <h3 className="text-2xl font-extrabold text-white">
+                  {post.title}
+                </h3>
+              </div>
             </Link>
           ))}
         </div>

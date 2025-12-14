@@ -27,6 +27,11 @@ export type Post = {
   title: string;
   content?: string | null;
   excerpt: string;
-  featuredImage?: FeaturedImage | null;
+  featuredImage?: {
+    node?: {
+      sourceUrl?: string;
+      altText?: string;
+    };
+  };
   projectLink?: ProjectLink | null;
 };
