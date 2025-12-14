@@ -125,7 +125,7 @@ export default function HomePage() {
       scrollTrigger: {
         trigger: section,
         start: "top top",
-        end: () => `+=${totalScroll}`, // 高さと一致
+        end: () => `+=${totalScroll}`, // 横スクロール距離と一致
         scrub: true,
         pin: true,
         anticipatePin: 1,
@@ -254,20 +254,20 @@ export default function HomePage() {
           Works Works Works Works Works Works Works Works Works Works Works
           Works Works
         </h2> */}
-      {/* <section ref={worksSectionRef} id="works" className="relative">
+
+      <section ref={worksSectionRef} id="works" className="relative">
         <div
           ref={worksInnerRef}
           className="flex h-screen md:overflow-x-hidden"
-          style={{ width: `${posts.length * 100}vw` }}
+          style={{ width: `${posts.length * 100}vw` }} // カード枚数分の横幅
         >
           {posts.slice(0, 6).map((post) => (
             <Link
               key={post.id}
               href={`/posts/${post.slug}`}
-              className="w-[80vw] md:w-[60vw] h-[50vh] md:h-[70vh]
-              bg-white border border-gray-200 rounded-2xl
-              overflow-hidden shadow-md flex-shrink-0 relative snap-start"
+              className="w-screen h-full flex-shrink-0 relative"
             >
+              {" "}
               {post.featuredImage?.node?.sourceUrl && (
                 <Image
                   src={post.featuredImage.node.sourceUrl}
@@ -275,16 +275,18 @@ export default function HomePage() {
                   fill
                   className="object-cover transition-all duration-500"
                 />
-              )}
+              )}{" "}
               <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/60 to-transparent p-6">
+                {" "}
                 <h3 className="text-2xl font-extrabold text-white drop-shadow-lg">
-                  {post.title}
-                </h3>
-              </div>
+                  {" "}
+                  {post.title}{" "}
+                </h3>{" "}
+              </div>{" "}
             </Link>
           ))}
         </div>
-      </section> */}
+      </section>
 
       {/* Contact */}
       <section
