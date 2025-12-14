@@ -283,8 +283,8 @@ export default function HomePage() {
       </section>
 
       {/* Works */}
-      <section ref={worksSectionRef} id="works" className="relative">
-        {/* <h2
+      {/* <section ref={worksSectionRef} id="works" className="relative"> */}
+      {/* <h2
           ref={worksTitleRef}
           className="absolute top-24 md:top-0 left-0 z-10
           inline-block whitespace-nowrap 
@@ -297,13 +297,11 @@ export default function HomePage() {
           Works Works Works Works Works Works Works Works Works Works Works
           Works Works
         </h2> */}
-
+      <section ref={worksSectionRef} id="works" className="relative">
         <div
           ref={worksInnerRef}
-          className="flex gap-8 px-6 pt-36 md:pt-24
-             md:w-fit w-full
-             md:overflow-x-hidden
-             snap-x snap-mandatory"
+          className="flex h-screen md:overflow-x-hidden"
+          style={{ width: `${posts.length * 100}vw` }}
         >
           {posts.slice(0, 6).map((post) => (
             <Link
