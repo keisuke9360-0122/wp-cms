@@ -24,6 +24,7 @@ export default function HomePage() {
   const worksInnerRef = useRef<HTMLDivElement>(null);
   const worksPinRef = useRef<HTMLDivElement | null>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
+  const skillRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
   const worksTitleRef = useRef<HTMLHeadingElement>(null);
   const aboutTitleRef = useRef<HTMLHeadingElement>(null);
@@ -193,13 +194,11 @@ export default function HomePage() {
           text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-500 to-pink-600
           drop-shadow-2xl pointer-events-none opacity-30 mb-12"
         >
-          About About About About About About
+          Skill & About Skill & About Skill & About Skill & About Skill & About
+          Skill & About
         </h2>
 
         <div className="mb-16">
-          <p className="mb-6 text-gray-700 text-lg font-medium">
-            フロントエンドエンジニアとして以下の技術を使った経験があります。
-          </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             <TechCard
               icon={<FaReact className="text-sky-500" />}
@@ -242,7 +241,7 @@ export default function HomePage() {
           </div>
 
           <div className="md:w-2/3 text-left px-4 md:px-0">
-            <h3 className="text-2xl font-bold mb-4">美容師としての自己紹介</h3>
+            <h3 className="text-2xl font-bold mb-4">Keisuke Tsuruta</h3>
             <p className="text-gray-700 mb-4">
               美容専門学校を卒業後、都内の有名サロンでアシスタントとして勤務。その後スタイリストとして独立し、カット・カラー・パーマ・ヘアセット全般の経験を積みました。
             </p>

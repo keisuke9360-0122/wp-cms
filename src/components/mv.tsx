@@ -26,9 +26,7 @@ export default function MainVisual() {
         <h1 className="text-2xl md:text-2xl font-bold tracking-widest mb-4">
           KEISUKE TSURUTA PORTFOLIO
         </h1>
-        <p className="text-lg md:text-xl text-gray-300">
-          Frontend Engineer / Hair Stylist
-        </p>
+        <p className="text-lg md:text-xl">Frontend Engineer / Hair Stylist</p>
       </motion.div>
     </section>
   );
