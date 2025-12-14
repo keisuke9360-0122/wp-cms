@@ -14,7 +14,7 @@ export default function MainVisual() {
       />
 
       {/* トーン用オーバーレイ */}
-      <div className="absolute inset-0 bg-black/40" />
+      <div className="absolute inset-0" />
 
       {/* 中央テキスト */}
       <motion.div
