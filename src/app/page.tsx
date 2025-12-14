@@ -119,8 +119,8 @@ export default function HomePage() {
 
     const totalScroll = inner.scrollWidth - window.innerWidth;
 
-    // end と高さを一致させる
-    section.style.height = `${totalScroll}px`;
+    // 高さを「横スクロール距離 + 画面高さ」にする
+    section.style.height = `${totalScroll + window.innerHeight}px`;
 
     console.log("section height:", section.style.height);
     console.log("end value:", totalScroll);
@@ -131,12 +131,13 @@ export default function HomePage() {
       x: -totalScroll,
       ease: "none",
       scrollTrigger: {
+        id: "worksScroll",
         trigger: section,
         start: "top top",
-        end: () => `+=${totalScroll}`, // ← 高さと同じ値
+        end: () => `+=${totalScroll}`,
         scrub: true,
         pin: true,
-        pinSpacing: false,
+        pinSpacing: true, // ← まず true にして確認
         anticipatePin: 1,
         invalidateOnRefresh: true,
       },
