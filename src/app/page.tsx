@@ -304,7 +304,9 @@ export default function HomePage() {
                 <Image
                   src={post.featuredImage.node.sourceUrl}
                   alt={post.title}
-                  fill
+                  width={1920}
+                  height={1080}
+                  className="object-cover w-full h-full"
                   onLoadingComplete={() => ScrollTrigger.refresh()}
                 />
               )}
