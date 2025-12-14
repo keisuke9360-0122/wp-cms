@@ -117,9 +117,9 @@ export default function HomePage() {
     const inner = worksInnerRef.current;
     if (!section || !inner) return;
 
-    const totalScroll = inner.scrollWidth - section.clientWidth;
+    const totalScroll = inner.scrollWidth - window.innerWidth;
 
-    // 高さを自分で確保
+    // 高さを正しく確保
     section.style.height = `${window.innerHeight + totalScroll}px`;
 
     gsap.set(inner, { x: 0 });
