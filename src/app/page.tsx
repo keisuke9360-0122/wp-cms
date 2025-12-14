@@ -112,34 +112,23 @@ export default function HomePage() {
   //   ScrollTrigger.refresh();
   // }, [posts]);
   useEffect(() => {
-    if (posts.length === 0) return;
+    console.log("useEffect fired, posts:", posts);
+
     const section = worksSectionRef.current;
     const inner = worksInnerRef.current;
-    if (!section || !inner) return;
+
+    console.log("section:", section);
+    console.log("inner:", inner);
+
+    if (!section || !inner) {
+      console.log("refs are null");
+      return;
+    }
 
     const totalScroll = inner.scrollWidth - window.innerWidth;
-
-    // 高さを正しく確保
-    section.style.height = `${window.innerHeight + totalScroll}px`;
-
-    gsap.set(inner, { x: 0 });
-
-    gsap.to(inner, {
-      x: -totalScroll,
-      ease: "none",
-      scrollTrigger: {
-        trigger: section,
-        start: "top top",
-        end: () => `+=${totalScroll}`,
-        scrub: true,
-        pin: true,
-        pinSpacing: false,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-      },
-    });
-
-    ScrollTrigger.refresh();
+    console.log("inner.scrollWidth:", inner.scrollWidth);
+    console.log("window.innerWidth:", window.innerWidth);
+    console.log("totalScroll:", totalScroll);
   }, [posts]);
 
   // タイトル流す演出
