@@ -111,6 +111,51 @@ export default function HomePage() {
 
   //   ScrollTrigger.refresh();
   // }, [posts]);
+  {
+    /* works試し用（うまくいってるやつ） */
+  }
+  // useEffect(() => {
+  //   if (posts.length === 0) return;
+  //   const section = worksSectionRef.current;
+  //   const inner = worksInnerRef.current;
+  //   if (!section || !inner) return;
+
+  //   const totalScroll = inner.scrollWidth - window.innerWidth;
+  //   const endValue = totalScroll + window.innerHeight;
+
+  //   section.style.height = `${endValue}px`;
+
+  //   gsap.set(inner, { x: 0 });
+
+  //   const tween = gsap.to(inner, {
+  //     x: -totalScroll,
+  //     ease: "none",
+  //     scrollTrigger: {
+  //       id: "worksScroll",
+  //       trigger: section,
+  //       start: "top top",
+  //       end: () => `+=${endValue}`,
+  //       scrub: true,
+  //       pin: true,
+  //       pinSpacing: false,
+  //       anticipatePin: 1,
+  //       invalidateOnRefresh: true,
+  //     },
+  //   });
+
+  //   ScrollTrigger.refresh();
+
+  //   // cleanupで必ずkill
+  //   return () => {
+  //     tween.kill();
+  //     ScrollTrigger.getAll()
+  //       .filter((t) => t.vars.id === "worksScroll")
+  //       .forEach((t) => t.kill());
+  //   };
+  // }, [posts]);
+
+  // works試し用;
+
   useEffect(() => {
     if (posts.length === 0) return;
     const section = worksSectionRef.current;
@@ -118,9 +163,10 @@ export default function HomePage() {
     if (!section || !inner) return;
 
     const totalScroll = inner.scrollWidth - window.innerWidth;
-    const endValue = totalScroll + window.innerHeight;
+    const endValue = totalScroll; // ← window.innerHeight を足さない
 
-    section.style.height = `${endValue}px`;
+    // section.style.height を無理に指定しない
+    section.style.height = "auto";
 
     gsap.set(inner, { x: 0 });
 
@@ -134,7 +180,7 @@ export default function HomePage() {
         end: () => `+=${endValue}`,
         scrub: true,
         pin: true,
-        pinSpacing: false,
+        pinSpacing: true, // ← true に戻す
         anticipatePin: 1,
         invalidateOnRefresh: true,
       },
@@ -142,7 +188,6 @@ export default function HomePage() {
 
     ScrollTrigger.refresh();
 
-    // cleanupで必ずkill
     return () => {
       tween.kill();
       ScrollTrigger.getAll()
@@ -252,47 +297,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      {/* Works本番 */}
-      {/* <section ref={worksSectionRef} id="works" className="relative">
-        <h2
-          ref={worksTitleRef}
-          className="absolute top-24 md:top-0 left-0 z-10
-          inline-block whitespace-nowrap 
-          text-[clamp(3rem,12vw,10rem)]
-          font-extrabold uppercase tracking-tight
-          text-transparent bg-clip-text
-          bg-gradient-to-r from-yellow-400 via-red-500 to-pink-600
-          drop-shadow-2xl pointer-events-none opacity-30"
-        >
-          Works Works Works Works Works Works Works Works Works Works Works
-          Works Works
-        </h2>
-        {posts.slice(0, 6).map((post) => (
-          <Link
-            key={post.id}
-            href={`/posts/${post.slug}`}
-            className="w-screen h-full flex-shrink-0 relative"
-          >
-            {" "}
-            {post.featuredImage?.node?.sourceUrl && (
-              <Image
-                src={post.featuredImage.node.sourceUrl}
-                alt={post.featuredImage.node.altText || post.title}
-                fill
-                className="object-cover transition-all duration-500"
-              />
-            )}{" "}
-            <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/60 to-transparent p-6">
-              {" "}
-              <h3 className="text-2xl font-extrabold text-white drop-shadow-lg">
-                {" "}
-                {post.title}{" "}
-              </h3>{" "}
-            </div>{" "}
-          </Link>
-        ))}
-      </section> */}
-      {/* works試し用 */}
+
       <section
         ref={worksSectionRef}
         id="works"
