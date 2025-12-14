@@ -118,24 +118,20 @@ export default function HomePage() {
     if (!section || !inner) return;
 
     const totalScroll = inner.scrollWidth - window.innerWidth;
-    const endValue = totalScroll + window.innerHeight; // ← 高さと同じ値にする
+    const endValue = totalScroll + window.innerHeight;
 
-    // 高さを endValue に揃える
     section.style.height = `${endValue}px`;
-
-    console.log("section height:", section.style.height);
-    console.log("end value:", endValue);
 
     gsap.set(inner, { x: 0 });
 
-    gsap.to(inner, {
+    const tween = gsap.to(inner, {
       x: -totalScroll,
       ease: "none",
       scrollTrigger: {
         id: "worksScroll",
         trigger: section,
         start: "top top",
-        end: () => `+=${endValue}`, // ← 高さと一致
+        end: () => `+=${endValue}`,
         scrub: true,
         pin: true,
         pinSpacing: false,
@@ -145,6 +141,14 @@ export default function HomePage() {
     });
 
     ScrollTrigger.refresh();
+
+    // cleanupで必ずkill
+    return () => {
+      tween.kill();
+      ScrollTrigger.getAll()
+        .filter((t) => t.vars.id === "worksScroll")
+        .forEach((t) => t.kill());
+    };
   }, [posts]);
 
   // タイトル流す演出
