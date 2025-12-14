@@ -296,10 +296,7 @@ export default function HomePage() {
           style={{ width: `${posts.length * 100}vw` }}
         >
           {posts.map((post) => (
-            <div
-              key={post.id}
-              className="h-full flex-shrink-0 relative basis-full"
-            >
+            <div key={post.id} className="h-full flex-shrink-0 relative">
               {post.featuredImage?.node?.sourceUrl && (
                 <Image
                   src={post.featuredImage.node.sourceUrl}
@@ -307,7 +304,6 @@ export default function HomePage() {
                   width={1920}
                   height={1080}
                   className="object-cover w-full h-full"
-                  onLoadingComplete={() => ScrollTrigger.refresh()}
                 />
               )}
               <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/60 to-transparent p-6">
