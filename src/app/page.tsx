@@ -112,57 +112,42 @@ export default function HomePage() {
   //   ScrollTrigger.refresh();
   // }, [posts]);
   useEffect(() => {
+    if (posts.length === 0) return;
     const section = worksSectionRef.current;
     const inner = worksInnerRef.current;
     if (!section || !inner) return;
 
-    // 既存トリガーを破棄
-    ScrollTrigger.killAll();
+    const totalScroll = inner.scrollWidth - window.innerWidth;
+    const endValue = totalScroll + window.innerHeight;
 
-    const setup = () => {
-      const totalScroll = inner.scrollWidth - section.clientWidth;
+    section.style.height = `${endValue}px`;
 
-      gsap.set(inner, { x: 0 });
+    gsap.set(inner, { x: 0 });
 
-      gsap.to(inner, {
-        x: -Math.max(totalScroll, 0),
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: () => `+=${Math.max(totalScroll, 0)}`,
-          pin: true,
-          scrub: 1,
-          invalidateOnRefresh: true,
-        },
-      });
+    const tween = gsap.to(inner, {
+      x: -totalScroll,
+      ease: "none",
+      scrollTrigger: {
+        id: "worksScroll",
+        trigger: section,
+        start: "top top",
+        end: () => `+=${endValue}`,
+        scrub: true,
+        pin: true,
+        pinSpacing: false,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+      },
+    });
 
-      ScrollTrigger.refresh();
-    };
+    ScrollTrigger.refresh();
 
-    // 画像ロード後にセットアップ
-    const images = inner.querySelectorAll("img");
-    let pending = images.length;
-    if (pending === 0) setup();
-    else {
-      const done = () => {
-        pending--;
-        if (pending <= 0) setup();
-      };
-      images.forEach((img) => {
-        if (img.complete) {
-          done();
-        } else {
-          img.addEventListener("load", done);
-          img.addEventListener("error", done);
-        }
-      });
-    }
-
-    window.addEventListener("resize", setup);
+    // cleanupで必ずkill
     return () => {
-      window.removeEventListener("resize", setup);
-      ScrollTrigger.killAll();
+      tween.kill();
+      ScrollTrigger.getAll()
+        .filter((t) => t.vars.id === "worksScroll")
+        .forEach((t) => t.kill());
     };
   }, [posts]);
 
