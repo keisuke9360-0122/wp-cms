@@ -113,70 +113,27 @@ export default function HomePage() {
   // }, [posts]);
   useEffect(() => {
     if (posts.length === 0) return;
-
     const section = worksSectionRef.current;
     const inner = worksInnerRef.current;
     if (!section || !inner) return;
 
-    // 1) 既存のトリガーと tween を殺す
-    ScrollTrigger.getAll()
-      .filter((t) => t.vars.id === "worksScroll")
-      .forEach((t) => t.kill());
-    gsap.killTweensOf(inner);
+    const totalScroll = inner.scrollWidth - section.clientWidth;
 
-    // 2) 画像ロード待ちで refresh（Next/Image は遅れることがある）
-    // 少し遅延して幅を確定させる
-    const refreshAfterImages = () => {
-      const totalScroll = inner.scrollWidth - section.clientWidth;
-      if (!(window.innerWidth >= 768) || totalScroll <= 0) {
-        // PC未満はネイティブ横スクロール（GSAPしない）
-        return;
-      }
+    gsap.to(inner, {
+      x: -totalScroll,
+      ease: "none",
+      scrollTrigger: {
+        trigger: section,
+        start: "top top",
+        end: () => `+=${totalScroll}`, // 高さと一致
+        scrub: true,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+      },
+    });
 
-      // 3) 初期位置リセット（ジャンプ防止）
-      gsap.set(inner, { x: 0 });
-
-      // 4) セクション高さと end を完全一致させる
-      // → totalScroll だけ縦スクロールを確保して、その間に横に流す
-      section.style.height = `${totalScroll}px`;
-
-      // 5) ScrollTrigger 作成
-      section.style.height = `${totalScroll}px`;
-
-      gsap.to(inner, {
-        x: -totalScroll,
-        ease: "none",
-        scrollTrigger: {
-          id: "worksScroll",
-          trigger: section,
-          start: "top top",
-          end: () => `+=${totalScroll}`, // 高さと一致
-          scrub: true,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
-      });
-
-      ScrollTrigger.refresh();
-    };
-
-    // 遅延して refresh（画像ロードやフォント適用後に幅が変わる対策）
-    // 即時＋少し遅延の二段構え
-    refreshAfterImages();
-    setTimeout(refreshAfterImages, 200);
-
-    // リサイズ時にも再計算
-    const onResize = () => {
-      ScrollTrigger.getAll()
-        .filter((t) => t.vars.id === "worksScroll")
-        .forEach((t) => t.kill());
-      gsap.killTweensOf(inner);
-      refreshAfterImages();
-    };
-    window.addEventListener("resize", onResize);
-
-    return () => window.removeEventListener("resize", onResize);
+    ScrollTrigger.refresh();
   }, [posts]);
 
   // タイトル流す演出
