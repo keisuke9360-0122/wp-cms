@@ -69,51 +69,8 @@ export default function HomePage() {
     })();
   }, []);
 
-  // Works 横スクロール
-  // useEffect(() => {
-  //   if (posts.length === 0) return;
+  // works試し用（上手くいってるやつ）;
 
-  //   const section = worksSectionRef.current;
-  //   const inner = worksInnerRef.current;
-  //   if (!section || !inner) return;
-
-  //   // 既存のトリガーを消す
-  //   ScrollTrigger.getAll()
-  //     .filter((t) => t.vars.id === "worksScroll")
-  //     .forEach((t) => t.kill());
-
-  //   gsap.killTweensOf(inner);
-
-  //   const totalScroll = inner.scrollWidth - section.clientWidth;
-
-  //   if (window.innerWidth >= 768 && totalScroll > 0) {
-  //     // ❗️scrollWidth を高さにしない
-  //     // section.style.height = `${inner.scrollWidth}px`;
-
-  //     // 👍 必要なのは “スクロール距離 + 画面の高さ”
-  //     section.style.height = `${totalScroll}px`;
-
-  //     gsap.to(inner, {
-  //       x: -totalScroll,
-  //       ease: "none",
-  //       scrollTrigger: {
-  //         id: "worksScroll",
-  //         trigger: section,
-  //         start: "top top",
-  //         end: () => `+=${totalScroll}`,
-  //         scrub: true,
-  //         pin: true,
-  //         anticipatePin: 1,
-  //         invalidateOnRefresh: true,
-  //       },
-  //     });
-  //   }
-
-  //   ScrollTrigger.refresh();
-  // }, [posts]);
-  {
-    /* works試し用（うまくいってるやつ） */
-  }
   // useEffect(() => {
   //   if (posts.length === 0) return;
   //   const section = worksSectionRef.current;
@@ -121,9 +78,10 @@ export default function HomePage() {
   //   if (!section || !inner) return;
 
   //   const totalScroll = inner.scrollWidth - window.innerWidth;
-  //   const endValue = totalScroll + window.innerHeight;
+  //   const endValue = totalScroll; // ← window.innerHeight を足さない
 
-  //   section.style.height = `${endValue}px`;
+  //   // section.style.height を無理に指定しない
+  //   section.style.height = "auto";
 
   //   gsap.set(inner, { x: 0 });
 
@@ -137,7 +95,7 @@ export default function HomePage() {
   //       end: () => `+=${endValue}`,
   //       scrub: true,
   //       pin: true,
-  //       pinSpacing: false,
+  //       pinSpacing: true, // ← true に戻す
   //       anticipatePin: 1,
   //       invalidateOnRefresh: true,
   //     },
@@ -145,7 +103,6 @@ export default function HomePage() {
 
   //   ScrollTrigger.refresh();
 
-  //   // cleanupで必ずkill
   //   return () => {
   //     tween.kill();
   //     ScrollTrigger.getAll()
@@ -154,8 +111,7 @@ export default function HomePage() {
   //   };
   // }, [posts]);
 
-  // works試し用;
-
+  // sp横スクロール解除;
   useEffect(() => {
     if (posts.length === 0) return;
     const section = worksSectionRef.current;
@@ -163,37 +119,39 @@ export default function HomePage() {
     if (!section || !inner) return;
 
     const totalScroll = inner.scrollWidth - window.innerWidth;
-    const endValue = totalScroll; // ← window.innerHeight を足さない
 
-    // section.style.height を無理に指定しない
-    section.style.height = "auto";
+    // 画面幅で分岐
+    if (window.innerWidth >= 768 && totalScroll > 0) {
+      gsap.set(inner, { x: 0 });
 
-    gsap.set(inner, { x: 0 });
+      const tween = gsap.to(inner, {
+        x: -totalScroll,
+        ease: "none",
+        scrollTrigger: {
+          id: "worksScroll",
+          trigger: section,
+          start: "top top",
+          end: () => `+=${totalScroll}`,
+          scrub: true,
+          pin: true,
+          pinSpacing: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
 
-    const tween = gsap.to(inner, {
-      x: -totalScroll,
-      ease: "none",
-      scrollTrigger: {
-        id: "worksScroll",
-        trigger: section,
-        start: "top top",
-        end: () => `+=${endValue}`,
-        scrub: true,
-        pin: true,
-        pinSpacing: true, // ← true に戻す
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-      },
-    });
+      ScrollTrigger.refresh();
 
-    ScrollTrigger.refresh();
-
-    return () => {
-      tween.kill();
-      ScrollTrigger.getAll()
-        .filter((t) => t.vars.id === "worksScroll")
-        .forEach((t) => t.kill());
-    };
+      return () => {
+        tween.kill();
+        ScrollTrigger.getAll()
+          .filter((t) => t.vars.id === "worksScroll")
+          .forEach((t) => t.kill());
+      };
+    } else {
+      // スマホでは ScrollTrigger を使わず通常スクロール
+      gsap.set(inner, { clearProps: "all" });
+    }
   }, [posts]);
 
   // タイトル流す演出
@@ -297,37 +255,50 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      {/* 上手くいったやつ */}
 
+      {/* お試し用 */}
       <section
         ref={worksSectionRef}
         id="works"
-        className="relative min-h-screen overflow-hidden bg-gray-50"
+        className="relative min-h-screen bg-gray-50"
       >
-        {/* タイトルをカードに被せる */}
         <h2
           ref={worksTitleRef}
           className="absolute top-24 md:top-0 left-0 z-10
-          inline-block whitespace-nowrap 
-          text-[clamp(3rem,12vw,10rem)]
-          font-extrabold uppercase tracking-tight
-          text-transparent bg-clip-text
-          bg-gradient-to-r from-yellow-400 via-red-500 to-pink-600
-          drop-shadow-2xl pointer-events-none opacity-30"
+    inline-block whitespace-nowrap 
+    text-[clamp(3rem,12vw,10rem)]
+    font-extrabold uppercase tracking-tight
+    text-transparent bg-clip-text
+    bg-gradient-to-r from-yellow-400 via-red-500 to-pink-600
+    drop-shadow-2xl pointer-events-none opacity-30"
         >
           Works Works Works Works Works Works Works Works Works Works Works
-          Works Works
+          Works
         </h2>
 
-        {/* 余白を減らしてカードに近づける */}
+        {/* 横スクロール部分 */}
         <div
           ref={worksInnerRef}
-          className="flex h-screen items-center gap-8 px-12 pt-24"
+          className="
+      flex gap-8 px-6 pt-24
+      md:h-screen md:items-center
+      overflow-x-auto md:overflow-visible
+      snap-x snap-mandatory md:snap-none
+      scroll-smooth
+    "
         >
           {posts.slice(0, 6).map((post) => (
             <Link
               key={post.id}
               href={`/posts/${post.slug}`}
-              className="min-w-[70vw] h-[70vh] bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-md flex-shrink-0 relative"
+              className="
+          min-w-[80%] md:min-w-[70vw]
+          h-[60vh] md:h-[70vh]
+          bg-white border border-gray-200 rounded-2xl
+          overflow-hidden shadow-md flex-shrink-0 relative
+          snap-start
+        "
             >
               {post.featuredImage?.node?.sourceUrl && (
                 <Image
