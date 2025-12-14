@@ -28,7 +28,7 @@ export default function RootLayout({
         <div className="absolute inset-0 -z-10 animate-gradient"></div>
 
         <LoadingProvider>
-          {/* <LoadingOverlay /> */}
+          <LoadingOverlay />
           <div className="relative z-20 overflow-x-hidden">{children}</div>
           {/* <div className="relative z-20">{children}</div> */}
         </LoadingProvider>
