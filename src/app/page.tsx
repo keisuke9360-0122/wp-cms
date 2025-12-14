@@ -298,7 +298,7 @@ export default function HomePage() {
           {posts.map((post) => (
             <div
               key={post.id}
-              className="w-screen h-full flex-shrink-0 relative"
+              className="h-full flex-shrink-0 relative basis-full"
             >
               {post.featuredImage?.node?.sourceUrl && (
                 <Image
