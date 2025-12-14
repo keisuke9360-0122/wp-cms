@@ -32,6 +32,6 @@ export type Post = {
       sourceUrl?: string;
       altText?: string;
     };
-  };
+  } | null; // ← null を許容
   projectLink?: ProjectLink | null;
 };
