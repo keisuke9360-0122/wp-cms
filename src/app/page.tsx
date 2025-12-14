@@ -178,7 +178,7 @@ export default function HomePage() {
     <main className="text-black">
       <MainVisual />
       {/* About */}
-      {/* <section
+      <section
         ref={aboutRef}
         id="about"
         className="relative z-30 w-full py-24 md:py-48 px-2"
@@ -251,7 +251,7 @@ export default function HomePage() {
             </p>
           </div>
         </div>
-      </section> */}
+      </section>
       {/* Works本番 */}
       {/* <section ref={worksSectionRef} id="works" className="relative">
         <h2
@@ -299,8 +299,18 @@ export default function HomePage() {
         className="relative min-h-screen overflow-hidden bg-gray-50"
       >
         {/* タイトルをカードに被せる */}
-        <h2 className="absolute top-6 left-12 z-20 text-[clamp(2rem,6vw,4rem)] font-extrabold uppercase text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-500 to-pink-600 drop-shadow-xl">
-          Works
+        <h2
+          ref={worksTitleRef}
+          className="absolute top-24 md:top-0 left-0 z-10
+          inline-block whitespace-nowrap 
+          text-[clamp(3rem,12vw,10rem)]
+          font-extrabold uppercase tracking-tight
+          text-transparent bg-clip-text
+          bg-gradient-to-r from-yellow-400 via-red-500 to-pink-600
+          drop-shadow-2xl pointer-events-none opacity-30"
+        >
+          Works Works Works Works Works Works Works Works Works Works Works
+          Works Works
         </h2>
 
         {/* 余白を減らしてカードに近づける */}
@@ -333,7 +343,7 @@ export default function HomePage() {
       </section>
 
       {/* Contact */}
-      {/* <section
+      <section
         id="contact"
         className="relative z-30 py-32 md:py-48 px-8 text-center"
       >
@@ -370,7 +380,7 @@ export default function HomePage() {
             GitHub
           </a>
         </div>
-      </section> */}
+      </section>
     </main>
   );
 }
