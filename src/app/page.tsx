@@ -343,14 +343,15 @@ export default function HomePage() {
             href="https://instagram.com/your_account"
             target="_blank"
             rel="noopener"
-            className="text-black hover:text-pink-500 transition-colors"
+            className="hover:text-pink-500 transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 448 512"
-              className="w-8 h-8 fill-current"
+              className="w-8 h-8"
+              fill="currentColor"
             >
-              <path d="M224,202.66A53.34,53.34,0,1,0,277.34,256,53.38,53.38,0,0,0,224,202.66Zm124.71-41a54,54,0,1,1-54-54A54,54,0,0,1,348.71,161.66ZM398.8,80A80,80,0,0,0,368,50.2C341.5,24.7,307.4,8,272,8H176C140.6,8,106.5,24.7,80,50.2A80,80,0,0,0,50.2,80C24.7,106.5,8,140.6,8,176v96c0,35.4,16.7,69.5,42.2,96A80,80,0,0,0,80,461.8C106.5,487.3,140.6,504,176,504h96c35.4,0,69.5-16.7,96-42.2A80,80,0,0,0,398.8,432c25.5-26.5,42.2-60.6,42.2-96V176C441,140.6,424.3,106.5,398.8,80ZM224,338a82,82,0,1,1,82-82A82,82,0,0,1,224,338Z" />
+              <path d="M224,202.66A53.34,53.34,0,1,0,277.34,256..." />
             </svg>
           </a>
 
