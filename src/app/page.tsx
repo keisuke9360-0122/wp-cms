@@ -325,34 +325,59 @@ export default function HomePage() {
         <h2
           ref={contactTitleRef}
           className="inline-block whitespace-nowrap 
-          text-[clamp(3rem,12vw,10rem)]
-          font-extrabold uppercase tracking-tight text-transparent bg-clip-text 
-          bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 drop-shadow-2xl"
+    text-[clamp(3rem,12vw,10rem)]
+    font-extrabold uppercase tracking-tight text-transparent bg-clip-text 
+    bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 drop-shadow-2xl"
         >
           Contact Contact Contact Contact Contact Contact Contact Contact
           Contact Contact Contact Contact
         </h2>
 
         <p className="mb-6 text-gray-800 text-lg">
-          ご連絡は以下のSNSからお願いいたします。
+          お問い合わせはSNSからお願いいたします。
         </p>
 
         <div className="flex justify-center gap-8">
+          {/* Instagram アイコン */}
           <a
-            href="https://twitter.com/"
+            href="https://instagram.com/your_account"
             target="_blank"
             rel="noopener"
-            className="text-black hover:underline font-semibold"
+            className="text-black hover:text-pink-500 transition-colors"
           >
-            Twitter
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"
+              className="w-8 h-8 fill-current"
+            >
+              <path d="M224,202.66A53.34,53.34,0,1,0,277.34,256,53.38,53.38,0,0,0,224,202.66Zm124.71-41a54,54,0,1,1-54-54A54,54,0,0,1,348.71,161.66ZM398.8,80A80,80,0,0,0,368,50.2C341.5,24.7,307.4,8,272,8H176C140.6,8,106.5,24.7,80,50.2A80,80,0,0,0,50.2,80C24.7,106.5,8,140.6,8,176v96c0,35.4,16.7,69.5,42.2,96A80,80,0,0,0,80,461.8C106.5,487.3,140.6,504,176,504h96c35.4,0,69.5-16.7,96-42.2A80,80,0,0,0,398.8,432c25.5-26.5,42.2-60.6,42.2-96V176C441,140.6,424.3,106.5,398.8,80ZM224,338a82,82,0,1,1,82-82A82,82,0,0,1,224,338Z" />
+            </svg>
           </a>
+
+          {/* GitHub アイコン */}
           <a
             href="https://github.com/keisuke9360-0122/wp-cms"
             target="_blank"
             rel="noopener"
-            className="text-black hover:underline font-semibold"
+            className="text-black hover:text-gray-700 transition-colors"
           >
-            GitHub
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              className="w-8 h-8 fill-current"
+            >
+              <path
+                fillRule="evenodd"
+                d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.29 3.438 9.787 8.205 11.387.6.111.82-.261.82-.58
+          0-.287-.011-1.244-.017-2.255-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.757-1.333-1.757
+          -1.089-.745.083-.73.083-.73 1.205.085 1.84 1.237 1.84 1.237 1.07 1.834 2.809 1.304 3.495.997.108-.775.418-1.305.762-1.605
+          -2.665-.304-5.466-1.334-5.466-5.931 0-1.31.469-2.381 1.236-3.221-.124-.303-.536-1.523.117-3.176 0 0 1.008-.322 3.3 1.23
+          .957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.289-1.552 3.295-1.23 3.295-1.23.655 1.653.243 2.873.12 3.176
+          .77.84 1.235 1.911 1.235 3.221 0 4.609-2.805 5.624-5.476 5.921.43.372.823 1.102.823 2.222
+          0 1.606-.015 2.898-.015 3.293 0 .322.216.697.825.578C20.565 22.283 24 17.789 24 12.5
+          24 5.87 18.627.5 12 .5z"
+              />
+            </svg>
           </a>
         </div>
       </section>

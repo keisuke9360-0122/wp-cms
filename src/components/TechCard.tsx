@@ -13,7 +13,7 @@ export default function TechCard({
 }: TechCardProps) {
   return (
     <div
-      className={`flex flex-col items-center justify-center p-8 md:p-10 bg-white/90 backdrop-blur-md rounded-3xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-transform duration-300 ${className}`}
+      className={`flex flex-col items-center justify-center p-8 md:p-10 bg-white/90 backdrop-blur-md rounded-3xl shadow-xl ${className}`}
       style={{ minWidth: "48%" }} // 横幅を広めに固定
     >
       <div className="text-5xl mb-4">{icon}</div>
