@@ -8,8 +8,11 @@ export async function POST(req: Request) {
     const email = formData.get("email");
     const message = formData.get("message");
 
+    // ★ここに transporter を書く
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
       auth: {
         user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS,
