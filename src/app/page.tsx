@@ -8,6 +8,7 @@ import TechCard from "../components/TechCard";
 import { Post } from "@/types";
 import { gsap, ScrollTrigger } from "../lib/gsap";
 import { useLoading } from "@/app/contexts/LoadingContext";
+import { FaInstagram, FaGithub } from "react-icons/fa";
 
 import {
   FaReact,
@@ -255,7 +256,6 @@ export default function HomePage() {
         </div>
       </section>
       {/* 上手くいったやつ */}
-
       {/* お試し用 */}
       <section
         ref={worksSectionRef}
@@ -316,8 +316,8 @@ export default function HomePage() {
           ))}
         </div>
       </section>
-
       {/* Contact */}
+
       <section
         id="contact"
         className="relative z-30 py-32 md:py-48 px-8 text-center"
@@ -334,7 +334,7 @@ export default function HomePage() {
         </h2>
 
         <p className="mb-6 text-gray-800 text-lg">
-          お問い合わせはSNSからお願いいたします。
+          ご連絡は以下のSNSからお願いいたします。
         </p>
 
         <div className="flex justify-center gap-8">
@@ -343,16 +343,9 @@ export default function HomePage() {
             href="https://instagram.com/your_account"
             target="_blank"
             rel="noopener"
-            className="hover:text-pink-500 transition-colors"
+            className="text-black hover:text-gray-600 transition-colors"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 448 512"
-              className="w-8 h-8"
-              fill="currentColor"
-            >
-              <path d="M224,202.66A53.34,53.34,0,1,0,277.34,256..." />
-            </svg>
+            <FaInstagram className="w-8 h-8" />
           </a>
 
           {/* GitHub アイコン */}
@@ -360,25 +353,9 @@ export default function HomePage() {
             href="https://github.com/keisuke9360-0122/wp-cms"
             target="_blank"
             rel="noopener"
-            className="text-black hover:text-gray-700 transition-colors"
+            className="text-black hover:text-gray-600 transition-colors"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              className="w-8 h-8 fill-current"
-            >
-              <path
-                fillRule="evenodd"
-                d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.29 3.438 9.787 8.205 11.387.6.111.82-.261.82-.58
-          0-.287-.011-1.244-.017-2.255-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.757-1.333-1.757
-          -1.089-.745.083-.73.083-.73 1.205.085 1.84 1.237 1.84 1.237 1.07 1.834 2.809 1.304 3.495.997.108-.775.418-1.305.762-1.605
-          -2.665-.304-5.466-1.334-5.466-5.931 0-1.31.469-2.381 1.236-3.221-.124-.303-.536-1.523.117-3.176 0 0 1.008-.322 3.3 1.23
-          .957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.289-1.552 3.295-1.23 3.295-1.23.655 1.653.243 2.873.12 3.176
-          .77.84 1.235 1.911 1.235 3.221 0 4.609-2.805 5.624-5.476 5.921.43.372.823 1.102.823 2.222
-          0 1.606-.015 2.898-.015 3.293 0 .322.216.697.825.578C20.565 22.283 24 17.789 24 12.5
-          24 5.87 18.627.5 12 .5z"
-              />
-            </svg>
+            <FaGithub className="w-8 h-8" />
           </a>
         </div>
       </section>
