@@ -334,7 +334,7 @@ export default function HomePage() {
         </h2>
 
         <p className="mb-6 text-gray-800 text-lg">
-          ご連絡は以下のSNSからお願いいたします。
+          ご連絡は以下のフォームからお願いいたします。
         </p>
         <form
           action="/api/contact"
