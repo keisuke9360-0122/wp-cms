@@ -336,7 +336,55 @@ export default function HomePage() {
         <p className="mb-6 text-gray-800 text-lg">
           ご連絡は以下のSNSからお願いいたします。
         </p>
-
+        <form
+          action="/api/contact"
+          method="POST"
+          className="max-w-lg mx-auto space-y-6 text-left"
+        >
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              お名前
+            </label>
+            <input
+              type="text"
+              name="name"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm 
+      focus:border-blue-500 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              メールアドレス
+            </label>
+            <input
+              type="email"
+              name="email"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm 
+      focus:border-blue-500 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              メッセージ
+            </label>
+            <textarea
+              name="message"
+              rows={4}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm 
+      focus:border-blue-500 focus:ring-blue-500"
+              required
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            className="w-full py-2 px-4 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 
+    text-white font-bold rounded-md shadow hover:opacity-90 transition"
+          >
+            送信する
+          </button>
+        </form>
         <div className="flex justify-center gap-8">
           {/* Instagram アイコン */}
           <a
