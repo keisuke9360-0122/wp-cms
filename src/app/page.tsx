@@ -379,16 +379,16 @@ export default function HomePage() {
           </div>
           <button
             type="submit"
-            className="w-full py-2 px-4 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 
-    text-white font-bold rounded-md shadow hover:opacity-90 transition"
+            className="w-full py-2 px-4 bg-gray-900 text-white font-medium rounded-md 
+  transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:bg-gray-800"
           >
             送信する
           </button>
         </form>
-        <div className="flex justify-center gap-8">
+        <div className="flex justify-center gap-8 my-4">
           {/* Instagram アイコン */}
           <a
-            href="https://instagram.com/your_account"
+            href="https://instagram.com/keitsuru0122"
             target="_blank"
             rel="noopener"
             className="text-black hover:text-gray-600 transition-colors"
