@@ -644,12 +644,9 @@ export default function HomePage() {
           Works
         </h2>
 
-        {/* ✅ h2 の下余白を揃えるためのダミー */}
-        <div className="h-20 md:h-20"></div>
-
         <div
           ref={worksInnerRef}
-          className="flex gap-8 px-6 pt-24
+          className="flex gap-8 px-6
           md:h-screen md:items-center
           overflow-x-auto md:overflow-visible
           snap-x snap-mandatory md:snap-none
