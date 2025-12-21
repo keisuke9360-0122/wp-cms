@@ -26,7 +26,7 @@ export async function POST(req: Request) {
     });
 
     // ✅ 303 リダイレクトで GET に変換して遷移
-    return NextResponse.redirect(new URL("/contact/thanks", req.url), {
+    return NextResponse.redirect(new URL("/contact-thanks", req.url), {
       status: 303,
     });
   } catch (error: any) {
