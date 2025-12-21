@@ -649,6 +649,25 @@ export default function HomePage() {
             <p className="text-gray-700 mb-4">
               コーディングは、reactやnextを勉強中
             </p>
+            <div className="flex justify-center md:justify-startgap-8 mt-32">
+              <a
+                href="https://instagram.com/keitsuru0122"
+                target="_blank"
+                rel="noopener"
+                className="text-black hover:text-gray-600 transition-colors"
+              >
+                <FaInstagram className="w-8 h-8" />
+              </a>
+
+              <a
+                href="https://github.com/keisuke9360-0122/wp-cms"
+                target="_blank"
+                rel="noopener"
+                className="text-black hover:text-gray-600 transition-colors"
+              >
+                <FaGithub className="w-8 h-8" />
+              </a>
+            </div>
           </div>
         </div>
       </section>
