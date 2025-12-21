@@ -25,8 +25,10 @@ export async function POST(req: Request) {
       text: `送信者: ${email}\n\n${message}`,
     });
 
-    // ✅ 送信完了ページへリダイレクト
-    return NextResponse.redirect(new URL("/contact/thanks", req.url));
+    // ✅ 303 リダイレクトで GET に変換して遷移
+    return NextResponse.redirect(new URL("/contact/thanks", req.url), {
+      status: 303,
+    });
   } catch (error: any) {
     console.error("メール送信エラー:", error);
     return NextResponse.json(
