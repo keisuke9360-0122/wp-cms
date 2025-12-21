@@ -2,10 +2,15 @@
 import { useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { useLoading } from "@/app/contexts/LoadingContext";
+import { usePathname } from "next/navigation";
 
 export default function LoadingOverlay() {
   const { loading } = useLoading();
   const [isVisible, setIsVisible] = useState(true);
+  const pathname = usePathname();
+
+  // ✅ thanks ページではローディングを完全に無効化
+  if (pathname === "/contact-thanks") return null;
 
   useEffect(() => {
     if (!loading) {
