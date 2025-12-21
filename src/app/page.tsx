@@ -670,7 +670,7 @@ export default function HomePage() {
 
         <div
           ref={worksInnerRef}
-          className="flex gap-8 px-6 pt-24
+          className="flex gap-8 px-6 py-24
           md:h-screen md:items-center
           overflow-x-auto md:overflow-visible
           snap-x snap-mandatory md:snap-none
