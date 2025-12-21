@@ -681,7 +681,7 @@ export default function HomePage() {
               key={post.id}
               href={`/posts/${post.slug}`}
               className="min-w-[50%] md:min-w-[50vw]
-              h-[50vh] md:h-[55vh]
+              h-[50vh] md:h-[50vh]
               bg-white border border-gray-200 rounded-2xl
               overflow-hidden shadow-md flex-shrink-0 relative
               snap-start"
@@ -798,6 +798,9 @@ export default function HomePage() {
           </a>
         </div>
       </section>
+      <footer className="py-8 text-center text-sm text-gray-500">
+        © 2025 Keisuke Tsuruta. All Rights Reserved.
+      </footer>
     </main>
   );
 }
