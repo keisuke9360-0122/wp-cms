@@ -652,7 +652,7 @@ export default function HomePage() {
       <section
         ref={worksSectionRef}
         id="works"
-        className="relative py-32 md:py-48"
+        className="relative py-32 md:py-48 md:h-screen"
       >
         <h2
           ref={worksTitleRef}
