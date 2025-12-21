@@ -670,11 +670,11 @@ export default function HomePage() {
 
         <div
           ref={worksInnerRef}
-          className="flex gap-8 px-6 py-24
-          md:h-screen md:items-center
-          overflow-x-auto md:overflow-visible
-          snap-x snap-mandatory md:snap-none
-          scroll-smooth"
+          className="flex gap-8 px-6 py-24 md:py-0
+  md:h-screen md:items-center
+  overflow-x-auto md:overflow-visible
+  snap-x snap-mandatory md:snap-none
+  scroll-smooth"
         >
           {posts.slice(0, 6).map((post) => (
             <Link
