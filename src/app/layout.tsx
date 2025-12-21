@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { usePathname } from "next/navigation";
 import { Inter } from "next/font/google";
 
 import "./globals.css";
@@ -21,16 +22,19 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const isThanksPage = pathname === "/contact-thanks";
+
   return (
     <html lang="ja" className={inter.variable}>
-      {/* ★ ここで Inter を強制適用 */}
       <body className="relative text-gray-800 font-sans antialiased">
         <div className="absolute inset-0 -z-10 animate-gradient"></div>
 
         <LoadingProvider>
-          <LoadingOverlay />
+          {/* ✅ thanks ページでは LoadingOverlay を表示しない */}
+          {!isThanksPage && <LoadingOverlay />}
+
           <div className="relative z-20 overflow-x-hidden">{children}</div>
-          {/* <div className="relative z-20">{children}</div> */}
         </LoadingProvider>
       </body>
     </html>
