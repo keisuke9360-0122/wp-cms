@@ -559,9 +559,9 @@ export default function HomePage() {
         <h2
           ref={aboutTitleRef}
           className="z-10 inline-block whitespace-nowrap 
-          text-[clamp(3rem,12vw,10rem)] font-extrabold uppercase tracking-tight
-          text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-500 to-pink-600
-          drop-shadow-2xl pointer-events-none opacity-30 mb-12"
+  text-[clamp(3rem,12vw,10rem)] font-extrabold uppercase tracking-tight
+  text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-500 to-pink-600
+  drop-shadow-2xl pointer-events-none opacity-30 mb-20"
         >
           Skill & About Skill & About Skill & About Skill & About Skill & About
           Skill & About
@@ -633,16 +633,19 @@ export default function HomePage() {
         <h2
           ref={worksTitleRef}
           className="absolute top-24 md:top-0 left-0 z-10
-          inline-block whitespace-nowrap 
-          text-[clamp(3rem,12vw,10rem)]
-          font-extrabold uppercase tracking-tight
-          text-transparent bg-clip-text
-          bg-gradient-to-r from-yellow-400 via-red-500 to-pink-600
-          drop-shadow-2xl pointer-events-none opacity-30"
+  inline-block whitespace-nowrap 
+  text-[clamp(3rem,12vw,10rem)]
+  font-extrabold uppercase tracking-tight
+  text-transparent bg-clip-text
+  bg-gradient-to-r from-yellow-400 via-red-500 to-pink-600
+  drop-shadow-2xl pointer-events-none opacity-30"
         >
           Works Works Works Works Works Works Works Works Works Works Works
           Works
         </h2>
+
+        {/* ✅ h2 の下余白を揃えるためのダミー */}
+        <div className="h-20 md:h-20"></div>
 
         <div
           ref={worksInnerRef}
@@ -689,9 +692,9 @@ export default function HomePage() {
         <h2
           ref={contactTitleRef}
           className="inline-block whitespace-nowrap 
-          text-[clamp(3rem,12vw,10rem)]
-          font-extrabold uppercase tracking-tight text-transparent bg-clip-text 
-          bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 drop-shadow-2xl"
+  text-[clamp(3rem,12vw,10rem)]
+  font-extrabold uppercase tracking-tight text-transparent bg-clip-text 
+  bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 drop-shadow-2xl mb-20"
         >
           Contact Contact Contact Contact Contact Contact Contact Contact
           Contact
