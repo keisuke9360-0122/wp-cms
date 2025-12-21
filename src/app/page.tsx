@@ -623,8 +623,8 @@ export default function HomePage() {
           </div>
         </div> */}
         <div className="w-full max-w-none flex flex-col md:flex-row md:gap-12 items-center">
-          {/* 左：写真（45%） */}
-          <div className="md:w-[45%] mb-8 md:mb-0 flex-shrink-0">
+          {/* 左：写真（35% → 小さめ） */}
+          <div className="md:w-[35%] mb-8 md:mb-0 flex-shrink-0">
             <img
               src="/my_img.jpeg"
               alt="顔写真"
@@ -632,8 +632,8 @@ export default function HomePage() {
             />
           </div>
 
-          {/* 右：テキスト（40% → 今より明確に狭い） */}
-          <div className="md:w-[40%] text-left px-4 md:px-0">
+          {/* 右：テキスト（45%） */}
+          <div className="md:w-[45%] text-left px-4 md:px-0">
             <h3 className="text-2xl font-bold mb-4">Keisuke Tsuruta</h3>
             <p className="text-gray-700 mb-4">
               美容専門学校を卒業後、都内の有名サロンでアシスタントとして勤務。その後スタイリストとして独立し、カット・カラー・パーマ・ヘアセット全般の経験を積みました。
@@ -670,7 +670,7 @@ export default function HomePage() {
 
         <div
           ref={worksInnerRef}
-          className="flex gap-8 px-6
+          className="flex gap-8 px-6 pt-24
           md:h-screen md:items-center
           overflow-x-auto md:overflow-visible
           snap-x snap-mandatory md:snap-none
