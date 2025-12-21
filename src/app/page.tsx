@@ -684,7 +684,7 @@ export default function HomePage() {
       <section
         id="contact"
         ref={contactRef}
-        className="relative z-30 py-32 md:py-48 px-8 text-center"
+        className="relative z-30 pt-32 md:pt-48 px-8 text-center"
       >
         <h2
           ref={contactTitleRef}
@@ -754,7 +754,7 @@ export default function HomePage() {
           </button>
         </form>
 
-        <div className="flex justify-center gap-8 my-32">
+        <div className="flex justify-center gap-8 mt-32">
           <a
             href="https://instagram.com/keitsuru0122"
             target="_blank"
