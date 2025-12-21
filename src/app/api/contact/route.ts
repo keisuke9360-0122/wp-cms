@@ -8,7 +8,6 @@ export async function POST(req: Request) {
     const email = formData.get("email");
     const message = formData.get("message");
 
-    // ★ここに transporter を書く
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 465,
@@ -26,7 +25,8 @@ export async function POST(req: Request) {
       text: `送信者: ${email}\n\n${message}`,
     });
 
-    return NextResponse.json({ success: true });
+    // ✅ 送信完了ページへリダイレクト
+    return NextResponse.redirect(new URL("/contact/thanks", req.url));
   } catch (error: any) {
     console.error("メール送信エラー:", error);
     return NextResponse.json(
