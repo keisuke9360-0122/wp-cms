@@ -1,3 +1,5 @@
+export const dynamic = "force-static";
+
 export default function ContactThanks() {
   return (
     <section className="min-h-screen flex flex-col items-center justify-center text-center px-6">
