@@ -600,7 +600,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="w-full max-w-none flex flex-col md:flex-row md:gap-12 items-center">
+        {/* <div className="w-full max-w-none flex flex-col md:flex-row md:gap-12 items-center">
           <div className="md:w-1/3 mb-8 md:mb-0 flex-shrink-0">
             <img
               src="/my_img.jpeg"
@@ -610,6 +610,30 @@ export default function HomePage() {
           </div>
 
           <div className="md:w-2/3 text-left px-4 md:px-0">
+            <h3 className="text-2xl font-bold mb-4">Keisuke Tsuruta</h3>
+            <p className="text-gray-700 mb-4">
+              美容専門学校を卒業後、都内の有名サロンでアシスタントとして勤務。その後スタイリストとして独立し、カット・カラー・パーマ・ヘアセット全般の経験を積みました。
+            </p>
+            <p className="text-gray-700 mb-4">
+              イベントや撮影のヘアメイクサポートも経験があり、幅広い技術とセンスでお客様に似合うスタイルを提供しています。
+            </p>
+            <p className="text-gray-700">
+              現在はフロントエンドの技術と美容師としての経験を活かし、表現力のある仕事を追求しています。
+            </p>
+          </div>
+        </div> */}
+        <div className="w-full max-w-none flex flex-col md:flex-row md:gap-12 items-center">
+          {/* 左：写真（45%） */}
+          <div className="md:w-[45%] mb-8 md:mb-0 flex-shrink-0">
+            <img
+              src="/my_img.jpeg"
+              alt="顔写真"
+              className="w-full rounded-xl shadow-lg object-cover"
+            />
+          </div>
+
+          {/* 右：テキスト（40% → 今より明確に狭い） */}
+          <div className="md:w-[40%] text-left px-4 md:px-0">
             <h3 className="text-2xl font-bold mb-4">Keisuke Tsuruta</h3>
             <p className="text-gray-700 mb-4">
               美容専門学校を卒業後、都内の有名サロンでアシスタントとして勤務。その後スタイリストとして独立し、カット・カラー・パーマ・ヘアセット全般の経験を積みました。
@@ -684,7 +708,7 @@ export default function HomePage() {
       <section
         id="contact"
         ref={contactRef}
-        className="relative z-30 pt-32 md:pt-48 px-8 text-center"
+        className="relative z-30 pt-32 md:pt-48 px-8 text-center pb-16"
       >
         <h2
           ref={contactTitleRef}
