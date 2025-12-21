@@ -680,8 +680,8 @@ export default function HomePage() {
             <Link
               key={post.id}
               href={`/posts/${post.slug}`}
-              className="min-w-[80%] md:min-w-[70vw]
-              h-[60vh] md:h-[65vh]
+              className="min-w-[50%] md:min-w-[50vw]
+              h-[50vh] md:h-[50vh]
               bg-white border border-gray-200 rounded-2xl
               overflow-hidden shadow-md flex-shrink-0 relative
               snap-start"
