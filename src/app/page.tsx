@@ -671,7 +671,7 @@ export default function HomePage() {
         <div
           ref={worksInnerRef}
           className="flex gap-8 px-6 py-24 md:py-0
-  md:h-screen md:items-center
+  md:h-screen md:items-start
   overflow-x-auto md:overflow-visible
   snap-x snap-mandatory md:snap-none
   scroll-smooth"
