@@ -671,7 +671,7 @@ export default function HomePage() {
         <div
           ref={worksInnerRef}
           className="flex gap-8 px-6 py-24 md:py-0
-  md:h-screen md:items-start
+  md:h-screen md:items-center
   overflow-x-auto md:overflow-visible
   snap-x snap-mandatory md:snap-none
   scroll-smooth"
@@ -681,7 +681,7 @@ export default function HomePage() {
               key={post.id}
               href={`/posts/${post.slug}`}
               className="min-w-[50%] md:min-w-[50vw]
-              h-[50vh] md:h-[50vh]
+              h-[50vh] md:h-[60vh]
               bg-white border border-gray-200 rounded-2xl
               overflow-hidden shadow-md flex-shrink-0 relative
               snap-start"
