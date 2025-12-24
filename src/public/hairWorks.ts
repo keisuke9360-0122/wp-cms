@@ -1,0 +1,5 @@
+export const hairWorks = [
+  { id: 1, src: "/hair/style1.jpeg", title: "Cut" },
+  { id: 2, src: "/hair/style2.jpeg", title: "Color" },
+  { id: 3, src: "/hair/style3.jpeg", title: "Styling" },
+];

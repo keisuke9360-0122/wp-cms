@@ -421,6 +421,7 @@ import { Post } from "@/types";
 import { gsap, ScrollTrigger } from "../lib/gsap";
 import { useLoading } from "@/app/contexts/LoadingContext";
 import { FaInstagram, FaGithub } from "react-icons/fa";
+import { hairWorks } from "../public/hairWorks";
 
 import {
   FaReact,
@@ -436,7 +437,7 @@ export default function HomePage() {
   const worksSectionRef = useRef<HTMLDivElement>(null);
   const worksInnerRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
-  const skillRef = useRef<HTMLDivElement>(null);
+  const hairRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
   const worksTitleRef = useRef<HTMLHeadingElement>(null);
   const aboutTitleRef = useRef<HTMLHeadingElement>(null);
@@ -523,6 +524,38 @@ export default function HomePage() {
     }
   }, [posts]);
 
+  // Hair Works フェード切り替え
+
+  useEffect(() => {
+    if (!hairRef.current) return;
+
+    const ctx = gsap.context(() => {
+      const slides = gsap.utils.toArray<HTMLElement>(".hair-slide");
+
+      if (slides.length === 0) return;
+
+      gsap.set(slides[0], { opacity: 1 });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: hairRef.current,
+          start: "top top",
+          end: () => `+=${slides.length * 1000}`,
+          scrub: true,
+          pin: true,
+        },
+      });
+
+      slides.forEach((slide, i) => {
+        if (i === 0) return;
+        tl.to(slides[i - 1], { opacity: 0, duration: 1 }, i);
+        tl.to(slides[i], { opacity: 1, duration: 1 }, i);
+      });
+    }, hairRef);
+
+    return () => ctx.revert();
+  }, []);
+
   // タイトル流す演出
   useEffect(() => {
     const refs = [
@@ -549,7 +582,6 @@ export default function HomePage() {
   return (
     <main className="text-black">
       <MainVisual />
-
       {/* About */}
       <section
         ref={aboutRef}
@@ -639,7 +671,7 @@ export default function HomePage() {
               福岡県出身<br></br>
               県内の美容学校卒業後、都内のヘアサロンに入社<br></br>
               28歳でスタイリストデビュー後、カットセミナー講師など<br></br>
-              撮影・カメラマンも経験<br></br>
+              撮影を通してカメラ技術も習得<br></br>
               30歳で帰福<br></br>
               市内のヘアサロンに6年間勤めながら、独学でコーディングを学ぶ
               <br></br>
@@ -647,7 +679,7 @@ export default function HomePage() {
               土日の休日を利用し、美容師時代の顧客の対応も行なっている
             </p>
             <p className="text-gray-700 mb-4">
-              コーディングは、reactやnextを勉強中
+              コーディングは、ReactやNextを勉強中
             </p>
             <div className="flex justify-center md:justify-startgap-8 mt-32">
               <a
@@ -671,7 +703,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
       {/* Works */}
       <section
         ref={worksSectionRef}
@@ -688,8 +719,8 @@ export default function HomePage() {
   bg-gradient-to-r from-yellow-400 via-red-500 to-pink-600
   drop-shadow-2xl pointer-events-none opacity-30"
         >
-          Works Works Works Works Works Works Works Works Works Works Works
-          Works
+          WebWorks WebWorks WebWorks WebWorks WebWorks WebWorks WebWorks
+          WebWorks WebWorks WebWorks WebWorks Works
         </h2>
 
         <div
@@ -727,7 +758,40 @@ export default function HomePage() {
           ))}
         </div>
       </section>
-
+      {/* Hair Works */}{" "}
+      <section
+        id="hair-works"
+        ref={hairRef}
+        className="relative w-full h-screen overflow-hidden py-32 md:py-48"
+      >
+        {" "}
+        <h2 className="absolute top-24 md:top-0 left-0 z-20 inline-block whitespace-nowrap text-[clamp(3rem,12vw,10rem)] font-extrabold uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-red-400 to-orange-400 drop-shadow-2xl pointer-events-none opacity-30">
+          {" "}
+          HairWorks HairWorks HairWorks HairWorks HairWorks HairWorks{" "}
+        </h2>{" "}
+        {/* タイトルのための余白 */} <div className="h-20 md:h-20"></div>{" "}
+        {hairWorks.map((item) => (
+          <div
+            key={item.id}
+            className="hair-slide absolute inset-0 opacity-0 transition-opacity duration-700"
+          >
+            {" "}
+            <Image
+              src={item.src}
+              alt={item.title}
+              fill
+              className="object-cover"
+            />{" "}
+            <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/60 to-transparent p-6">
+              {" "}
+              <h3 className="text-2xl font-bold text-white drop-shadow-lg">
+                {" "}
+                {item.title}{" "}
+              </h3>{" "}
+            </div>{" "}
+          </div>
+        ))}{" "}
+      </section>
       {/* Contact */}
       <section
         id="contact"
