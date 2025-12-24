@@ -421,7 +421,7 @@ import { Post } from "@/types";
 import { gsap, ScrollTrigger } from "../lib/gsap";
 import { useLoading } from "@/app/contexts/LoadingContext";
 import { FaInstagram, FaGithub } from "react-icons/fa";
-import { hairWorks } from "../public/hairWorks";
+import { hairWorks } from "./date/hairWorks";
 
 import {
   FaReact,
