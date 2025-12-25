@@ -704,33 +704,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      {/* Hair Works */}{" "}
-      <section
-        id="hair-works"
-        ref={hairRef}
-        className="relative w-full h-screen overflow-hidden py-32 md:py-48"
-      >
-        {" "}
-        <h2 className="absolute top-24 md:top-0 left-0 z-20 inline-block whitespace-nowrap text-[clamp(3rem,12vw,10rem)] font-extrabold uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-red-400 to-orange-400 drop-shadow-2xl pointer-events-none opacity-30">
-          {" "}
-          HairWorks HairWorks HairWorks HairWorks HairWorks HairWorks{" "}
-        </h2>{" "}
-        {/* タイトルのための余白 */} <div className="h-20 md:h-20"></div>{" "}
-        {hairWorks.map((item) => (
-          <div
-            key={item.id}
-            className="hair-slide absolute inset-0 opacity-0 transition-opacity duration-700"
-          >
-            {" "}
-            <Image
-              src={item.src}
-              alt={item.title}
-              fill
-              className="object-cover"
-            />{" "}
-          </div>
-        ))}{" "}
-      </section>
       {/* Works */}
       <section
         ref={worksSectionRef}
@@ -785,6 +758,33 @@ export default function HomePage() {
             </Link>
           ))}
         </div>
+      </section>
+      {/* Hair Works */}{" "}
+      <section
+        id="hair-works"
+        ref={hairRef}
+        className="relative w-full h-screen overflow-hidden py-32 md:py-48"
+      >
+        {" "}
+        <h2 className="absolute top-24 md:top-0 left-0 z-20 inline-block whitespace-nowrap text-[clamp(3rem,12vw,10rem)] font-extrabold uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-red-400 to-orange-400 drop-shadow-2xl pointer-events-none opacity-30">
+          {" "}
+          HairWorks HairWorks HairWorks HairWorks HairWorks HairWorks{" "}
+        </h2>{" "}
+        {/* タイトルのための余白 */} <div className="h-20 md:h-20"></div>{" "}
+        {hairWorks.map((item) => (
+          <div
+            key={item.id}
+            className="hair-slide absolute inset-0 opacity-0 transition-opacity duration-700"
+          >
+            {" "}
+            <Image
+              src={item.src}
+              alt={item.title}
+              fill
+              className="object-cover"
+            />{" "}
+          </div>
+        ))}{" "}
       </section>
       {/* Contact */}
       <section
