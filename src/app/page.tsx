@@ -543,7 +543,6 @@ export default function HomePage() {
           end: () => `+=${slides.length * 1000}`,
           scrub: true,
           pin: true,
-          pinSpacing: false,
         },
       });
 
