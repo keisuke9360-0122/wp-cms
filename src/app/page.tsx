@@ -563,6 +563,7 @@ export default function HomePage() {
       aboutTitleRef.current,
       worksTitleRef.current,
       contactTitleRef.current,
+      hairTitleRef.current,
     ];
 
     refs.forEach((el) => {
