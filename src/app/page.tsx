@@ -437,7 +437,7 @@ export default function HomePage() {
   const worksSectionRef = useRef<HTMLDivElement>(null);
   const worksInnerRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
-  const hairRef = useRef<HTMLDivElement>(null);
+  const hairTitleRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
   const worksTitleRef = useRef<HTMLHeadingElement>(null);
   const aboutTitleRef = useRef<HTMLHeadingElement>(null);
@@ -761,6 +761,7 @@ export default function HomePage() {
       {/* Hair Works */} {/* Hair Works */}
       <section id="hair-works" className="relative w-full py-32 md:py-48 px-4">
         <h2
+          ref={hairTitleRef}
           className="z-10 inline-block whitespace-nowrap 
     text-[clamp(3rem,12vw,10rem)] font-extrabold uppercase tracking-tight
     text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-red-400 to-orange-400
