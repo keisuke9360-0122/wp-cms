@@ -737,11 +737,14 @@ export default function HomePage() {
             <Link
               key={post.id}
               href={`/posts/${post.slug}`}
-              className="min-w-[60%] md:min-w-[50vw]
-              aspect-[4/3]
+              className="
+              min-w-[85%]          /* ← スマホは広めに */
+              md:min-w-[50vw]      /* ← PCは今のまま */
+              aspect-[4/3]         /* ← 横長比率 */
               bg-white border border-gray-200 rounded-2xl
               overflow-hidden shadow-md flex-shrink-0 relative
-              snap-start"
+              snap-start
+            "
             >
               {post.featuredImage?.node?.sourceUrl && (
                 <Image
