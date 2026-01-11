@@ -588,7 +588,7 @@ export default function HomePage() {
       <section
         ref={aboutRef}
         id="about"
-        className="relative z-30 w-full py-32 md:py-48 px-2"
+        className="relative z-30 w-full py-12 md:py-48 px-2"
       >
         <h2
           ref={aboutTitleRef}
