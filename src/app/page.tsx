@@ -755,7 +755,7 @@ export default function HomePage() {
                 />
               )}
               <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/60 to-transparent p-6">
-                <h3 className="text-2xl font-extrabold text-white drop-shadow-lg">
+                <h3 className="text-base md:text-2xl font-extrabold text-white drop-shadow-lg">
                   {post.title}
                 </h3>
               </div>
