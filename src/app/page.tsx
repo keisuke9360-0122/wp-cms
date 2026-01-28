@@ -603,7 +603,7 @@ export default function HomePage() {
 
         <div className="mb-16">
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            <TechCard
+            {/* <TechCard
               icon={<FaReact className="text-sky-500" />}
               title="React"
             />
@@ -630,7 +630,21 @@ export default function HomePage() {
             <TechCard
               icon={<FaJsSquare className="text-yellow-400" />}
               title="JavaScript"
+            /> */}
+            <TechCard
+              icon={<FaWordpress className="text-blue-600" />}
+              title="WordPress"
+              years={6}
+              maxYears={10}
             />
+
+            <TechCard
+              icon={<FaReact className="text-sky-500" />}
+              title="React"
+              years={2}
+            />
+
+            <TechCard icon={<SiNextdotjs />} title="Next.js" years={1} />
           </div>
         </div>
 
