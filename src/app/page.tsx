@@ -197,7 +197,7 @@ export default function HomePage() {
         className="relative z-30 w-full py-16 md:py-32 px-4"
       >
         {/* マーキータイトル */}
-        <div className="overflow-hidden mb-16 pointer-events-none">
+        <div className="overflow-hidden mb-16 pointer-events-none -mx-4">
           <h2
             ref={aboutTitleRef}
             className="inline-block whitespace-nowrap
@@ -379,7 +379,7 @@ export default function HomePage() {
       {/* ── Hair Works ── */}
       <section id="hair-works" className="relative w-full py-24 md:py-36 px-4">
         {/* マーキータイトル */}
-        <div className="overflow-hidden mb-6 pointer-events-none">
+        <div className="overflow-hidden mb-6 pointer-events-none -mx-4">
           <h2
             ref={hairTitleRef}
             className="inline-block whitespace-nowrap
@@ -429,7 +429,7 @@ export default function HomePage() {
         className="relative z-30 pt-24 md:pt-36 px-8 text-center pb-16"
       >
         {/* マーキータイトル */}
-        <div className="overflow-hidden mb-16 pointer-events-none">
+        <div className="overflow-hidden mb-16 pointer-events-none -mx-8">
           <h2
             ref={contactTitleRef}
             className="inline-block whitespace-nowrap
