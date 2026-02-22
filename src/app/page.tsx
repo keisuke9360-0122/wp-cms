@@ -25,15 +25,14 @@ export default function HomePage() {
   const worksSectionRef = useRef<HTMLDivElement>(null);
   const worksInnerRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
-  const hairRef = useRef<HTMLDivElement>(null);
-  const hairTitleRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
   const worksTitleRef = useRef<HTMLHeadingElement>(null);
   const aboutTitleRef = useRef<HTMLHeadingElement>(null);
-  const { setLoading } = useLoading();
+  const hairTitleRef = useRef<HTMLDivElement>(null);
   const contactTitleRef = useRef<HTMLHeadingElement>(null);
+  const { setLoading } = useLoading();
 
-  // 下から競り上がるアニメーション
+  // About・Contact セクションの競り上がりアニメーション
   useEffect(() => {
     const targets = gsap.utils.toArray<HTMLElement>([
       aboutRef.current,
@@ -42,10 +41,9 @@ export default function HomePage() {
 
     targets.forEach((el) => {
       if (!el) return;
-
       gsap.fromTo(
         el,
-        { y: 150, opacity: 0, scale: 0.9 },
+        { y: 100, opacity: 0, scale: 0.97 },
         {
           y: 0,
           opacity: 1,
@@ -63,6 +61,7 @@ export default function HomePage() {
     ScrollTrigger.refresh();
   }, []);
 
+  // 投稿データ取得
   useEffect(() => {
     (async () => {
       const res = await fetch("/api/posts");
@@ -113,38 +112,29 @@ export default function HomePage() {
     }
   }, [posts]);
 
-  // Hair Works フェード切り替え
+  // Hair Works カードのスタッガー入場アニメーション
   useEffect(() => {
-    if (!hairRef.current) return;
-
-    const ctx = gsap.context(() => {
-      const slides = gsap.utils.toArray<HTMLElement>(".hair-slide");
-
-      if (slides.length === 0) return;
-
-      gsap.set(slides[0], { opacity: 1 });
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: hairRef.current,
-          start: "top top",
-          end: () => `+=${slides.length * 1000}`,
-          scrub: true,
-          pin: true,
-        },
-      });
-
-      slides.forEach((slide, i) => {
-        if (i === 0) return;
-        tl.to(slides[i - 1], { opacity: 0, duration: 1 }, i);
-        tl.to(slides[i], { opacity: 1, duration: 1 }, i);
-      });
-    }, hairRef);
-
-    return () => ctx.revert();
+    const cards = gsap.utils.toArray<HTMLElement>(".hair-card");
+    cards.forEach((card, i) => {
+      gsap.fromTo(
+        card,
+        { y: 60, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.9,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 88%",
+          },
+          delay: i * 0.08,
+        }
+      );
+    });
   }, []);
 
-  // タイトル流す演出
+  // セクションタイトルの流れるマーキーアニメーション
   useEffect(() => {
     const refs = [
       aboutTitleRef.current,
@@ -155,10 +145,8 @@ export default function HomePage() {
 
     refs.forEach((el) => {
       if (!el) return;
-
       const width = el.offsetWidth / 2;
       gsap.set(el, { x: 0 });
-
       gsap.to(el, {
         x: -width,
         repeat: -1,
@@ -169,27 +157,33 @@ export default function HomePage() {
   }, []);
 
   return (
-    <main className="text-black">
+    <main>
       <MainVisual />
 
-      {/* About */}
+      {/* ── About ── */}
       <section
         ref={aboutRef}
         id="about"
-        className="relative z-30 w-full py-12 md:py-48 px-2"
+        className="relative z-30 w-full py-16 md:py-32 px-4"
       >
-        <h2
-          ref={aboutTitleRef}
-          className="z-10 inline-block whitespace-nowrap
-          text-[clamp(3rem,12vw,10rem)] font-extrabold uppercase tracking-tight
-          text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-500 to-pink-600
-          drop-shadow-2xl pointer-events-none opacity-30 mb-20"
-        >
-          Skill & About Skill & About Skill & About Skill & About Skill & About
-          Skill & About
-        </h2>
+        {/* マーキータイトル */}
+        <div className="overflow-hidden mb-16 pointer-events-none">
+          <h2
+            ref={aboutTitleRef}
+            className="inline-block whitespace-nowrap
+            text-[clamp(3rem,12vw,10rem)] font-extrabold uppercase tracking-tight
+            text-transparent bg-clip-text
+            bg-gradient-to-r from-amber-400 via-stone-500 to-amber-700
+            opacity-20"
+          >
+            Skill & About&nbsp;&nbsp;Skill & About&nbsp;&nbsp;Skill &
+            About&nbsp;&nbsp;Skill & About&nbsp;&nbsp;Skill &
+            About&nbsp;&nbsp;Skill & About&nbsp;&nbsp;
+          </h2>
+        </div>
 
-        <div className="mb-16">
+        {/* スキルカード */}
+        <div className="mb-20">
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             <TechCard
               icon={<FaWordpress className="text-blue-600" />}
@@ -236,53 +230,69 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="w-full max-w-none flex flex-col md:flex-row md:gap-12 items-center">
-          <div className="md:w-[35%] mb-8 md:mb-0 flex-shrink-0">
+        {/* プロフィール */}
+        <div className="w-full flex flex-col md:flex-row md:gap-16 items-start max-w-5xl mx-auto">
+          {/* 写真 */}
+          <div className="md:w-[35%] mb-10 md:mb-0 flex-shrink-0">
             <img
               src="/my_img.jpeg"
-              alt="顔写真"
-              className="w-full rounded-xl shadow-lg object-cover"
+              alt="鶴田圭介"
+              className="w-full rounded-xl shadow-md object-cover"
             />
           </div>
 
-          <div className="md:w-[45%] text-left px-4 md:px-0">
-            <h3 className="text-2xl font-bold mb-4">Keisuke Tsuruta</h3>
-            <p className="text-gray-700 mb-4">
-              福岡県出身<br />
-              県内の美容学校卒業後、都内のヘアサロンに入社<br />
-              28歳でスタイリストデビュー後、カットセミナー講師など<br />
-              撮影を通してカメラ技術も習得<br />
-              30歳で帰福<br />
-              市内のヘアサロンに6年間勤めながら、独学でコーディングを学ぶ<br />
-              37歳に市内、web制作会社へ思い切って転職<br />
-              土日の休日を利用し、美容師時代の顧客の対応も行なっている
+          {/* テキスト */}
+          <div className="md:w-[65%] text-left">
+            <p className="text-xs tracking-[0.3em] text-[#9C8468] uppercase mb-3">
+              Profile
             </p>
-            <p className="text-gray-700 mb-4">
-              コーディングは、ReactやNextを勉強中
+            <h3
+              className="font-display font-light text-3xl md:text-4xl tracking-wide text-[#1A1816] mb-8"
+            >
+              Keisuke Tsuruta
+            </h3>
+
+            <p className="text-stone-600 mb-5 leading-loose text-sm md:text-base">
+              美容専門学校を卒業後、上京して都内のヘアサロンへ。
+              アシスタント期間を経て28歳でスタイリストとしてデビューし、
+              カットセミナーの講師や、撮影現場でのヘアメイクも経験しました。
             </p>
-            <div className="flex justify-start gap-8 mt-8">
+            <p className="text-stone-600 mb-5 leading-loose text-sm md:text-base">
+              「人の見た目を整える」という仕事を通して、バランス・質感・
+              細部への感覚が自然と身についていきました。
+              その経験が、のちにWebのUIを制作するうえで大きな武器になるとは、
+              当時は思いもしませんでした。
+            </p>
+            <p className="text-stone-600 leading-loose text-sm md:text-base">
+              30歳で地元・福岡へ戻り、サロン勤務を続けながら独学でHTMLから学び始め、
+              JavaScript・React・Next.jsへと発展。
+              37歳でWeb制作会社に転職し、現在はフロントエンドの制作に向き合っています。
+              美容師時代に磨いた審美眼は、今もUIの細部やクライアントとのやり取りに生きています。
+            </p>
+
+            <div className="flex gap-6 mt-10">
               <a
                 href="https://instagram.com/keitsuru0122"
                 target="_blank"
                 rel="noopener"
-                className="text-black hover:text-gray-600 transition-colors"
+                className="text-stone-400 hover:text-[#9C8468] transition-colors"
               >
-                <FaInstagram className="w-8 h-8" />
+                <FaInstagram className="w-6 h-6" />
               </a>
               <a
                 href="https://github.com/keisuke9360-0122/wp-cms"
                 target="_blank"
                 rel="noopener"
-                className="text-black hover:text-gray-600 transition-colors"
+                className="text-stone-400 hover:text-[#9C8468] transition-colors"
               >
-                <FaGithub className="w-8 h-8" />
+                <FaGithub className="w-6 h-6" />
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Works */}
+      {/* ── Web Works ── */}
       <section
         ref={worksSectionRef}
         id="works"
@@ -295,11 +305,10 @@ export default function HomePage() {
           text-[clamp(3rem,12vw,10rem)]
           font-extrabold uppercase tracking-tight
           text-transparent bg-clip-text
-          bg-gradient-to-r from-yellow-400 via-red-500 to-pink-600
-          drop-shadow-2xl pointer-events-none opacity-30"
+          bg-gradient-to-r from-amber-400 via-stone-500 to-amber-700
+          pointer-events-none opacity-20"
         >
-          WebWorks WebWorks WebWorks WebWorks WebWorks WebWorks WebWorks
-          WebWorks WebWorks WebWorks WebWorks Works
+          WebWorks&nbsp;&nbsp;WebWorks&nbsp;&nbsp;WebWorks&nbsp;&nbsp;WebWorks&nbsp;&nbsp;WebWorks&nbsp;&nbsp;WebWorks&nbsp;&nbsp;
         </h2>
 
         <div
@@ -315,19 +324,20 @@ export default function HomePage() {
               key={post.id}
               href={`/posts/${post.slug}`}
               className="min-w-[85%] md:min-w-[50vw] aspect-[4/3]
-              bg-white border border-gray-200 rounded-2xl
-              overflow-hidden shadow-md flex-shrink-0 relative snap-start"
+              bg-white border border-stone-200 rounded-2xl
+              overflow-hidden shadow-md flex-shrink-0 relative snap-start
+              group"
             >
               {post.featuredImage?.node?.sourceUrl && (
                 <Image
                   src={post.featuredImage.node.sourceUrl}
                   alt={post.featuredImage.node.altText || post.title}
                   fill
-                  className="object-cover transition-all duration-500"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
               )}
-              <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/60 to-transparent p-6">
-                <h3 className="text-base md:text-2xl font-extrabold text-white drop-shadow-lg">
+              <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/50 to-transparent p-6">
+                <h3 className="text-base md:text-xl font-semibold text-white drop-shadow-md">
                   {post.title}
                 </h3>
               </div>
@@ -336,57 +346,73 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Hair Works */}
-      <section id="hair-works" className="relative w-full py-32 md:py-48 px-4">
-        <h2
-          ref={hairTitleRef}
-          className="z-10 inline-block whitespace-nowrap
-          text-[clamp(3rem,12vw,10rem)] font-extrabold uppercase tracking-tight
-          text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-red-400 to-orange-400
-          drop-shadow-2xl pointer-events-none opacity-30 mb-20"
-        >
-          Hair Works Hair Works Hair Works Hair Works Hair Works
-        </h2>
+      {/* ── Hair Works ── */}
+      <section id="hair-works" className="relative w-full py-24 md:py-36 px-4">
+        {/* マーキータイトル */}
+        <div className="overflow-hidden mb-6 pointer-events-none">
+          <h2
+            ref={hairTitleRef}
+            className="inline-block whitespace-nowrap
+            text-[clamp(3rem,12vw,10rem)] font-extrabold uppercase tracking-tight
+            text-transparent bg-clip-text
+            bg-gradient-to-r from-rose-300 via-amber-400 to-stone-500
+            opacity-20"
+          >
+            Hair Works&nbsp;&nbsp;Hair Works&nbsp;&nbsp;Hair Works&nbsp;&nbsp;Hair Works&nbsp;&nbsp;Hair Works&nbsp;&nbsp;
+          </h2>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        {/* セクション説明 */}
+        <p className="text-stone-500 text-sm leading-loose max-w-xl mx-auto text-center mb-16">
+          美容師として10年以上、カット・カラー・ヘアセットを担当してきました。
+          <br />
+          この仕事を通じて磨かれた審美眼と手仕事の精度が、今のフロントエンド開発に活きています。
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
           {hairWorks.map((item) => (
             <div
               key={item.id}
-              className="w-full h-[350px] md:h-[450px] relative rounded-2xl overflow-hidden shadow-lg group"
+              className="hair-card w-full h-[350px] md:h-[440px] relative rounded-2xl overflow-hidden shadow-md group"
             >
               <Image
                 src={item.src}
                 alt={item.title}
                 fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500" />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500" />
               <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                <p className="text-white font-semibold text-lg">{item.title}</p>
+                <p className="text-white text-sm font-medium tracking-widest uppercase">
+                  {item.title}
+                </p>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Contact */}
+      {/* ── Contact ── */}
       <section
         id="contact"
         ref={contactRef}
-        className="relative z-30 pt-32 md:pt-48 px-8 text-center pb-16"
+        className="relative z-30 pt-24 md:pt-36 px-8 text-center pb-16"
       >
-        <h2
-          ref={contactTitleRef}
-          className="inline-block whitespace-nowrap
-          text-[clamp(3rem,12vw,10rem)]
-          font-extrabold uppercase tracking-tight text-transparent bg-clip-text
-          bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 drop-shadow-2xl mb-20"
-        >
-          Contact Contact Contact Contact Contact Contact Contact Contact
-          Contact
-        </h2>
+        {/* マーキータイトル */}
+        <div className="overflow-hidden mb-16 pointer-events-none">
+          <h2
+            ref={contactTitleRef}
+            className="inline-block whitespace-nowrap
+            text-[clamp(3rem,12vw,10rem)]
+            font-extrabold uppercase tracking-tight text-transparent bg-clip-text
+            bg-gradient-to-r from-amber-400 via-stone-500 to-amber-700
+            opacity-20"
+          >
+            Contact&nbsp;&nbsp;Contact&nbsp;&nbsp;Contact&nbsp;&nbsp;Contact&nbsp;&nbsp;Contact&nbsp;&nbsp;Contact&nbsp;&nbsp;
+          </h2>
+        </div>
 
-        <p className="mb-6 text-gray-800 text-lg">
+        <p className="mb-8 text-stone-500 text-sm leading-loose">
           ご連絡は以下のフォームからお願いいたします。
         </p>
 
@@ -396,74 +422,74 @@ export default function HomePage() {
           className="max-w-lg mx-auto space-y-6 text-left"
         >
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-xs font-medium text-stone-500 tracking-wider mb-1">
               お名前
             </label>
             <input
               type="text"
               name="name"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm
-              focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-lg border border-stone-200 bg-white/70 shadow-sm px-4 py-3 text-sm
+              focus:border-[#9C8468] focus:ring-[#9C8468] focus:outline-none transition-colors"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-xs font-medium text-stone-500 tracking-wider mb-1">
               メールアドレス
             </label>
             <input
               type="email"
               name="email"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm
-              focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-lg border border-stone-200 bg-white/70 shadow-sm px-4 py-3 text-sm
+              focus:border-[#9C8468] focus:ring-[#9C8468] focus:outline-none transition-colors"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-xs font-medium text-stone-500 tracking-wider mb-1">
               メッセージ
             </label>
             <textarea
               name="message"
               rows={4}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm
-              focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-lg border border-stone-200 bg-white/70 shadow-sm px-4 py-3 text-sm
+              focus:border-[#9C8468] focus:ring-[#9C8468] focus:outline-none transition-colors resize-none"
               required
             ></textarea>
           </div>
 
           <button
             type="submit"
-            className="w-full py-2 px-4 bg-gray-900 text-white font-medium rounded-md
-            transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:bg-gray-800"
+            className="w-full py-3 px-4 bg-[#1A1816] text-[#FDFCF8] text-xs tracking-widest uppercase font-medium rounded-full
+            transition-all duration-200 hover:bg-[#3A3630] hover:-translate-y-0.5 hover:shadow-lg"
           >
             送信する
           </button>
         </form>
 
-        <div className="flex justify-center gap-8 mt-32">
+        <div className="flex justify-center gap-8 mt-20">
           <a
             href="https://instagram.com/keitsuru0122"
             target="_blank"
             rel="noopener"
-            className="text-black hover:text-gray-600 transition-colors"
+            className="text-stone-400 hover:text-[#9C8468] transition-colors"
           >
-            <FaInstagram className="w-8 h-8" />
+            <FaInstagram className="w-6 h-6" />
           </a>
           <a
             href="https://github.com/keisuke9360-0122/wp-cms"
             target="_blank"
             rel="noopener"
-            className="text-black hover:text-gray-600 transition-colors"
+            className="text-stone-400 hover:text-[#9C8468] transition-colors"
           >
-            <FaGithub className="w-8 h-8" />
+            <FaGithub className="w-6 h-6" />
           </a>
         </div>
       </section>
 
-      <footer className="py-8 text-center text-sm text-gray-500">
+      <footer className="py-8 text-center text-xs text-stone-400 tracking-wider">
         © 2025 Keisuke Tsuruta. All Rights Reserved.
       </footer>
     </main>
