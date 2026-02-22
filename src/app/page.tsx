@@ -8,7 +8,9 @@ import TechCard from "../components/TechCard";
 import { Post } from "@/types";
 import { gsap, ScrollTrigger } from "../lib/gsap";
 import { useLoading } from "@/app/contexts/LoadingContext";
+import { AnimatePresence, motion } from "framer-motion";
 import { FaInstagram, FaGithub } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaXmark } from "react-icons/fa6";
 import { hairWorks } from "./data/hairWorks";
 
 import {
@@ -22,6 +24,7 @@ import { SiNextdotjs, SiTailwindcss } from "react-icons/si";
 
 export default function HomePage() {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [selectedHairIndex, setSelectedHairIndex] = useState<number | null>(null);
   const worksSectionRef = useRef<HTMLDivElement>(null);
   const worksInnerRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
@@ -31,6 +34,28 @@ export default function HomePage() {
   const hairTitleRef = useRef<HTMLDivElement>(null);
   const contactTitleRef = useRef<HTMLHeadingElement>(null);
   const { setLoading } = useLoading();
+
+  // ライトボックス：ESC・矢印キー操作 + body スクロールロック
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedHairIndex === null) return;
+      if (e.key === "Escape") setSelectedHairIndex(null);
+      if (e.key === "ArrowRight")
+        setSelectedHairIndex((prev) =>
+          prev !== null ? Math.min(prev + 1, hairWorks.length - 1) : null
+        );
+      if (e.key === "ArrowLeft")
+        setSelectedHairIndex((prev) =>
+          prev !== null ? Math.max(prev - 1, 0) : null
+        );
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = selectedHairIndex !== null ? "hidden" : "";
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [selectedHairIndex]);
 
   // Contact セクションの競り上がりアニメーション
   useEffect(() => {
@@ -399,11 +424,34 @@ export default function HomePage() {
           この仕事を通じて磨かれた審美眼と手仕事の精度が、今のフロントエンド開発に活きています。
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-          {hairWorks.map((item) => (
+        {/* 1枚目：フィーチャー（全幅） */}
+        <div className="mb-6 max-w-screen-xl mx-auto">
+          <div
+            className="hair-card w-full aspect-[3/2] relative rounded-2xl overflow-hidden shadow-lg group cursor-zoom-in"
+            onClick={() => setSelectedHairIndex(0)}
+          >
+            <Image
+              src={hairWorks[0].src}
+              alt={hairWorks[0].title}
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-all duration-500" />
+            <div className="absolute bottom-0 left-0 right-0 p-8 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+              <p className="text-white text-sm font-medium tracking-widest uppercase">
+                {hairWorks[0].title}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* 2枚目以降：2カラムグリッド */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-screen-xl mx-auto">
+          {hairWorks.slice(1).map((item, i) => (
             <div
               key={item.id}
-              className="hair-card w-full aspect-[3/2] relative rounded-2xl overflow-hidden shadow-md group"
+              className="hair-card w-full aspect-[3/2] relative rounded-2xl overflow-hidden shadow-md group cursor-zoom-in"
+              onClick={() => setSelectedHairIndex(i + 1)}
             >
               <Image
                 src={item.src}
@@ -411,7 +459,7 @@ export default function HomePage() {
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500" />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-all duration-500" />
               <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
                 <p className="text-white text-sm font-medium tracking-widest uppercase">
                   {item.title}
@@ -522,6 +570,79 @@ export default function HomePage() {
       <footer className="py-8 text-center text-xs text-stone-400 tracking-wider">
         © 2025 Keisuke Tsuruta. All Rights Reserved.
       </footer>
+
+      {/* ── Hair Works ライトボックス ── */}
+      <AnimatePresence>
+        {selectedHairIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm"
+            onClick={() => setSelectedHairIndex(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.93, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.93, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="relative w-full max-w-4xl mx-4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* 画像 */}
+              <div className="relative w-full aspect-[3/2] rounded-xl overflow-hidden shadow-2xl">
+                <Image
+                  src={hairWorks[selectedHairIndex].src}
+                  alt={hairWorks[selectedHairIndex].title}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+
+              {/* タイトル */}
+              <p className="mt-4 text-center text-white/70 text-xs tracking-[0.3em] uppercase">
+                {hairWorks[selectedHairIndex].title}
+                <span className="ml-4 text-white/40">
+                  {selectedHairIndex + 1} / {hairWorks.length}
+                </span>
+              </p>
+
+              {/* 閉じるボタン */}
+              <button
+                onClick={() => setSelectedHairIndex(null)}
+                className="absolute -top-12 right-0 w-9 h-9 flex items-center justify-center text-white/60 hover:text-white transition-colors"
+                aria-label="閉じる"
+              >
+                <FaXmark className="w-5 h-5" />
+              </button>
+
+              {/* 前へ */}
+              {selectedHairIndex > 0 && (
+                <button
+                  onClick={() => setSelectedHairIndex((p) => (p ?? 0) - 1)}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-14 w-10 h-10 flex items-center justify-center text-white/60 hover:text-white transition-colors"
+                  aria-label="前の画像"
+                >
+                  <FaChevronLeft className="w-5 h-5" />
+                </button>
+              )}
+
+              {/* 次へ */}
+              {selectedHairIndex < hairWorks.length - 1 && (
+                <button
+                  onClick={() => setSelectedHairIndex((p) => (p ?? 0) + 1)}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-14 w-10 h-10 flex items-center justify-center text-white/60 hover:text-white transition-colors"
+                  aria-label="次の画像"
+                >
+                  <FaChevronRight className="w-5 h-5" />
+                </button>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }
