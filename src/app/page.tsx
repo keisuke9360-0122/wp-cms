@@ -353,7 +353,7 @@ export default function HomePage() {
             <Link
               key={post.id}
               href={`/posts/${post.slug}`}
-              className="min-w-[85%] md:min-w-[50vw] aspect-[4/3]
+              className="min-w-[85%] md:min-w-[50vw] aspect-[16/9]
               bg-white border border-stone-200 rounded-2xl
               overflow-hidden shadow-md flex-shrink-0 relative snap-start
               group"
@@ -403,7 +403,7 @@ export default function HomePage() {
           {hairWorks.map((item) => (
             <div
               key={item.id}
-              className="hair-card w-full h-[350px] md:h-[440px] relative rounded-2xl overflow-hidden shadow-md group"
+              className="hair-card w-full aspect-[3/2] relative rounded-2xl overflow-hidden shadow-md group"
             >
               <Image
                 src={item.src}
