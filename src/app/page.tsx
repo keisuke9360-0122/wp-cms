@@ -32,31 +32,61 @@ export default function HomePage() {
   const contactTitleRef = useRef<HTMLHeadingElement>(null);
   const { setLoading } = useLoading();
 
-  // About・Contact セクションの競り上がりアニメーション
+  // Contact セクションの競り上がりアニメーション
   useEffect(() => {
-    const targets = gsap.utils.toArray<HTMLElement>([
-      aboutRef.current,
+    if (!contactRef.current) return;
+    gsap.fromTo(
       contactRef.current,
-    ]);
+      { y: 80, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: contactRef.current,
+          start: "top 85%",
+        },
+      }
+    );
+    ScrollTrigger.refresh();
+  }, []);
 
-    targets.forEach((el) => {
-      if (!el) return;
-      gsap.fromTo(
-        el,
-        { y: 100, opacity: 0, scale: 0.97 },
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          duration: 1.4,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 85%",
-          },
-        }
-      );
-    });
+  // About セクション：写真・テキストの個別アニメーション
+  useEffect(() => {
+    // 写真：下からふんわり＋わずかにスケール
+    gsap.fromTo(
+      ".about-photo",
+      { y: 50, opacity: 0, scale: 0.96 },
+      {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        duration: 1.3,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".about-photo",
+          start: "top 85%",
+        },
+      }
+    );
+
+    // テキスト各要素：少しずつずれてスタッガー入場
+    gsap.fromTo(
+      ".about-text-item",
+      { y: 30, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power2.out",
+        stagger: 0.15,
+        scrollTrigger: {
+          trigger: ".about-text-item",
+          start: "top 88%",
+        },
+      }
+    );
 
     ScrollTrigger.refresh();
   }, []);
@@ -233,7 +263,7 @@ export default function HomePage() {
         {/* プロフィール */}
         <div className="w-full flex flex-col md:flex-row md:gap-16 items-start max-w-5xl mx-auto">
           {/* 写真 */}
-          <div className="md:w-[35%] mb-10 md:mb-0 flex-shrink-0">
+          <div className="about-photo md:w-[35%] mb-10 md:mb-0 flex-shrink-0">
             <img
               src="/my_img.jpeg"
               alt="鶴田圭介"
@@ -243,34 +273,34 @@ export default function HomePage() {
 
           {/* テキスト */}
           <div className="md:w-[65%] text-left">
-            <p className="text-xs tracking-[0.3em] text-[#9C8468] uppercase mb-3">
+            <p className="about-text-item text-xs tracking-[0.3em] text-[#9C8468] uppercase mb-3">
               Profile
             </p>
             <h3
-              className="font-display font-light text-3xl md:text-4xl tracking-wide text-[#1A1816] mb-8"
+              className="about-text-item font-display font-light text-3xl md:text-4xl tracking-wide text-[#1A1816] mb-8"
             >
               Keisuke Tsuruta
             </h3>
 
-            <p className="text-stone-600 mb-5 leading-loose text-sm md:text-base">
+            <p className="about-text-item text-stone-600 mb-5 leading-loose text-sm md:text-base">
               美容専門学校を卒業後、上京して都内のヘアサロンへ。
               アシスタント期間を経て28歳でスタイリストとしてデビューし、
               カットセミナーの講師や、撮影現場でのヘアメイクも経験しました。
             </p>
-            <p className="text-stone-600 mb-5 leading-loose text-sm md:text-base">
+            <p className="about-text-item text-stone-600 mb-5 leading-loose text-sm md:text-base">
               「人の見た目を整える」という仕事を通して、バランス・質感・
               細部への感覚が自然と身についていきました。
               その経験が、のちにWebのUIを制作するうえで大きな武器になるとは、
               当時は思いもしませんでした。
             </p>
-            <p className="text-stone-600 leading-loose text-sm md:text-base">
+            <p className="about-text-item text-stone-600 leading-loose text-sm md:text-base">
               30歳で地元・福岡へ戻り、サロン勤務を続けながら独学でHTMLから学び始め、
               JavaScript・React・Next.jsへと発展。
               37歳でWeb制作会社に転職し、現在はフロントエンドの制作に向き合っています。
               美容師時代に磨いた審美眼は、今もUIの細部やクライアントとのやり取りに生きています。
             </p>
 
-            <div className="flex gap-6 mt-10">
+            <div className="about-text-item flex gap-6 mt-10">
               <a
                 href="https://instagram.com/keitsuru0122"
                 target="_blank"
