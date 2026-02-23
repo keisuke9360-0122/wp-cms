@@ -120,15 +120,15 @@ export default function HomePage() {
       );
     }
 
-    // 装飾ライン：左から右へ伸びる
+    // 装飾ライン：左から右へ伸びる（clipPath で確実に表示）
     [aboutLineRef.current, hairLineRef.current, contactLineRef.current].forEach((line) => {
       if (!line) return;
       gsap.fromTo(
         line,
-        { scaleX: 0 },
+        { clipPath: "inset(0 100% 0 0)" },
         {
-          scaleX: 1,
-          duration: 1.4,
+          clipPath: "inset(0 0% 0 0)",
+          duration: 1.6,
           ease: "power3.out",
           scrollTrigger: {
             trigger: line,
@@ -292,8 +292,8 @@ export default function HomePage() {
         {/* 背景装飾円 */}
         <div
           ref={aboutCircleRef}
-          className="absolute -left-48 top-0 w-[560px] h-[560px] rounded-full bg-amber-100 blur-3xl pointer-events-none"
-          style={{ opacity: 0.45 }}
+          className="absolute -left-32 top-10 w-[520px] h-[520px] rounded-full bg-amber-200 blur-2xl pointer-events-none"
+          style={{ opacity: 0.55 }}
         />
 
         {/* マーキータイトル */}
@@ -315,7 +315,7 @@ export default function HomePage() {
         {/* 装飾ライン */}
         <div
           ref={aboutLineRef}
-          className="origin-left h-px w-full mb-12 bg-gradient-to-r from-[#C8BAA8] via-[#D4C4B0] to-transparent"
+          className="h-[2px] w-full mb-12 bg-gradient-to-r from-amber-400 via-stone-300 to-transparent"
         />
 
         {/* スキルカード */}
@@ -488,8 +488,8 @@ export default function HomePage() {
         {/* 背景装飾円 */}
         <div
           ref={hairCircleRef}
-          className="absolute -right-48 top-1/4 w-[500px] h-[500px] rounded-full bg-rose-100 blur-3xl pointer-events-none"
-          style={{ opacity: 0.4 }}
+          className="absolute -right-32 top-1/4 w-[480px] h-[480px] rounded-full bg-rose-200 blur-2xl pointer-events-none"
+          style={{ opacity: 0.5 }}
         />
 
         {/* マーキータイトル */}
@@ -509,7 +509,7 @@ export default function HomePage() {
         {/* 装飾ライン */}
         <div
           ref={hairLineRef}
-          className="origin-left h-px w-full mb-12 bg-gradient-to-r from-[#D4B8B0] via-[#C8BAA8] to-transparent"
+          className="h-[2px] w-full mb-12 bg-gradient-to-r from-rose-400 via-amber-300 to-transparent"
         />
 
         {/* セクション説明 */}
@@ -540,8 +540,8 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* 2枚目以降：2カラムグリッド */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-screen-xl mx-auto">
+        {/* 2枚目以降：3カラムグリッド */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-screen-xl mx-auto">
           {hairWorks.slice(1).map((item, i) => (
             <div
               key={item.id}
@@ -588,7 +588,7 @@ export default function HomePage() {
         {/* 装飾ライン */}
         <div
           ref={contactLineRef}
-          className="origin-left h-px w-full max-w-lg mx-auto mb-12 bg-gradient-to-r from-[#C8BAA8] via-[#D4C4B0] to-transparent"
+          className="h-[2px] w-full max-w-lg mx-auto mb-12 bg-gradient-to-r from-amber-400 via-stone-300 to-transparent"
         />
 
         <p className="mb-8 text-stone-500 text-sm leading-loose">
