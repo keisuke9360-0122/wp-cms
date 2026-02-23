@@ -33,6 +33,11 @@ export default function HomePage() {
   const aboutTitleRef = useRef<HTMLHeadingElement>(null);
   const hairTitleRef = useRef<HTMLDivElement>(null);
   const contactTitleRef = useRef<HTMLHeadingElement>(null);
+  const aboutCircleRef = useRef<HTMLDivElement>(null);
+  const hairCircleRef = useRef<HTMLDivElement>(null);
+  const aboutLineRef = useRef<HTMLDivElement>(null);
+  const hairLineRef = useRef<HTMLDivElement>(null);
+  const contactLineRef = useRef<HTMLDivElement>(null);
   const { setLoading } = useLoading();
 
   // ライトボックス：ESC・矢印キー操作 + body スクロールロック
@@ -74,6 +79,65 @@ export default function HomePage() {
         },
       }
     );
+    ScrollTrigger.refresh();
+  }, []);
+
+  // 装飾円（scrub）＋ 装飾ライン（draw）
+  useEffect(() => {
+    // About 背景円：スクロールに連動して拡大
+    if (aboutCircleRef.current && aboutRef.current) {
+      gsap.fromTo(
+        aboutCircleRef.current,
+        { scale: 0.55 },
+        {
+          scale: 1.5,
+          ease: "none",
+          scrollTrigger: {
+            trigger: aboutRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        }
+      );
+    }
+
+    // Hair Works 背景円：スクロールに連動して拡大
+    if (hairCircleRef.current) {
+      gsap.fromTo(
+        hairCircleRef.current,
+        { scale: 0.5 },
+        {
+          scale: 1.45,
+          ease: "none",
+          scrollTrigger: {
+            trigger: "#hair-works",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        }
+      );
+    }
+
+    // 装飾ライン：左から右へ伸びる
+    [aboutLineRef.current, hairLineRef.current, contactLineRef.current].forEach((line) => {
+      if (!line) return;
+      gsap.fromTo(
+        line,
+        { scaleX: 0 },
+        {
+          scaleX: 1,
+          duration: 1.4,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: line,
+            start: "top 90%",
+          },
+        }
+      );
+    });
+
     ScrollTrigger.refresh();
   }, []);
 
@@ -223,8 +287,15 @@ export default function HomePage() {
       <section
         ref={aboutRef}
         id="about"
-        className="relative z-30 w-full py-16 md:py-32 px-4"
+        className="relative z-30 w-full py-16 md:py-32 px-4 overflow-hidden"
       >
+        {/* 背景装飾円 */}
+        <div
+          ref={aboutCircleRef}
+          className="absolute -left-48 top-0 w-[560px] h-[560px] rounded-full bg-amber-100 blur-3xl pointer-events-none"
+          style={{ opacity: 0.45 }}
+        />
+
         {/* マーキータイトル */}
         <div className="overflow-hidden mb-16 pointer-events-none -mx-4">
           <h2
@@ -240,6 +311,12 @@ export default function HomePage() {
             About&nbsp;&nbsp;Skill & About&nbsp;&nbsp;
           </h2>
         </div>
+
+        {/* 装飾ライン */}
+        <div
+          ref={aboutLineRef}
+          className="origin-left h-px w-full mb-12 bg-gradient-to-r from-[#C8BAA8] via-[#D4C4B0] to-transparent"
+        />
 
         {/* スキルカード */}
         <div className="mb-20">
@@ -407,7 +484,14 @@ export default function HomePage() {
       </section>
 
       {/* ── Hair Works ── */}
-      <section id="hair-works" className="relative w-full py-16 md:py-32 px-4">
+      <section id="hair-works" className="relative w-full py-16 md:py-32 px-4 overflow-hidden">
+        {/* 背景装飾円 */}
+        <div
+          ref={hairCircleRef}
+          className="absolute -right-48 top-1/4 w-[500px] h-[500px] rounded-full bg-rose-100 blur-3xl pointer-events-none"
+          style={{ opacity: 0.4 }}
+        />
+
         {/* マーキータイトル */}
         <div className="overflow-hidden mb-16 pointer-events-none -mx-4">
           <h2
@@ -421,6 +505,12 @@ export default function HomePage() {
             Hair Works&nbsp;&nbsp;Hair Works&nbsp;&nbsp;Hair Works&nbsp;&nbsp;Hair Works&nbsp;&nbsp;Hair Works&nbsp;&nbsp;
           </h2>
         </div>
+
+        {/* 装飾ライン */}
+        <div
+          ref={hairLineRef}
+          className="origin-left h-px w-full mb-12 bg-gradient-to-r from-[#D4B8B0] via-[#C8BAA8] to-transparent"
+        />
 
         {/* セクション説明 */}
         <p className="text-stone-500 text-sm leading-loose max-w-xl mx-auto text-center mb-16">
@@ -494,6 +584,12 @@ export default function HomePage() {
             Contact&nbsp;&nbsp;Contact&nbsp;&nbsp;Contact&nbsp;&nbsp;Contact&nbsp;&nbsp;Contact&nbsp;&nbsp;Contact&nbsp;&nbsp;
           </h2>
         </div>
+
+        {/* 装飾ライン */}
+        <div
+          ref={contactLineRef}
+          className="origin-left h-px w-full max-w-lg mx-auto mb-12 bg-gradient-to-r from-[#C8BAA8] via-[#D4C4B0] to-transparent"
+        />
 
         <p className="mb-8 text-stone-500 text-sm leading-loose">
           ご連絡は以下のフォームからお願いいたします。
