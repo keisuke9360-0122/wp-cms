@@ -168,7 +168,9 @@ export default function HomePage() {
   }, [posts]);
 
   // Hair Works カードのスタッガー入場アニメーション
+  // ※ postsロード後に実行して Works pin スペーサー分の位置ズレを防ぐ
   useEffect(() => {
+    if (posts.length === 0) return;
     const cards = gsap.utils.toArray<HTMLElement>(".hair-card");
     cards.forEach((card, i) => {
       gsap.fromTo(
@@ -179,15 +181,17 @@ export default function HomePage() {
           opacity: 1,
           duration: 0.9,
           ease: "power2.out",
+          delay: i * 0.08,
           scrollTrigger: {
             trigger: card,
             start: "top 88%",
+            invalidateOnRefresh: true,
           },
-          delay: i * 0.08,
         }
       );
     });
-  }, []);
+    ScrollTrigger.refresh();
+  }, [posts]);
 
   // セクションタイトルの流れるマーキーアニメーション
   useEffect(() => {
@@ -368,19 +372,18 @@ export default function HomePage() {
 
         <div
           ref={worksInnerRef}
-          className="flex gap-8 px-6 py-24 md:py-0
+          className="flex flex-col gap-6 px-6 py-16
+          md:flex-row md:gap-8 md:py-0
           md:h-full md:items-center
-          overflow-x-auto md:overflow-visible
-          snap-x snap-mandatory md:snap-none
-          scroll-smooth"
+          md:overflow-visible"
         >
           {posts.slice(0, 6).map((post) => (
             <Link
               key={post.id}
               href={`/posts/${post.slug}`}
-              className="min-w-[85%] md:min-w-[50vw] aspect-[16/9]
+              className="w-full md:min-w-[50vw] md:flex-shrink-0 aspect-[16/9]
               bg-white border border-stone-200 rounded-2xl
-              overflow-hidden shadow-md flex-shrink-0 relative snap-start
+              overflow-hidden shadow-md relative
               group"
             >
               {post.featuredImage?.node?.sourceUrl && (
