@@ -44,8 +44,17 @@ type PostsResponse = {
   };
 };
 
+function toHttps(url?: string | null): string | undefined {
+  return url?.replace(/^http:\/\//, "https://");
+}
+
 export async function getPosts() {
   const data = await client.request<PostsResponse>(query);
-  // const posts = data.posts.nodes;
-  return data.posts?.nodes ?? [];
+  const nodes = data.posts?.nodes ?? [];
+  return nodes.map((post) => ({
+    ...post,
+    featuredImage: post.featuredImage?.node
+      ? { node: { ...post.featuredImage.node, sourceUrl: toHttps(post.featuredImage.node.sourceUrl) ?? post.featuredImage.node.sourceUrl } }
+      : post.featuredImage,
+  }));
 }

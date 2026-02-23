@@ -69,8 +69,35 @@ type Post = {
   } | null;
 };
 
+function toHttps(url?: string | null): string | undefined {
+  return url?.replace(/^http:\/\//, "https://");
+}
+
+function normalizePost(post: Post | null): Post | null {
+  if (!post) return null;
+  const w = post.workDetails;
+  return {
+    ...post,
+    featuredImage: post.featuredImage?.node
+      ? { node: { ...post.featuredImage.node, sourceUrl: toHttps(post.featuredImage.node.sourceUrl) } }
+      : post.featuredImage,
+    workDetails: w
+      ? {
+          ...w,
+          pc: w.pc?.node ? { node: { ...w.pc.node, sourceUrl: toHttps(w.pc.node.sourceUrl) } } : w.pc,
+          mobileThumbnail: w.mobileThumbnail?.node
+            ? { node: { ...w.mobileThumbnail.node, sourceUrl: toHttps(w.mobileThumbnail.node.sourceUrl) } }
+            : w.mobileThumbnail,
+          gallery: w.gallery?.node
+            ? { node: { ...w.gallery.node, sourceUrl: toHttps(w.gallery.node.sourceUrl) } }
+            : w.gallery,
+        }
+      : w,
+  };
+}
+
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   const variables = { slug };
   const data = await client.request<{ post: Post }>(query, variables);
-  return data.post;
+  return normalizePost(data.post);
 }
