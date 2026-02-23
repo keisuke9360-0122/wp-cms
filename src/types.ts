@@ -20,6 +20,17 @@ export type ProjectLink = {
   } | null;
 };
 
+// Work Details ACF フィールドの型
+export type WorkDetails = {
+  desktopThumbnail?: { node?: { sourceUrl?: string; altText?: string } } | null;
+  mobileThumbnail?: { node?: { sourceUrl?: string; altText?: string } } | null;
+  usedTech?: string | null;
+  period?: string | null;
+  role?: string | null;
+  overview?: string | null;
+  gallery?: { nodes?: Array<{ sourceUrl: string; altText?: string }> } | null;
+};
+
 // 投稿データの型
 export type Post = {
   id: string;
@@ -32,6 +43,7 @@ export type Post = {
       sourceUrl?: string;
       altText?: string;
     };
-  } | null; // ← null を許容
+  } | null;
   projectLink?: ProjectLink | null;
+  workDetails?: WorkDetails | null;
 };
