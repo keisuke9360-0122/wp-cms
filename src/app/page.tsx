@@ -381,7 +381,7 @@ export default function HomePage() {
             <Link
               key={post.id}
               href={`/posts/${post.slug}`}
-              className="w-full md:min-w-[50vw] md:flex-shrink-0 aspect-[16/9]
+              className="w-full md:w-auto md:min-w-[50vw] md:flex-shrink-0 aspect-[16/9]
               bg-white border border-stone-200 rounded-2xl
               overflow-hidden shadow-md relative
               group"
