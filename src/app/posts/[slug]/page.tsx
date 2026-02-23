@@ -31,18 +31,30 @@ export default async function PostDetail({
 
       {/* ── ヒーロー画像（レスポンシブ切り替え） ── */}
       {desktopSrc && (
-        <div className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden">
-          {/* スマホ用 */}
-          <picture>
-            <source media="(min-width: 768px)" srcSet={desktopSrc} />
-            <img
+        <>
+          {/* モバイル */}
+          <div className="relative w-full aspect-[16/9] overflow-hidden md:hidden">
+            <Image
               src={mobileSrc ?? desktopSrc}
               alt={post.title}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
+              priority
             />
-          </picture>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-        </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+          </div>
+          {/* PC */}
+          <div className="relative w-full aspect-[21/9] overflow-hidden hidden md:block">
+            <Image
+              src={desktopSrc}
+              alt={post.title}
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+          </div>
+        </>
       )}
 
       {/* ── コンテンツ ── */}

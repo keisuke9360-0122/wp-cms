@@ -3,7 +3,13 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "http",
-        hostname: "xs400651.xsrv.jp", // ←ここ！あなたのWPの実際のホスト名
+        hostname: "xs400651.xsrv.jp",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "xs400651.xsrv.jp",
         port: "",
         pathname: "/**",
       },
