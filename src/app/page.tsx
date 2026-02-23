@@ -355,26 +355,28 @@ export default function HomePage() {
       <section
         ref={worksSectionRef}
         id="works"
-        className="relative py-16 md:py-0 md:h-screen"
+        className="relative py-16 md:py-0 md:h-screen md:flex md:flex-col"
       >
-        <h2
-          ref={worksTitleRef}
-          className="absolute top-24 md:top-0 left-0 z-10
-          inline-block whitespace-nowrap
-          text-[clamp(3rem,12vw,10rem)]
-          font-extrabold uppercase tracking-tight
-          text-transparent bg-clip-text
-          bg-gradient-to-r from-amber-400 via-stone-500 to-amber-700
-          pointer-events-none opacity-20"
-        >
-          WebWorks&nbsp;&nbsp;WebWorks&nbsp;&nbsp;WebWorks&nbsp;&nbsp;WebWorks&nbsp;&nbsp;WebWorks&nbsp;&nbsp;WebWorks&nbsp;&nbsp;
-        </h2>
+        {/* マーキータイトル */}
+        <div className="overflow-hidden mb-16 pointer-events-none">
+          <h2
+            ref={worksTitleRef}
+            className="inline-block whitespace-nowrap
+            text-[clamp(3rem,12vw,10rem)]
+            font-extrabold uppercase tracking-tight
+            text-transparent bg-clip-text
+            bg-gradient-to-r from-amber-400 via-stone-500 to-amber-700
+            opacity-20"
+          >
+            WebWorks&nbsp;&nbsp;WebWorks&nbsp;&nbsp;WebWorks&nbsp;&nbsp;WebWorks&nbsp;&nbsp;WebWorks&nbsp;&nbsp;WebWorks&nbsp;&nbsp;
+          </h2>
+        </div>
 
         <div
           ref={worksInnerRef}
-          className="flex flex-col gap-6 px-6 pt-32 pb-0
-          md:flex-row md:gap-8 md:pt-0 md:pb-0
-          md:h-full md:items-center
+          className="flex flex-col gap-6 px-6
+          md:flex-row md:gap-8
+          md:flex-1 md:items-center
           md:overflow-visible"
         >
           {posts.slice(0, 6).map((post) => (
