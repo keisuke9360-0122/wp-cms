@@ -355,7 +355,7 @@ export default function HomePage() {
       <section
         ref={worksSectionRef}
         id="works"
-        className="relative py-12 md:py-0 md:h-screen"
+        className="relative py-16 md:py-0 md:h-screen"
       >
         <h2
           ref={worksTitleRef}
@@ -372,7 +372,7 @@ export default function HomePage() {
 
         <div
           ref={worksInnerRef}
-          className="flex flex-col gap-6 px-6 py-16
+          className="flex flex-col gap-6 px-6 py-0
           md:flex-row md:gap-8 md:py-0
           md:h-full md:items-center
           md:overflow-visible"
@@ -405,9 +405,9 @@ export default function HomePage() {
       </section>
 
       {/* ── Hair Works ── */}
-      <section id="hair-works" className="relative w-full py-24 md:py-36 px-4">
+      <section id="hair-works" className="relative w-full py-16 md:py-32 px-4">
         {/* マーキータイトル */}
-        <div className="overflow-hidden mb-6 pointer-events-none -mx-4">
+        <div className="overflow-hidden mb-16 pointer-events-none -mx-4">
           <h2
             ref={hairTitleRef}
             className="inline-block whitespace-nowrap
@@ -477,7 +477,7 @@ export default function HomePage() {
       <section
         id="contact"
         ref={contactRef}
-        className="relative z-30 pt-24 md:pt-36 px-8 text-center pb-16"
+        className="relative z-30 pt-16 md:pt-32 px-8 text-center pb-16"
       >
         {/* マーキータイトル */}
         <div className="overflow-hidden mb-16 pointer-events-none -mx-8">
