@@ -372,8 +372,8 @@ export default function HomePage() {
 
         <div
           ref={worksInnerRef}
-          className="flex flex-col gap-6 px-6 py-0
-          md:flex-row md:gap-8 md:py-0
+          className="flex flex-col gap-6 px-6 pt-32 pb-0
+          md:flex-row md:gap-8 md:pt-0 md:pb-0
           md:h-full md:items-center
           md:overflow-visible"
         >
