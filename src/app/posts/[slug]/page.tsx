@@ -23,7 +23,7 @@ export default async function PostDetail({
   if (!post) return notFound();
 
   const w = post.workDetails;
-  const desktopSrc = w?.desktopThumbnail?.node?.sourceUrl ?? post.featuredImage?.node?.sourceUrl;
+  const desktopSrc = w?.pc?.node?.sourceUrl ?? post.featuredImage?.node?.sourceUrl;
   const mobileSrc  = w?.mobileThumbnail?.node?.sourceUrl  ?? desktopSrc;
 
   return (
@@ -118,20 +118,16 @@ export default async function PostDetail({
         )}
 
         {/* ギャラリー */}
-        {w?.gallery?.nodes && w.gallery.nodes.length > 0 && (
+        {w?.gallery?.node?.sourceUrl && (
           <div className="mb-12">
-            <p className="text-xs tracking-[0.3em] uppercase text-[#9C8468] mb-6">Gallery</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {w.gallery.nodes.map((img, i) => (
-                <div key={i} className="relative aspect-[3/2] rounded-xl overflow-hidden">
-                  <Image
-                    src={img.sourceUrl}
-                    alt={img.altText ?? `gallery-${i}`}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              ))}
+            <p className="text-xs tracking-[0.3em] uppercase text-[#9C8468] mb-6">追加画像</p>
+            <div className="relative aspect-[3/2] rounded-xl overflow-hidden">
+              <Image
+                src={w.gallery.node.sourceUrl}
+                alt={w.gallery.node.altText ?? "追加画像"}
+                fill
+                className="object-cover"
+              />
             </div>
           </div>
         )}

@@ -22,13 +22,13 @@ export type ProjectLink = {
 
 // Work Details ACF フィールドの型
 export type WorkDetails = {
-  desktopThumbnail?: { node?: { sourceUrl?: string; altText?: string } } | null;
+  pc?: { node?: { sourceUrl?: string; altText?: string } } | null;
   mobileThumbnail?: { node?: { sourceUrl?: string; altText?: string } } | null;
   usedTech?: string | null;
   period?: string | null;
   role?: string | null;
   overview?: string | null;
-  gallery?: { nodes?: Array<{ sourceUrl: string; altText?: string }> } | null;
+  gallery?: { node?: { sourceUrl?: string; altText?: string } } | null;
 };
 
 // 投稿データの型
