@@ -56,9 +56,9 @@ export default function TechCard({
 
     gsap.fromTo(
       circleRef.current,
-      { strokeDashoffset: circumference },
+      { attr: { "stroke-dashoffset": circumference } },
       {
-        strokeDashoffset: circumference * (1 - progress),
+        attr: { "stroke-dashoffset": circumference * (1 - progress) },
         duration: 1.4,
         ease: "power2.out",
         scrollTrigger: {
