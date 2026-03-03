@@ -3,6 +3,7 @@ import { Inter, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { LoadingProvider } from "@/app/contexts/LoadingContext";
 import LoadingOverlay from "@/components/LoadingOverlay";
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,6 +31,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja" className={`${inter.variable} ${cormorant.variable}`}>
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-DZK0D80V1L"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-DZK0D80V1L');
+          `}
+        </Script>
+      </head>
       <body className="relative text-stone-800 font-sans antialiased">
         <LoadingProvider>
           <LoadingOverlay />
