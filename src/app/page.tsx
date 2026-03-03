@@ -231,6 +231,11 @@ export default function HomePage() {
     }
   }, [posts]);
 
+  // hair-card の初期状態をマウント直後に設定（APIレスポンス前のフラッシュ防止）
+  useEffect(() => {
+    gsap.set(".hair-card", { opacity: 0, y: 60 });
+  }, []);
+
   // Hair Works カードのスタッガー入場アニメーション
   // ※ postsロード後に実行して Works pin スペーサー分の位置ズレを防ぐ
   useEffect(() => {
