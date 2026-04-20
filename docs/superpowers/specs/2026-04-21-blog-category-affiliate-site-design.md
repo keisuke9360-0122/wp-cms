@@ -62,6 +62,8 @@ portfolio-nextは「制作事例」カテゴリのみを明示的に取得する
 
 GraphQLクエリに `categoryName` フィルタを追加し、「制作事例」カテゴリのみ取得する。
 
+> **注意：** `categoryName` の値はWordPressに登録したカテゴリ名と完全一致させる必要がある。WordPress側で「制作事例」というカテゴリ名を設定した場合、クエリも `"制作事例"` と記述する。
+
 ```graphql
 # 変更後
 posts(where: { categoryName: "制作事例" }) {
