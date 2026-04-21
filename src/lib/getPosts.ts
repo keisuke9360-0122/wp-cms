@@ -2,7 +2,7 @@ import { client } from "@/lib/graphql-client";
 
 const query = `
   {
-    posts {
+    posts(where: { categoryName: "制作事例" }) {
       nodes {
         id
         title
