@@ -22,6 +22,31 @@ export const metadata: Metadata = {
   title: "KEISUKE TSURUTA PORTFOLIO",
   description:
     "美容師として磨いた審美眼と、フロントエンドエンジニアとしての技術を掛け合わせてWebを制作しています。",
+  metadataBase: new URL("https://keisuketsuruta.com"),
+  openGraph: {
+    title: "KEISUKE TSURUTA PORTFOLIO",
+    description:
+      "美容師として磨いた審美眼と、フロントエンドエンジニアとしての技術を掛け合わせてWebを制作しています。",
+    url: "https://keisuketsuruta.com",
+    siteName: "KEISUKE TSURUTA PORTFOLIO",
+    locale: "ja_JP",
+    type: "website",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "KEISUKE TSURUTA PORTFOLIO",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "KEISUKE TSURUTA PORTFOLIO",
+    description:
+      "美容師として磨いた審美眼と、フロントエンドエンジニアとしての技術を掛け合わせてWebを制作しています。",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function RootLayout({
