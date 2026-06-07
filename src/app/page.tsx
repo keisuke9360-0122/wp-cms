@@ -12,6 +12,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { FaInstagram, FaGithub } from "react-icons/fa";
 import { FaChevronLeft, FaChevronRight, FaXmark } from "react-icons/fa6";
 import { hairWorks } from "./data/hairWorks";
+import { salonWorks } from "./data/salonWorks";
 
 import {
   FaReact,
@@ -33,6 +34,7 @@ export default function HomePage() {
   const aboutTitleRef = useRef<HTMLHeadingElement>(null);
   const hairTitleRef = useRef<HTMLDivElement>(null);
   const contactTitleRef = useRef<HTMLHeadingElement>(null);
+  const salonTitleRef = useRef<HTMLDivElement>(null);
   const aboutCircleRef = useRef<HTMLDivElement>(null);
   const hairCircleRef = useRef<HTMLDivElement>(null);
   const aboutLineRef = useRef<HTMLDivElement>(null);
@@ -269,6 +271,7 @@ export default function HomePage() {
       worksTitleRef.current,
       contactTitleRef.current,
       hairTitleRef.current,
+      salonTitleRef.current,
     ];
 
     refs.forEach((el) => {
@@ -485,6 +488,91 @@ export default function HomePage() {
               </div>
             </Link>
           ))}
+        </div>
+      </section>
+
+      {/* ── Salon Works ── */}
+      <section id="salon-works" className="relative w-full py-16 md:py-32 overflow-hidden">
+        {/* 背景装飾円 */}
+        <div
+          className="absolute -left-32 bottom-10 w-[500px] h-[500px] rounded-full bg-amber-100 blur-2xl pointer-events-none"
+          style={{ opacity: 0.55 }}
+        />
+
+        {/* マーキータイトル */}
+        <div className="overflow-hidden mb-16 pointer-events-none">
+          <h2
+            ref={salonTitleRef}
+            className="inline-block whitespace-nowrap
+            text-[clamp(3rem,12vw,10rem)] font-extrabold uppercase tracking-tight
+            text-transparent bg-clip-text
+            bg-gradient-to-r from-amber-400 via-stone-500 to-amber-700
+            opacity-20"
+          >
+            Salon Works&nbsp;&nbsp;Salon Works&nbsp;&nbsp;Salon Works&nbsp;&nbsp;Salon Works&nbsp;&nbsp;Salon Works&nbsp;&nbsp;Salon Works&nbsp;&nbsp;
+          </h2>
+        </div>
+
+        {/* 装飾ライン */}
+        <div className="h-[2px] w-full mb-10 bg-gradient-to-r from-amber-400 via-stone-300 to-transparent" />
+
+        {/* セクション紹介テキスト */}
+        <div className="px-6 mb-10 max-w-2xl">
+          <p className="text-xs tracking-[0.3em] text-[#9C8468] uppercase mb-3">Salon HP 制作</p>
+          <h3 className="font-display font-light text-2xl md:text-3xl text-[#1A1816] mb-4 leading-relaxed">
+            現役美容師だからわかる、<br />サロンのためのHP制作
+          </h3>
+          <p className="text-stone-500 text-sm leading-loose">
+            4つのテーマをベースにカスタマイズして納品します。<br />
+            業界を内側から理解しているから、本当に必要なものがわかります。
+          </p>
+        </div>
+
+        {/* 横スクロールカルーセル */}
+        <div className="flex gap-5 px-6 overflow-x-auto pb-4 snap-x snap-mandatory">
+          {salonWorks.map((work) => (
+            <a
+              key={work.id}
+              href={work.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-none w-[180px] md:w-[240px] rounded-2xl overflow-hidden relative group shadow-md snap-start"
+              style={{ backgroundColor: work.bgColor, aspectRatio: "9/16" }}
+            >
+              <div className="absolute inset-0 flex flex-col justify-end p-5">
+                <p
+                  className="text-[10px] tracking-[0.3em] uppercase mb-1"
+                  style={{ color: work.textColor, opacity: 0.6 }}
+                >
+                  {work.theme}
+                </p>
+                <h4 className="font-display font-light text-xl mb-2" style={{ color: work.textColor }}>
+                  {work.title}
+                </h4>
+                <p className="text-xs leading-relaxed line-clamp-2" style={{ color: work.textColor, opacity: 0.7 }}>
+                  {work.description}
+                </p>
+              </div>
+              <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span
+                  className="text-[10px] tracking-widest uppercase border rounded-full px-3 py-1"
+                  style={{ color: work.textColor, borderColor: work.textColor, opacity: 0.7 }}
+                >
+                  Open ↗
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        {/* 詳しく見るボタン */}
+        <div className="px-6 mt-10">
+          <Link
+            href="/salon"
+            className="inline-flex items-center gap-2 text-xs tracking-widest uppercase text-[#9C8468] border border-[#C8BAA8] rounded-full px-8 py-3 hover:border-[#9C8468] hover:bg-[#9C8468] hover:text-white transition-all duration-300"
+          >
+            詳しく見る →
+          </Link>
         </div>
       </section>
 
