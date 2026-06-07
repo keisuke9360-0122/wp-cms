@@ -86,6 +86,12 @@ export default function MainVisual() {
             Works
           </a>
           <a
+            href="#salon-works"
+            className="px-8 py-3 border border-[#C8BAA8] text-[#7A7068] text-xs tracking-widest uppercase font-medium rounded-full hover:border-[#9C8468] hover:text-[#9C8468] transition-colors"
+          >
+            Salon
+          </a>
+          <a
             href="#contact"
             className="px-8 py-3 border border-[#C8BAA8] text-[#7A7068] text-xs tracking-widest uppercase font-medium rounded-full hover:border-[#9C8468] hover:text-[#9C8468] transition-colors"
           >
