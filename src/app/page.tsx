@@ -40,6 +40,7 @@ export default function HomePage() {
   const aboutLineRef = useRef<HTMLDivElement>(null);
   const hairLineRef = useRef<HTMLDivElement>(null);
   const contactLineRef = useRef<HTMLDivElement>(null);
+  const salonLineRef = useRef<HTMLDivElement>(null);
   const { setLoading } = useLoading();
 
   // ライトボックス：ESC・矢印キー操作 + body スクロールロック
@@ -123,7 +124,7 @@ export default function HomePage() {
     }
 
     // 装飾ライン：左から右へ伸びる（clipPath で確実に表示）
-    [aboutLineRef.current, hairLineRef.current, contactLineRef.current].forEach((line) => {
+    [aboutLineRef.current, hairLineRef.current, contactLineRef.current, salonLineRef.current].forEach((line) => {
       if (!line) return;
       gsap.fromTo(
         line,
@@ -500,7 +501,7 @@ export default function HomePage() {
         />
 
         {/* マーキータイトル */}
-        <div className="overflow-hidden mb-16 pointer-events-none">
+        <div className="overflow-hidden mb-16 pointer-events-none -mx-4">
           <h2
             ref={salonTitleRef}
             className="inline-block whitespace-nowrap
@@ -514,7 +515,10 @@ export default function HomePage() {
         </div>
 
         {/* 装飾ライン */}
-        <div className="h-[2px] w-full mb-10 bg-gradient-to-r from-amber-400 via-stone-300 to-transparent" />
+        <div
+          ref={salonLineRef}
+          className="h-[2px] w-full mb-10 bg-gradient-to-r from-amber-400 via-stone-300 to-transparent"
+        />
 
         {/* セクション紹介テキスト */}
         <div className="px-6 mb-10 max-w-2xl">
