@@ -6,6 +6,7 @@ export type SalonWork = {
   url: string;
   bgColor: string;
   textColor: string;
+  image: string;
 };
 
 export const salonWorks: SalonWork[] = [
@@ -17,6 +18,7 @@ export const salonWorks: SalonWork[] = [
     url: "https://salon-01-premium.vercel.app",
     bgColor: "#1A1816",
     textColor: "#C8BAA8",
+    image: "/salon-screenshots/salon-01-premium.jpg",
   },
   {
     id: 2,
@@ -26,6 +28,7 @@ export const salonWorks: SalonWork[] = [
     url: "https://salon-02-natural.vercel.app",
     bgColor: "#5C6B3D",
     textColor: "#E8EDD8",
+    image: "/salon-screenshots/salon-02-natural.jpg",
   },
   {
     id: 3,
@@ -35,6 +38,7 @@ export const salonWorks: SalonWork[] = [
     url: "https://salon-03-mens.vercel.app",
     bgColor: "#2C3E50",
     textColor: "#BDC3C7",
+    image: "/salon-screenshots/salon-03-mens.jpg",
   },
   {
     id: 4,
@@ -44,5 +48,6 @@ export const salonWorks: SalonWork[] = [
     url: "https://salon-04-korean.vercel.app",
     bgColor: "#C97B8E",
     textColor: "#FFF0F3",
+    image: "/salon-screenshots/salon-04-korean.jpg",
   },
 ];

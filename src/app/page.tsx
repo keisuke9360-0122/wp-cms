@@ -35,6 +35,8 @@ export default function HomePage() {
   const hairTitleRef = useRef<HTMLDivElement>(null);
   const contactTitleRef = useRef<HTMLHeadingElement>(null);
   const salonTitleRef = useRef<HTMLDivElement>(null);
+  const salonSectionRef = useRef<HTMLDivElement>(null);
+  const salonInnerRef = useRef<HTMLDivElement>(null);
   const aboutCircleRef = useRef<HTMLDivElement>(null);
   const hairCircleRef = useRef<HTMLDivElement>(null);
   const aboutLineRef = useRef<HTMLDivElement>(null);
@@ -227,6 +229,49 @@ export default function HomePage() {
         tween.kill();
         ScrollTrigger.getAll()
           .filter((t) => t.vars.id === "worksScroll")
+          .forEach((t) => t.kill());
+      };
+    } else {
+      gsap.set(inner, { clearProps: "all" });
+    }
+  }, [posts]);
+
+  // Salon Works: PC 横スクロール / SP 通常スクロール
+  // posts に依存させることで Web Works の pin スペーサー追加後に実行し、位置ズレを防ぐ
+  useEffect(() => {
+    if (posts.length === 0) return;
+
+    const section = salonSectionRef.current;
+    const inner = salonInnerRef.current;
+    if (!section || !inner) return;
+
+    const totalScroll = inner.scrollWidth - window.innerWidth;
+
+    if (window.innerWidth >= 768 && totalScroll > 0) {
+      gsap.set(inner, { x: 0 });
+
+      const tween = gsap.to(inner, {
+        x: -totalScroll,
+        ease: "none",
+        scrollTrigger: {
+          id: "salonScroll",
+          trigger: section,
+          start: "top top",
+          end: () => `+=${totalScroll}`,
+          scrub: true,
+          pin: true,
+          pinSpacing: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      ScrollTrigger.refresh();
+
+      return () => {
+        tween.kill();
+        ScrollTrigger.getAll()
+          .filter((t) => t.vars.id === "salonScroll")
           .forEach((t) => t.kill());
       };
     } else {
@@ -493,7 +538,11 @@ export default function HomePage() {
       </section>
 
       {/* ── Salon Works ── */}
-      <section id="salon-works" className="relative w-full py-16 md:py-32 overflow-hidden">
+      <section
+        ref={salonSectionRef}
+        id="salon-works"
+        className="relative py-16 md:py-0 md:h-screen md:flex md:flex-col"
+      >
         {/* 背景装飾円 */}
         <div
           className="absolute -left-32 bottom-10 w-[500px] h-[500px] rounded-full bg-amber-100 blur-2xl pointer-events-none"
@@ -533,35 +582,41 @@ export default function HomePage() {
         </div>
 
         {/* 横スクロールカルーセル */}
-        <div className="flex gap-5 px-6 overflow-x-auto pb-4 snap-x snap-mandatory">
+        <div
+          ref={salonInnerRef}
+          className="flex flex-col gap-6 px-6
+          md:flex-row md:gap-8
+          md:flex-1 md:items-center
+          md:overflow-visible"
+        >
           {salonWorks.map((work) => (
             <a
               key={work.id}
               href={work.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-none w-[180px] md:w-[240px] rounded-2xl overflow-hidden relative group shadow-md snap-start"
-              style={{ backgroundColor: work.bgColor, aspectRatio: "9/16" }}
+              className="w-full md:w-auto md:min-w-[50vw] md:flex-shrink-0
+              rounded-2xl overflow-hidden relative group shadow-md aspect-[16/9]"
             >
-              <div className="absolute inset-0 flex flex-col justify-end p-5">
-                <p
-                  className="text-[10px] tracking-[0.3em] uppercase mb-1"
-                  style={{ color: work.textColor, opacity: 0.6 }}
-                >
+              <Image
+                src={work.image}
+                alt={work.title}
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/60 to-transparent p-6">
+                <p className="text-[10px] tracking-[0.3em] uppercase text-white/60 mb-1">
                   {work.theme}
                 </p>
-                <h4 className="font-display font-light text-xl mb-2" style={{ color: work.textColor }}>
+                <h4 className="font-display font-light text-xl text-white mb-1">
                   {work.title}
                 </h4>
-                <p className="text-xs leading-relaxed line-clamp-2" style={{ color: work.textColor, opacity: 0.7 }}>
+                <p className="text-xs leading-relaxed line-clamp-2 text-white/70">
                   {work.description}
                 </p>
               </div>
               <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <span
-                  className="text-[10px] tracking-widest uppercase border rounded-full px-3 py-1"
-                  style={{ color: work.textColor, borderColor: work.textColor, opacity: 0.7 }}
-                >
+                <span className="text-[10px] tracking-widest uppercase border border-white/70 text-white/70 rounded-full px-3 py-1">
                   Open ↗
                 </span>
               </div>
