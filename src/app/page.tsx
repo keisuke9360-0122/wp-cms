@@ -378,7 +378,7 @@ export default function HomePage() {
             <TechCard
               icon={<FaWordpress className="text-blue-600" />}
               title="WordPress"
-              years={6}
+              years={3}
               maxYears={6}
             />
             <TechCard
