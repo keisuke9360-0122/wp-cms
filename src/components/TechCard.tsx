@@ -34,6 +34,7 @@ type TechCardProps = {
   title: string;
   years: number;
   maxYears?: number;
+  label?: string;
   className?: string;
 };
 
@@ -42,6 +43,7 @@ export default function TechCard({
   title,
   years,
   maxYears = 5,
+  label,
   className = "",
 }: TechCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -102,7 +104,7 @@ export default function TechCard({
       </svg>
 
       <h3 className="text-lg font-semibold">{title}</h3>
-      <p className="text-sm text-gray-600 mt-1">{years} 年</p>
+      <p className="text-sm text-gray-600 mt-1">{label ?? `${years} 年`}</p>
     </div>
   );
 }

@@ -384,14 +384,16 @@ export default function HomePage() {
             <TechCard
               icon={<FaReact className="text-sky-500" />}
               title="React"
-              years={2}
+              years={0.5}
               maxYears={6}
+              label="1年未満"
             />
             <TechCard
               icon={<SiNextdotjs />}
               title="Next.js"
-              years={1}
+              years={0.5}
               maxYears={6}
+              label="1年未満"
             />
             <TechCard
               icon={<FaHtml5 className="text-orange-500" />}
