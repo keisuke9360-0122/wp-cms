@@ -18,7 +18,7 @@ export const salonWorks: SalonWork[] = [
     url: "https://salon-01-premium.vercel.app",
     bgColor: "#1A1816",
     textColor: "#C8BAA8",
-    image: "/salon-screenshots/salon-01-premium.jpg",
+    image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
   },
   {
     id: 2,
@@ -28,7 +28,7 @@ export const salonWorks: SalonWork[] = [
     url: "https://salon-02-natural.vercel.app",
     bgColor: "#5C6B3D",
     textColor: "#E8EDD8",
-    image: "/salon-screenshots/salon-02-natural.jpg",
+    image: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?auto=format&fit=crop&w=800&q=80",
   },
   {
     id: 3,
@@ -38,7 +38,7 @@ export const salonWorks: SalonWork[] = [
     url: "https://salon-03-mens.vercel.app",
     bgColor: "#2C3E50",
     textColor: "#BDC3C7",
-    image: "/salon-screenshots/salon-03-mens.jpg",
+    image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
   },
   {
     id: 4,
@@ -48,6 +48,6 @@ export const salonWorks: SalonWork[] = [
     url: "https://salon-04-korean.vercel.app",
     bgColor: "#C97B8E",
     textColor: "#FFF0F3",
-    image: "/salon-screenshots/salon-04-korean.jpg",
+    image: "https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?auto=format&fit=crop&w=800&q=80",
   },
 ];
