@@ -203,6 +203,7 @@ export default function HomePage() {
     if (!section || !inner) return;
 
     const totalScroll = inner.scrollWidth - window.innerWidth;
+    const pinDuration = Math.min(totalScroll, window.innerWidth * 1.5);
 
     if (window.innerWidth >= 768 && totalScroll > 0) {
       gsap.set(inner, { x: 0 });
@@ -214,7 +215,7 @@ export default function HomePage() {
           id: "worksScroll",
           trigger: section,
           start: "top top",
-          end: () => `+=${totalScroll}`,
+          end: () => `+=${pinDuration}`,
           scrub: true,
           pin: true,
           pinSpacing: true,
@@ -246,6 +247,7 @@ export default function HomePage() {
     if (!section || !inner) return;
 
     const totalScroll = inner.scrollWidth - window.innerWidth;
+    const pinDuration = Math.min(totalScroll, window.innerWidth * 1.5);
 
     if (window.innerWidth >= 768 && totalScroll > 0) {
       gsap.set(inner, { x: 0 });
@@ -257,7 +259,7 @@ export default function HomePage() {
           id: "salonScroll",
           trigger: section,
           start: "top top",
-          end: () => `+=${totalScroll}`,
+          end: () => `+=${pinDuration}`,
           scrub: true,
           pin: true,
           pinSpacing: true,
