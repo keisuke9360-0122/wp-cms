@@ -1,5 +1,6 @@
 // src/app/salon/page.tsx
 import Link from "next/link";
+import Image from "next/image";
 import { salonWorks } from "@/app/data/salonWorks";
 import { salonPricing } from "@/app/data/salonPricing";
 
@@ -87,20 +88,23 @@ export default function SalonPage() {
                 className="rounded-2xl overflow-hidden shadow-md"
                 style={{ backgroundColor: work.bgColor }}
               >
-                <div className="aspect-[16/9] flex items-center justify-center relative">
-                  <div className="text-center px-8">
-                    <p
-                      className="text-[10px] tracking-[0.4em] uppercase mb-3"
-                      style={{ color: work.textColor, opacity: 0.5 }}
-                    >
-                      {work.theme}
-                    </p>
-                    <p
-                      className="font-display font-light text-4xl"
-                      style={{ color: work.textColor }}
-                    >
-                      {work.title}
-                    </p>
+                <div className="aspect-[16/9] relative overflow-hidden">
+                  <Image
+                    src={work.image}
+                    alt={work.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 flex items-end p-4" style={{ background: `linear-gradient(to top, ${work.bgColor}cc, transparent)` }}>
+                    <div>
+                      <p className="text-[10px] tracking-[0.4em] uppercase mb-1" style={{ color: work.textColor, opacity: 0.7 }}>
+                        {work.theme}
+                      </p>
+                      <p className="font-display font-light text-2xl" style={{ color: work.textColor }}>
+                        {work.title}
+                      </p>
+                    </div>
                   </div>
                 </div>
                 <div className="p-6" style={{ backgroundColor: work.bgColor }}>
