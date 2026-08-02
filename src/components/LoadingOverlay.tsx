@@ -69,12 +69,12 @@
 // }
 
 // ライン系
-“use client”;
+"use client";
 
-import { useEffect, useRef, useState } from “react”;
-import { gsap } from “gsap”;
-import { useLoading } from “@/app/contexts/LoadingContext”;
-import { usePathname } from “next/navigation”;
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { useLoading } from "@/app/contexts/LoadingContext";
+import { usePathname } from "next/navigation";
 
 export default function LoadingOverlay() {
   const { loading } = useLoading();
@@ -84,16 +84,16 @@ export default function LoadingOverlay() {
   const tlRef = useRef<gsap.core.Timeline | null>(null);
 
   useEffect(() => {
-    if (pathname === “/contact-thanks”) {
+    if (pathname === "/contact-thanks") {
       setIsVisible(false);
       return;
     }
 
     const tl = gsap.timeline({ repeat: -1, yoyo: true });
     tl.fromTo(
-      “.loading-line”,
-      { width: “0%” },
-      { width: “60%”, duration: 1.2, ease: “power3.inOut” }
+      ".loading-line",
+      { width: "0%" },
+      { width: "60%", duration: 1.2, ease: "power3.inOut" }
     );
     tlRef.current = tl;
 
@@ -107,15 +107,15 @@ export default function LoadingOverlay() {
       setIsFadingOut(true);
       // リピートアニメを止めてゲージを100%まで伸ばしてからフェードアウト
       tlRef.current?.kill();
-      gsap.to(“.loading-line”, {
-        width: “100%”,
+      gsap.to(".loading-line", {
+        width: "100%",
         duration: 0.4,
-        ease: “power2.out”,
+        ease: "power2.out",
         onComplete: () => {
-          gsap.to(“.loading-overlay”, {
+          gsap.to(".loading-overlay", {
             opacity: 0,
             duration: 0.8,
-            ease: “power2.out”,
+            ease: "power2.out",
             onComplete: () => setIsVisible(false),
           });
         },
@@ -127,10 +127,10 @@ export default function LoadingOverlay() {
 
   return (
     <div
-      className={`loading-overlay fixed inset-0 bg-black flex items-center justify-center z-[9999]${isFadingOut ? “ pointer-events-none” : “”}`}
+      className={`loading-overlay fixed inset-0 bg-black flex items-center justify-center z-[9999]${isFadingOut ? " pointer-events-none" : ""}`}
     >
-      <div className=”w-40 h-[2px] bg-white/20 overflow-hidden”>
-        <div className=”loading-line h-full bg-white”></div>
+      <div className="w-40 h-[2px] bg-white/20 overflow-hidden">
+        <div className="loading-line h-full bg-white"></div>
       </div>
     </div>
   );
