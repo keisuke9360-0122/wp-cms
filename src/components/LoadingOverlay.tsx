@@ -78,13 +78,16 @@ import { usePathname } from "next/navigation";
 
 export default function LoadingOverlay() {
   const { loading } = useLoading();
-  const [isVisible, setIsVisible] = useState(true);
-  const [isFadingOut, setIsFadingOut] = useState(false);
   const pathname = usePathname();
+  // トップページ以外は最初からオーバーレイを出さない（黒画面のチラつき防止）
+  const [isVisible, setIsVisible] = useState(pathname === "/");
+  const [isFadingOut, setIsFadingOut] = useState(false);
   const tlRef = useRef<gsap.core.Timeline | null>(null);
 
   useEffect(() => {
-    if (pathname === "/contact-thanks") {
+    // ローディング解除（setLoading(false)）はトップページだけが呼ぶので、
+    // それ以外のページを直接開いたときはオーバーレイを出さない
+    if (pathname !== "/") {
       setIsVisible(false);
       return;
     }
