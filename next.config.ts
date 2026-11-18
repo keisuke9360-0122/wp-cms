@@ -4,7 +4,11 @@ const careerPaths = ["/career", "/about", "/works", "/blog", "/posts/:path*"];
 const nextConfig = {
   // 旧サロンページはトップと内容が重なるので、トップへ転送する
   async redirects() {
-    return [{ source: "/salon", destination: "/", permanent: true }];
+    return [
+      { source: "/salon", destination: "/", permanent: true },
+      // 旧・送信完了ページ
+      { source: "/contact-thanks", destination: "/contact/thanks", permanent: true },
+    ];
   },
   async headers() {
     return careerPaths.map((source) => ({

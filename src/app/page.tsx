@@ -321,7 +321,7 @@ function SalonPage({ headerRef, rootRef }: SalonPageProps) {
       {/* 読み込み画面：0% → 100% */}
       <div className="preloader fixed inset-0 z-[100] bg-white" aria-hidden="true">
         <div className="absolute inset-x-0 top-0 h-px bg-line">
-          <div className="preloader-bar h-full origin-left scale-x-0 bg-ink" />
+          <div className="preloader-bar h-full bg-ink" style={{ transform: "scaleX(0)", transformOrigin: "left center" }} />
         </div>
         <div className="absolute left-5 top-6 font-en text-sm md:left-10">
           Studio K — Hair &amp; Web
@@ -704,9 +704,14 @@ function SalonPage({ headerRef, rootRef }: SalonPageProps) {
             </section>
           </main>
 
-          <footer className="mx-auto flex max-w-[1440px] flex-wrap justify-between gap-3 px-5 pb-11 pt-7 font-en text-[13px] text-sub md:px-10">
+          <footer className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-3 px-5 pb-11 pt-7 font-en text-[13px] text-sub md:px-10">
             <span>Hair &amp; Web Studio K</span>
-            <span>© 2026 Keisuke Tsuruta</span>
+            <div className="flex flex-wrap items-center gap-6">
+              <Link href="/privacy" className="link-line">
+                プライバシーポリシー
+              </Link>
+              <span>© 2026 Keisuke Tsuruta</span>
+            </div>
           </footer>
         </div>
       </div>

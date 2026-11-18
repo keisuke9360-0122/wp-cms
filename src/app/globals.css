@@ -210,3 +210,31 @@ body {
 a:hover [data-roll] .roll-char {
   transform: translateY(-1.3em);
 }
+
+/* お問い合わせフォームの選択肢（丸いボタン） */
+.choice-pill {
+  cursor: pointer;
+}
+.choice-pill span {
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 18px;
+  border: 1px solid #cfcfcb;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.choice-pill:hover span {
+  border-color: #0e0e0e;
+}
+.choice-pill input:checked + span {
+  background: #0e0e0e;
+  border-color: #0e0e0e;
+  color: #ffffff;
+}
+.choice-pill input:focus-visible + span {
+  outline: 2px solid #0e0e0e;
+  outline-offset: 2px;
+}
