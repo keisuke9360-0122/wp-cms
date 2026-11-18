@@ -41,7 +41,7 @@ export function SiteHeader() {
 
 export function SiteFooter() {
   return (
-    <footer className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-3 px-5 pb-11 pt-7 font-en text-[13px] text-sub md:px-10">
+    <footer className="mx-auto flex w-full max-w-[1440px] flex-wrap items-center justify-between gap-3 px-5 pb-11 pt-7 font-en text-[13px] text-sub md:px-10">
       <span>Hair &amp; Web Studio K</span>
       <div className="flex flex-wrap items-center gap-6">
         <Link href="/privacy" className="link-line">
