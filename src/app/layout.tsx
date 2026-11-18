@@ -50,8 +50,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        // TODO: サロン向けのOGP画像（1200×630）ができたら差し替える
-        url: "/og-image.jpg",
+        url: "/og-salon.jpg",
         width: 1200,
         height: 630,
         alt: "Hair & Web Studio K",
@@ -62,7 +61,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: ["/og-image.jpg"],
+    images: ["/og-salon.jpg"],
   },
 };
 
