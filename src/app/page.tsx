@@ -574,7 +574,7 @@ function SalonPage({ headerRef, rootRef }: SalonPageProps) {
                   href={clientWork.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="work-card grid items-center gap-12 rounded-[4px] bg-mist p-8 md:p-16 lg:grid-cols-[1.3fr_1fr] lg:gap-16"
+                  className="work-card grid items-center gap-8 rounded-[4px] bg-mist p-8 md:gap-12 md:p-16 lg:grid-cols-[1.3fr_1fr] lg:gap-16"
                 >
                   <div className="flex flex-col gap-[22px]">
                     <p className="font-en text-[13px] font-medium uppercase tracking-[0.04em] text-sub">
@@ -598,7 +598,7 @@ function SalonPage({ headerRef, rootRef }: SalonPageProps) {
                       <span data-roll>View Site</span> <span aria-hidden="true">↗</span>
                     </span>
                   </div>
-                  <div className="flex justify-center">
+                  <div className="order-first flex justify-center lg:order-none">
                     <div data-clip className="phone w-[240px] border-[7px] md:w-[260px]">
                       <Image
                         src={clientWork.image}
