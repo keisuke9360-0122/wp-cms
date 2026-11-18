@@ -15,7 +15,7 @@ export const heroPhotos: HeroPhoto[] = [
   { src: "/salon/hero-4.jpg", alt: "", rotate: -11, x: -36, y: 14 },
   { src: "/salon/hero-2.jpg", alt: "", rotate: 8, x: 30, y: 6 },
   { src: "/salon/hero-3.jpg", alt: "", rotate: -4, x: 0, y: 0 },
-  { src: "/salon/hero-1.jpg", alt: "鶴田が手がけたヘアスタイル作品", rotate: 2, x: 0, y: 0 },
+  { src: "/salon/works/work-11.jpg", alt: "鶴田が手がけたヘアスタイル作品", rotate: 2, x: 0, y: 0 },
 ];
 
 export const concepts: string[] = [
@@ -123,7 +123,7 @@ export const hairPhotos: HairPhoto[] = [
   { src: "/salon/works/work-1.jpg", alt: "パーマのショートスタイル" },
   { src: "/salon/works/work-12.jpg", alt: "ウェーブのロングヘア" },
   { src: "/salon/works/work-3.jpg", alt: "ボブ" },
-  { src: "/salon/works/work-11.jpg", alt: "オレンジカラーのショートヘア" },
+  { src: "/salon/hero-1.jpg", alt: "パーマのショートスタイル" },
   { src: "/salon/works/work-2.jpg", alt: "ミディアムヘア" },
   { src: "/salon/works/work-10.jpg", alt: "前髪ありのボブ" },
   { src: "/salon/works/work-6.jpg", alt: "パーマのショートスタイル（モノクロ）" },
