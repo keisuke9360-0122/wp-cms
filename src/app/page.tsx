@@ -25,6 +25,7 @@ import {
   demoWorks,
   services,
   profile,
+  hairPhotos,
 } from "./data/salonSite";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText, CustomEase);
@@ -199,6 +200,25 @@ function setupMotion() {
   });
   gsap.utils.toArray<HTMLElement>(".demo-grid [data-clip]").forEach((el, i) => {
     revealClip(el, { trigger: ".demo-grid", start: "top 80%", once: true }, i * 0.12);
+  });
+
+  // ---- Hair Works：2段の写真がスクロールに合わせて左右に流れる ----
+  gsap.utils.toArray<HTMLElement>(".hair-row").forEach((row) => {
+    const toLeft = row.dataset.dir === "left";
+    gsap.fromTo(
+      row,
+      { xPercent: toLeft ? 0 : -30 },
+      {
+        xPercent: toLeft ? -30 : 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#hair-works",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 0.6,
+        },
+      }
+    );
   });
 
   return () => {
@@ -478,6 +498,56 @@ function SalonPage({ headerRef, rootRef }: SalonPageProps) {
                     ))}
                   </ol>
                 </div>
+              </div>
+            </section>
+
+            {/* 美容師時代の作品 */}
+            <section id="hair-works" className="overflow-hidden pb-[120px] lg:pb-[160px]">
+              <div className="mx-auto grid max-w-[1360px] gap-10 px-5 md:px-10 lg:grid-cols-[1fr_2.2fr] lg:gap-16">
+                <div className="flex flex-col gap-3">
+                  <p className="font-en text-lg font-medium tracking-[-0.01em]">Hair Works</p>
+                  <p className="text-[13px] leading-[1.9] text-sub">美容師時代の作品</p>
+                </div>
+                <div className="flex min-w-0 flex-col gap-8">
+                  <h2
+                    data-split
+                    className="font-en text-[clamp(36px,4.4vw,64px)] font-semibold leading-[1.08] tracking-[-0.04em]"
+                  >
+                    Cut, Color
+                    <br />
+                    &amp; Photography.
+                  </h2>
+                  <p data-fade className="max-w-[640px] text-[15px] leading-[2.1] text-sub">
+                    スタイリストとして手がけ、自分で撮影してきた作品です。髪の質感や光の入り方まで見てきた目で、サロンのホームページに載せる写真の撮り方・選び方からご提案します。
+                  </p>
+                </div>
+              </div>
+              <div className="mt-16 flex flex-col gap-4 md:gap-5">
+                {[
+                  { dir: "left", photos: hairPhotos },
+                  { dir: "right", photos: [...hairPhotos.slice(4), ...hairPhotos.slice(0, 4)] },
+                ].map((row) => (
+                  <div
+                    key={row.dir}
+                    data-dir={row.dir}
+                    className="hair-row flex w-max gap-4 md:gap-5"
+                  >
+                    {[...row.photos, ...row.photos.slice(0, 3)].map((photo, i) => (
+                      <div
+                        key={`${row.dir}-${i}`}
+                        className="relative aspect-[4/5] w-[180px] shrink-0 overflow-hidden bg-mist md:w-[260px] lg:w-[300px]"
+                      >
+                        <Image
+                          src={photo.src}
+                          alt={i < row.photos.length && row.dir === "left" ? `鶴田が手がけた作品：${photo.alt}` : ""}
+                          fill
+                          sizes="(min-width: 1024px) 300px, (min-width: 768px) 260px, 180px"
+                          className="object-cover"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ))}
               </div>
             </section>
 

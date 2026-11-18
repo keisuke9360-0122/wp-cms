@@ -115,3 +115,17 @@ export const profile = {
   tags: ["美容師免許", "HTML / CSS / JS", "WordPress", "Next.js"],
   image: "/salon/profile.jpg",
 };
+
+// 美容師時代の作品（Hair Works）。2段に分けて、スクロールに合わせて左右に流す
+export type HairPhoto = { src: string; alt: string };
+
+export const hairPhotos: HairPhoto[] = [
+  { src: "/salon/works/work-1.jpg", alt: "パーマのショートスタイル" },
+  { src: "/salon/works/work-2.jpg", alt: "ミディアムヘア" },
+  { src: "/salon/works/work-3.jpg", alt: "ボブ" },
+  { src: "/salon/works/work-4.jpg", alt: "ショートヘア" },
+  { src: "/salon/works/work-5.jpg", alt: "ミディアムヘア" },
+  { src: "/salon/works/work-6.jpg", alt: "パーマのショートスタイル（モノクロ）" },
+  { src: "/salon/works/work-7.jpg", alt: "ボブ" },
+  { src: "/salon/works/work-8.jpg", alt: "ショートヘア" },
+];
