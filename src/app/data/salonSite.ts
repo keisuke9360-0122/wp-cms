@@ -123,7 +123,7 @@ export const hairPhotos: HairPhoto[] = [
   { src: "/salon/works/work-1.jpg", alt: "パーマのショートスタイル" },
   { src: "/salon/works/work-12.jpg", alt: "ウェーブのロングヘア" },
   { src: "/salon/works/work-3.jpg", alt: "ボブ" },
-  { src: "/salon/hero-1.jpg", alt: "パーマのショートスタイル" },
+  { src: "/salon/works/work-14.jpg", alt: "前髪ありのミディアムヘア" },
   { src: "/salon/works/work-2.jpg", alt: "ミディアムヘア" },
   { src: "/salon/works/work-10.jpg", alt: "前髪ありのボブ" },
   { src: "/salon/works/work-6.jpg", alt: "パーマのショートスタイル（モノクロ）" },
