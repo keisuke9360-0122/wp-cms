@@ -121,11 +121,15 @@ export type HairPhoto = { src: string; alt: string };
 
 export const hairPhotos: HairPhoto[] = [
   { src: "/salon/works/work-1.jpg", alt: "パーマのショートスタイル" },
-  { src: "/salon/works/work-2.jpg", alt: "ミディアムヘア" },
+  { src: "/salon/works/work-12.jpg", alt: "ウェーブのロングヘア" },
   { src: "/salon/works/work-3.jpg", alt: "ボブ" },
-  { src: "/salon/works/work-4.jpg", alt: "ショートヘア" },
-  { src: "/salon/works/work-5.jpg", alt: "ミディアムヘア" },
+  { src: "/salon/works/work-11.jpg", alt: "オレンジカラーのショートヘア" },
+  { src: "/salon/works/work-2.jpg", alt: "ミディアムヘア" },
+  { src: "/salon/works/work-10.jpg", alt: "前髪ありのボブ" },
   { src: "/salon/works/work-6.jpg", alt: "パーマのショートスタイル（モノクロ）" },
+  { src: "/salon/works/work-13.jpg", alt: "ウェーブのミディアムヘア" },
   { src: "/salon/works/work-7.jpg", alt: "ボブ" },
-  { src: "/salon/works/work-8.jpg", alt: "ショートヘア" },
+  { src: "/salon/works/work-9.jpg", alt: "ダークトーンのロングヘア" },
+  { src: "/salon/works/work-5.jpg", alt: "ミディアムヘア" },
+  { src: "/salon/works/work-4.jpg", alt: "ショートヘア" },
 ];

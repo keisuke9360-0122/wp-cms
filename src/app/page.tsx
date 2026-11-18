@@ -525,7 +525,7 @@ function SalonPage({ headerRef, rootRef }: SalonPageProps) {
               <div className="mt-16 flex flex-col gap-4 md:gap-5">
                 {[
                   { dir: "left", photos: hairPhotos },
-                  { dir: "right", photos: [...hairPhotos.slice(4), ...hairPhotos.slice(0, 4)] },
+                  { dir: "right", photos: [...hairPhotos.slice(hairPhotos.length / 2), ...hairPhotos.slice(0, hairPhotos.length / 2)] },
                 ].map((row) => (
                   <div
                     key={row.dir}
