@@ -130,10 +130,10 @@ export default function LoadingOverlay() {
 
   return (
     <div
-      className={`loading-overlay fixed inset-0 bg-black flex items-center justify-center z-[9999]${isFadingOut ? " pointer-events-none" : ""}`}
+      className={`loading-overlay fixed inset-0 bg-white flex items-center justify-center z-[9999]${isFadingOut ? " pointer-events-none" : ""}`}
     >
-      <div className="w-40 h-[2px] bg-white/20 overflow-hidden">
-        <div className="loading-line h-full bg-white"></div>
+      <div className="w-40 h-[2px] bg-black/10 overflow-hidden">
+        <div className="loading-line h-full bg-[#0e0e0e]"></div>
       </div>
     </div>
   );
