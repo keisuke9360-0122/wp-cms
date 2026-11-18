@@ -421,7 +421,7 @@ function SalonPage({ headerRef, rootRef }: SalonPageProps) {
                 <span>Hairdresser / Web Designer</span>
               </div>
 
-              <h1 className="hero-title z-[1] font-en text-[clamp(72px,15.5vw,236px)] font-semibold leading-[0.82] tracking-[-0.06em] lg:absolute lg:bottom-7 lg:left-8">
+              <h1 className="hero-title order-first z-[1] font-en text-[clamp(72px,15.5vw,236px)] font-semibold leading-[0.82] tracking-[-0.06em] lg:order-none lg:absolute lg:bottom-7 lg:left-8">
                 Hair&amp;Web
               </h1>
 
